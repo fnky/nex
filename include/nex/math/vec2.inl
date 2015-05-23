@@ -74,6 +74,18 @@ inline T Vec2<T>::distanceSquared(const Vec2<T>& other) const
 }
 
 template <typename T>
+inline T Vec2<T>::dot(const Vec2<T>& left, const Vec2<T>& right)
+{
+    return left.x * right.x + left.y * right.y;
+}
+
+template <typename T>
+inline T Vec2<T>::dot(const Vec2<T>& other)
+{
+    return x * other.x + y * other.y;
+}
+
+template <typename T>
 inline Vec2<T> operator -(const Vec2<T>& right)
 {
     return Vec2<T>(-right.x, -right.y);

@@ -70,7 +70,7 @@ namespace nx
          * @param other = other vector
          * @return distance between the two vectors.
          */
-         T distance(const Vec2<T>& other) const;
+        T distance(const Vec2<T>& other) const;
 
          /**
           * @brief calculate the distance squared between two given vector.s
@@ -78,7 +78,7 @@ namespace nx
           * @param right = right vector
           * @return distance squared between the vectors.
           */
-         static T distanceSquared(const Vec2<T>& left, const Vec2<T>& right);
+        static T distanceSquared(const Vec2<T>& left, const Vec2<T>& right);
 
         /**
          * @brief calculate the squared sitance between the given vectors.
@@ -86,6 +86,21 @@ namespace nx
          * @return distance squared between the given vectors.
          */
         T distanceSquared(const Vec2<T>& other) const;
+
+        /**
+         * @brief calculate the dot product of two vectors.
+         * @param left = left vector
+         * @param right = right vector
+         * @return the dot product returns a floating point value between -1 and 1.
+         */
+        static T dot(const Vec2<T>& left, const Vec2<T>& right);
+
+        /**
+         * @brief calculate the dot product of two vectors.
+         * @param other = other vector
+         * @return the dot product returns a floating point value between -1 and 1.
+         */
+        T dot(const Vec2<T>& other);
 
         //X value.
         T x;
