@@ -1,9 +1,6 @@
 #ifndef TYPEDEFS_H_INCLUDE
 #define TYPEDEFS_H_INCLUDE
 
-namespace nx
-{
-
 //8 bits integer types
 typedef signed char int8;
 typedef unsigned char uint8;
@@ -24,7 +21,5 @@ typedef unsigned int uint32;
     typedef signed long long int64;
     typedef unsigned long long uint64;
 #endif
-    
-} // namespace nx
 
 #endif // TYPEDEFS_H_INCLUDE
