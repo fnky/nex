@@ -1,0 +1,6 @@
+build/
+Build/
+data/
+Data/
+
+CMakeLists.txt.user
