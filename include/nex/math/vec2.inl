@@ -1,3 +1,5 @@
+#include <cmath>
+
 template <typename T>
 inline Vec2<T>::Vec2() :
 x(0),
@@ -26,13 +28,49 @@ y(static_cast<T>(vector.y))
 template <typename T>
 inline T Vec2<T>::length() const
 {
-    return static_cast<T>(1.000);
+    return static_cast<T>(std::sqrt(lengthSquared()));
 }
 
 template <typename T>
 inline T Vec2<T>::lengthSquared() const
 {
-    return static_cast<T>(1.000);
+    return static_cast<T>((x * x) + (y * y));
+}
+
+template <typename T>
+inline T Vec2<T>::distance(const Vec2<T>& other) const
+{
+    const T deltaX = x - other.x;
+    const T deltaY = y - other.y;
+
+    return static_cast<T>(std::sqrt((deltaX * deltaX) + (deltaY * deltaY)));
+}
+
+template <typename T>
+inline T Vec2<T>::distance(const Vec2<T>& left, const Vec2<T>& right)
+{
+    const T deltaX = left.x - right.x;
+    const T deltaY = left.y - right.y;
+
+    return static_cast<T>(std::sqrt((deltaX * deltaX) + (deltaY * deltaY)));
+}
+
+template <typename T>
+inline T Vec2<T>::distanceSquared(const Vec2<T>& left, const Vec2<T>& right)
+{
+    const T deltaX = left.x - right.x;
+    const T deltaY = left.y - left.y;
+
+    return static_cast<T>((deltaX * deltaX) + (deltaY * deltaY));
+}
+
+template <typename T>
+inline T Vec2<T>::distanceSquared(const Vec2<T>& other) const
+{
+    const T deltaX = x - other.x;
+    const T deltaY = y - other.y;
+
+    return static_cast<T>((deltaX * deltaX) + (deltaY * deltaY));
 }
 
 template <typename T>
