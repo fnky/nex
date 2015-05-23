@@ -1,3 +1,5 @@
+#ifndef TYPEDEFS_H_INCLUDE
+#define TYPEDEFS_H_INCLUDE
 
 namespace nx
 {
@@ -24,3 +26,5 @@ typedef unsigned int uint32;
 #endif
     
 } // namespace nx
+
+#endif // TYPEDEFS_H_INCLUDE
