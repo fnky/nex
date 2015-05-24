@@ -55,7 +55,7 @@ namespace nx
          * @param value = vector to make normal.
          * @return returns the normal vector.
          */
-        static T normalize(const Vec2<T>& value);
+        static Vec2<T> normalize(const Vec2<T>& value);
 
         /**
          * @brief calculate the length of the given vector.

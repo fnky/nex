@@ -28,17 +28,18 @@ y(static_cast<T>(vector.y))
 template <typename T>
 inline void Vec2<T>::normalize()
 {
-    const T length = static_cast<T>(1.0) / length();
-    x *= length;
-    y *= length;
+    const T l = static_cast<T>(1.0) / length();
+    x *= l;
+    y *= l;
 }
 
 template <typename T>
-static T Vec2<T>::normalize(const Vec2<T>& value)
+inline Vec2<T> Vec2<T>::normalize(const Vec2<T>& value)
 {
-    const T length = static_cast<T>(1.0) / length();
-    return Vec2<T>(value.x * length,
-                   value.y * length);
+    const T l = static_cast<T>(1.0) / value.length();
+
+    return Vec2<T>(value.x * l,
+                   value.y * l);
 }
 
 template <typename T>
