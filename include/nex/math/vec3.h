@@ -74,6 +74,13 @@ namespace nx
         T distanceSquared(const Vec3<T>& other) const;
 
         /**
+         * @brief Calculates the dot product of two vectors.
+         * @param other = the other vector to use.
+         * @return the dot product between the vectors.
+         */
+        T dot(const Vec3<T>& other) const;
+
+        /**
          * @brief calculates the distances between two vectors.
          * @param vectorA = the first vector.
          * @param vectorB = the second vector.
@@ -88,6 +95,14 @@ namespace nx
          * @return the distance between them.
          */
         static T distanceSquared(const Vec3<T>& vectorA, const Vec3<T>& vectorB);
+
+        /**
+         * @brief Calculates the dot product of two vectors.
+         * @param vectorA = first vector.
+         * @param vectorB = second vector.
+         * @return the dot product of the two vectors.
+         */
+        static T dot(const Vec3<T>& vectorA, const Vec3<T>& vectorB);
 
         T x;
         T y;

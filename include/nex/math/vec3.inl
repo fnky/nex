@@ -49,6 +49,16 @@ inline Vec3<T> operator -(const Vec3<T>& right)
 }
 
 template <typename T>
+inline T Vec3<T>::distance(const Vec3<T>& vectorA, const Vec3<T>& vectorB)
+{
+    const T deltaX = vectorA.x - vectorB.x;
+    const T deltaY = vectorA.y - vectorB.y;
+    const T deltaZ = vectorA.z - vectorB.z;
+
+    return static_cast<T>(std::sqrt((deltaX*deltaX) + (deltaY*deltaY) + (deltaZ*deltaZ)));
+}
+
+template <typename T>
 inline T Vec3<T>::distance(const Vec3<T>& other) const
 {
     const T deltaX = x - other.x;
@@ -69,16 +79,6 @@ inline T Vec3<T>::distanceSquared(const Vec3<T>& other) const
 }
 
 template <typename T>
-inline T Vec3<T>::distance(const Vec3<T>& vectorA, const Vec3<T>& vectorB)
-{
-    const T deltaX = vectorA.x - vectorB.x;
-    const T deltaY = vectorA.y - vectorB.y;
-    const T deltaZ = vectorA.z - vectorB.z;
-
-    return static_cast<T>(std::sqrt((deltaX*deltaX) + (deltaY*deltaY) + (deltaZ*deltaZ)));
-}
-
-template <typename T>
 inline T Vec3<T>::distanceSquared(const Vec3<T>& vectorA, const Vec3<T>& vectorB)
 {
     const T deltaX = vectorA.x - vectorB.x;
@@ -86,6 +86,18 @@ inline T Vec3<T>::distanceSquared(const Vec3<T>& vectorA, const Vec3<T>& vectorB
     const T deltaZ = vectorA.z - vectorB.z;
 
     return static_cast<T>((deltaX*deltaX) + (deltaY*deltaY) + (deltaZ*deltaZ));
+}
+
+template <typename T>
+inline T Vec3<T>::dot(const Vec3<T>& other) const
+{
+    return (x * other.x) + (y * other.y) + (z * other.z);
+}
+
+template <typename T>
+inline T Vec3<T>::dot(const Vec3<T>& vectorA, const Vec3<T>& vectorB)
+{
+    return (vectorA.x * vectorB.x) + (vectorA.y * vectorB.y) + (vectorA.z * vectorB.z);
 }
 
 template <typename T>
