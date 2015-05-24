@@ -97,13 +97,13 @@ namespace nx
         T length() const;
 
         /**
-         * @brief calculate the length squared of the given vector.
+         * @brief Calculate the length squared of the given vector.
          * @return the length squared.
          */
         T lengthSquared() const;
 
         /**
-         * @brief calculates the distance between two vectors using the distance formula.
+         * @brief Calculates the distance between two vectors using the distance formula.
          * @param left = left vector
          * @param right = right vector
          * @return the distance between the two vectors.
@@ -111,14 +111,14 @@ namespace nx
         static T distance(const Vec2<T>& left, const Vec2<T>& right);
 
         /**
-         * @brief calculate the distance to another given vector.
+         * @brief Calculate the distance to another given vector.
          * @param other = other vector
          * @return distance between the two vectors.
          */
         T distance(const Vec2<T>& other) const;
 
          /**
-          * @brief calculate the distance squared between two given vector.s
+          * @brief Calculate the distance squared between two given vector.s
           * @param left = left vector
           * @param right = right vector
           * @return distance squared between the vectors.
@@ -126,14 +126,14 @@ namespace nx
         static T distanceSquared(const Vec2<T>& left, const Vec2<T>& right);
 
         /**
-         * @brief calculate the squared sitance between the given vectors.
+         * @brief Calculate the squared sitance between the given vectors.
          * @param other = other vector
          * @return distance squared between the given vectors.
          */
         T distanceSquared(const Vec2<T>& other) const;
 
         /**
-         * @brief calculate the dot product of two vectors.
+         * @brief Calculate the dot product of two vectors.
          * @param left = left vector
          * @param right = right vector
          * @return the dot product returns a floating point value between -1 and 1.
@@ -141,11 +141,31 @@ namespace nx
         static T dot(const Vec2<T>& left, const Vec2<T>& right);
 
         /**
-         * @brief calculate the dot product of two vectors.
+         * @brief Calculate the dot product of two vectors.
          * @param other = other vector
          * @return the dot product returns a floating point value between -1 and 1.
          */
         T dot(const Vec2<T>& other);
+
+        /**
+         * @brief Performs a linear interpolation between two vectors.
+         * @param previous = previous vector
+         * @param current = current vector
+         * @param amount = amount to interpolate by
+         * @return the interpolated vector.
+         */
+        static Vec2<T> lerp(const Vec2<T>& previous, const Vec2<T>& current, const T amount);
+
+        /**
+         * @brief barycentric
+         * @param vertexA = triangle a vertex
+         * @param vertexB = triangle b vertex
+         * @param vertexC = triangle c vertex
+         * @param weightA = weight for vertex a
+         * @param weightB = weight for vertex b
+         * @return Returns a Vector2 containing the 2D Cartesian coordinates of a point specified in barycentric (areal) coordinates relative to a 2D triangle.
+         */
+        static Vec2<T> barycentric(const Vec2<T>& vertexA, const Vec2<T>& vertexB, const Vec2<T>& vertexC, const T weightA, const T weightB);
 
         //X value.
         T x;

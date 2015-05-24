@@ -46,13 +46,13 @@ inline Vec2<T> Vec2<T>::max(const Vec2<T>& left, const Vec2<T>& right)
 template <typename T>
 inline Vec2<T> Vec2<T>::clamp(const Vec2<T>& value, const Vec2<T>& min, const Vec2<T>& max)
 {
-    const float valueX = value.x;
-    const float clampX = valueX > max.x ? max.x : valueX;
-    const float resultX = clampX < min.x ? min.x : clampX;
+    const T valueX = value.x;
+    const T clampX = valueX > max.x ? max.x : valueX;
+    const T resultX = clampX < min.x ? min.x : clampX;
 
-    const float valueY = value.y;
-    const float clampY = valueY > max.y ? max.y : valueY;
-    const float resultY = clampY < min.y ? min.y : clampY;
+    const T valueY = value.y;
+    const T clampY = valueY > max.y ? max.y : valueY;
+    const T resultY = clampY < min.y ? min.y : clampY;
 
     return Vec2<T>(resultX, resultY);
 }
@@ -142,6 +142,24 @@ template <typename T>
 inline T Vec2<T>::dot(const Vec2<T>& other)
 {
     return x * other.x + y * other.y;
+}
+
+template <typename T>
+inline Vec2<T> Vec2<T>::lerp(const Vec2<T>& previous, const Vec2<T>& current, const T amount)
+{
+    Vec2<T> result;
+    result.x = previous.x + (current.x - previous.x) * amount;
+    result.y = previous.y + (current.y - previous.y) * amount;
+    return result;
+}
+
+template <typename T>
+inline Vec2<T> Vec2<T>::barycentric(const Vec2<T>& vertexA, const Vec2<T>& vertexB, const Vec2<T>& vertexC, const T weightA, const T weightB)
+{
+    Vec2<T> result;
+    result.X = (vertexA.X + weightA * (vertexB.X - vertexA.X) + weightB * (vertexC.X - vertexA.X));
+    result.Y = (vertexA.Y + weightA * (vertexB.Y - vertexA.Y) + weightB * (vertexC.Y - vertexA.Y));
+    return result;
 }
 
 template <typename T>
