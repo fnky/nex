@@ -225,11 +225,8 @@ namespace nx
 #include <nex/math/vec2.inl>
 
     typedef nx::Vec2<int32> vec2i;
-
     typedef nx::Vec2<uint32> vec2u;
-
     typedef nx::Vec2<float> vec2f;
-
     typedef nx::Vec2<double> vec2d;
 
 } //namespace nx
