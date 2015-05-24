@@ -35,17 +35,10 @@ inline T Vec3<T>::length() const
     return static_cast<T>(std::sqrt(x * x + y * y + z * z));
 }
 
-
 template <typename T>
 inline T Vec3<T>::lengthSquared() const
 {
     return x * x + y * y + z * z;
-}
-
-template <typename T>
-inline Vec3<T> operator -(const Vec3<T>& right)
-{
-    return Vec3<T>(-right.x, -right.y, -right.z);
 }
 
 template <typename T>
@@ -98,6 +91,30 @@ template <typename T>
 inline T Vec3<T>::dot(const Vec3<T>& vectorA, const Vec3<T>& vectorB)
 {
     return (vectorA.x * vectorB.x) + (vectorA.y * vectorB.y) + (vectorA.z * vectorB.z);
+}
+
+template <typename T>
+inline void Vec3<T>::normalize()
+{
+    const T l = static_cast<T>(1.0) / length();
+    x *= l;
+    y *= l;
+    z *= l;
+}
+
+template <typename T>
+inline Vec3<T> Vec3<T>::normalize(const Vec3<T>& vector)
+{
+    const T l = static_cast<T>(1.0) / vector.length();
+    return Vec3<T>(vector.x * l,
+                   vector.y * l,
+                   vector.z * l);
+}
+
+template <typename T>
+inline Vec3<T> operator -(const Vec3<T>& right)
+{
+    return Vec3<T>(-right.x, -right.y, -right.z);
 }
 
 template <typename T>

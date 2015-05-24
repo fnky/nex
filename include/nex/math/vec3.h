@@ -81,6 +81,18 @@ namespace nx
         T dot(const Vec3<T>& other) const;
 
         /**
+         * @brief normalize this vector into a unit vector.
+         */
+        void normalize();
+
+        /**
+         * @brief Creates a unit vector from the specified vector.
+         * @param vector = vector to convert.
+         * @return unit vector.
+         */
+        static Vec3<T> normalize(const Vec3<T>& vector);
+
+        /**
          * @brief calculates the distances between two vectors.
          * @param vectorA = the first vector.
          * @param vectorB = the second vector.
