@@ -4,8 +4,32 @@ set (SRC_DIR ${NEX_SOURCE_DIR}/nex/math)
 set (INC_DIR ${NEX_INCLUDE_DIR}/nex/math)
 
 set (NEX_MATH_HEADERS
+
     ${INC_DIR}/vec2.h
     ${INC_DIR}/vec2.inl
+
+    ${INC_DIR}/vec3.h
+    ${INC_DIR}/vec3.inl
+
+    ${INC_DIR}/vec4.h
+    ${INC_DIR}/vec4.inl
+
+    ${INC_DIR}/mat4.h
+    ${INC_DIR}/mat4.inl
+
+    ${INC_DIR}/rectangle.h
+    ${INC_DIR}/rectangle.inl
+
+    ${INC_DIR}/ray.h
+    ${INC_DIR}/ray.inl
+
+    ${INC_DIR}/plane.h
+    ${INC_DIR}/plane.inl
+    ${INC_DIR}/planeintersectiontype.h
+
+    ${INC_DIR}/quaternion.h
+    ${INC_DIR}/quaternion.inl
+
     ${INC_DIR}/mathhelper.h
 )
 
