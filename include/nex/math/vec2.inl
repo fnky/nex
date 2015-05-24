@@ -204,14 +204,18 @@ inline Vec2<T> Vec2<T>::hermite(const Vec2<T>& vertexA, const Vec2<T>& tangentA,
     const T square = amount * amount;
     const T cube = amount * square;
 
+    const T one = static_cast<T>(1.0f);
+    const T two = static_cast<T>(2.0);
+    const T three = static_cast<T>(3.0);
+
     //calculate the basis function 1
-    const T h1 = (static_cast<T>(2.0) *  cube - static_cast<T>(3.0) * square + static_cast<T>(1.0));
+    const T h1 = (two *  cube - three * square + one);
 
     //calculate the basis function 2
-    const T h2 = (-static_cast<T>(2.0) * cube + static_cast<T>(3.0) * square);
+    const T h2 = (-two * cube + three * square);
 
     //calculate the basis function 3
-    const T h3 = cube - static_cast<T>(2.f) * square + amount;
+    const T h3 = cube - two * square + amount;
 
     //calculate the basis function 4
     const T h4 = cube - square;
