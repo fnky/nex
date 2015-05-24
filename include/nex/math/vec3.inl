@@ -240,6 +240,26 @@ inline Vec3<T> Vec3<T>::catmullRom(const Vec3<T>& vertexA, const Vec3<T>& vertex
 }
 
 template <typename T>
+inline Vec3<T> Vec3<T>::hermite(const Vec3<T>& vertexA, const Vec3<T>& tangentA, const Vec3<T>& vertexB, const Vec3<T>& tangentB, const T amount)
+{
+    const T one = static_cast<T>(1.0);
+    const T two = static_cast<T>(2.0);
+    const T three = static_cast<T>(3.0);
+
+    const T square = amount * amount;
+    const T cube = amount * square;
+    const T h1 = (two * cube - three * square + one);
+    const T h2 = (-two * cube + three * square);
+    const T h3 = cube - two * square + amount;
+    const T h4 = cube - square;
+    Vec3<T> result;
+    result.x = (vertexA.x * h1 + vertexB.x * h2 + tangentA.x * h3 + tangentB.x * h4);
+    result.y = (vertexA.y * h1 + vertexB.y * h2 + tangentA.y * h3 + tangentB.y * h4);
+    result.z = (vertexA.z * h1 + vertexB.z * h2 + tangentA.z * h3 + tangentB.z * h4);
+    return result;
+}
+
+template <typename T>
 inline Vec3<T> operator -(const Vec3<T>& right)
 {
     return Vec3<T>(-right.x, -right.y, -right.z);

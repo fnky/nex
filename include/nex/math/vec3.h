@@ -193,6 +193,30 @@ namespace nx
          */
         static Vec3<T> smoothStep(const Vec3<T>& previous, const Vec3<T>& current, T amount);
 
+        /**
+         * @brief Performs a Catmull-Rom interpolation using the specified positions.
+         * @param vertexA = first source vertex.
+         * @param vertexB = second source vertex.
+         * @param vertexC = third source vertex.
+         * @param vertexD = forth source vertex.
+         * @param amount = weight to apply on the vertices.
+         * @return the interpolated vertex.
+         */
+        static Vec3<T> catmullRom(const Vec3<T>& vertexA, const Vec3<T>& vertexB, const Vec3<T>& vertexC, const Vec3<T>& vertexD, const T amount);
+
+        /**
+         * @brief Performs a Hermite spline interpolation.
+         * @param vertexA = first source vertex.
+         * @param tangentA = first tangent vector.
+         * @param vertexB = second source vertex.
+         * @param tangentB = second tangent vector.
+         * @param amount = weight to apply during the interpolation.
+         * @return the interpolated vector.
+         */
+        static Vec3<T> hermite(const Vec3<T>& vertexA, const Vec3<T>& tangentA, const Vec3<T>& vertexB, const Vec3<T>& tangentB, const T amount);
+
+
+
         T x;
         T y;
         T z;
