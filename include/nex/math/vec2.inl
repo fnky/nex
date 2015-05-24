@@ -26,6 +26,22 @@ y(static_cast<T>(vector.y))
 { }
 
 template <typename T>
+inline void Vec2<T>::normalize()
+{
+    const T length = static_cast<T>(1.0) / length();
+    x *= length;
+    y *= length;
+}
+
+template <typename T>
+static T Vec2<T>::normalize(const Vec2<T>& value)
+{
+    const T length = static_cast<T>(1.0) / length();
+    return Vec2<T>(value.x * length,
+                   value.y * length);
+}
+
+template <typename T>
 inline T Vec2<T>::length() const
 {
     return static_cast<T>(std::sqrt(lengthSquared()));
@@ -76,7 +92,7 @@ inline T Vec2<T>::distanceSquared(const Vec2<T>& other) const
 template <typename T>
 inline T Vec2<T>::dot(const Vec2<T>& left, const Vec2<T>& right)
 {
-    return left.x * right.x + left.y * right.y;
+    return (left.x * right.x) + (left.y * right.y);
 }
 
 template <typename T>
@@ -112,25 +128,29 @@ inline Vec2<T>& operator -=(Vec2<T>& left, const Vec2<T>& right)
 template <typename T>
 inline Vec2<T> operator +(const Vec2<T>& left, const Vec2<T>& right)
 {
-    return Vec2<T>(left.x + right.x, left.y + right.y);
+    return Vec2<T>(left.x + right.x,
+                   left.y + right.y);
 }
 
 template <typename T>
 inline Vec2<T> operator -(const Vec2<T>& left, const Vec2<T>& right)
 {
-    return Vec2<T>(left.x - right.x, left.y - right.y);
+    return Vec2<T>(left.x - right.x,
+                   left.y - right.y);
 }
 
 template <typename T>
 inline Vec2<T> operator *(const Vec2<T>& left, T right)
 {
-    return Vec2<T>(left.x * right, left.y * right);
+    return Vec2<T>(left.x * right,
+                   left.y * right);
 }
 
 template <typename T>
 inline Vec2<T> operator *(T left, const Vec2<T>& right)
 {
-    return Vec2<T>(right.x * left, right.y * left);
+    return Vec2<T>(right.x * left,
+                   right.y * left);
 }
 
 template <typename T>
@@ -145,7 +165,8 @@ inline Vec2<T>& operator *=(Vec2<T>& left, T right)
 template <typename T>
 inline Vec2<T> operator /(const Vec2<T>& left, T right)
 {
-    return Vec2<T>(left.x / right, left.y / right);
+    return Vec2<T>(left.x / right,
+                   left.y / right);
 }
 
 template <typename T>

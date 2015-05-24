@@ -46,6 +46,18 @@ namespace nx
         }
 
         /**
+         * @brief normalize the current vector.
+         */
+        void normalize();
+
+        /**
+         * @brief normalize the given vector.
+         * @param value = vector to make normal.
+         * @return returns the normal vector.
+         */
+        static T normalize(const Vec2<T>& value);
+
+        /**
          * @brief calculate the length of the given vector.
          * @return the length of the vector.
          */
