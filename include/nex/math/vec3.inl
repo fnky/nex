@@ -132,6 +132,18 @@ inline Vec3<T> Vec3<T>::cross(const Vec3<T>& vectorA, const Vec3<T>& vectorB)
 }
 
 template <typename T>
+inline Vec3<T> Vec3<T>::reflect(const Vec3<T>& vector, const Vec3<T>& normal)
+{
+    const T dotProduct = (vector.x * normal.x) + (vector.y * normal.y) + (vector.z * normal.z);
+
+    Vec3<T> result;
+    result.x = vector.x - static_cast<T>(2.0) * dotProduct * normal.x;
+    result.y = vector.y - static_cast<T>(2.0) * dotProduct * normal.y;
+    result.z = vector.z - static_cast<T>(2.0) * dotProduct * normal.z;
+    return result;
+}
+
+template <typename T>
 inline Vec3<T> operator -(const Vec3<T>& right)
 {
     return Vec3<T>(-right.x, -right.y, -right.z);

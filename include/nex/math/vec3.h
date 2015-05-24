@@ -131,6 +131,14 @@ namespace nx
          */
         static Vec3<T> cross(const Vec3<T>& vectorA, const Vec3<T>& vectorB);
 
+        /**
+         * @brief Returns the reflection of a vector off a surface that has the specified normal.
+         * @param vector = Source vector.
+         * @param normal = Normal of the surface.
+         * @return the reflected vector.
+         */
+        static Vec3<T> reflect(const Vec3<T>& vector, const Vec3<T>& normal);
+
         T x;
         T y;
         T z;
