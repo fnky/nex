@@ -220,6 +220,26 @@ inline Vec3<T> Vec3<T>::smoothStep(const Vec3<T>& previous, const Vec3<T>& curre
 }
 
 template <typename T>
+inline Vec3<T> Vec3<T>::catmullRom(const Vec3<T>& vertexA, const Vec3<T>& vertexB, const Vec3<T>& vertexC, const Vec3<T>& vertexD, const T amount)
+{
+    const T square = amount * amount;
+    const T cube = amount * square;
+
+    Vec3<T> result;
+
+    const T half = static_cast<T>(0.5);
+    const T dbl = static_cast<T>(2.0);
+    const T five = static_cast<T>(5.0);
+    const T four = static_cast<T>(4.0);
+    const T three = static_cast<T>(3.0);
+
+    result.X = (half * (dbl * vertexB.X + (-vertexA.X + vertexC.X) * amount + (dbl * vertexA.X - five * vertexB.X + four * vertexC.X - vertexD.X) * square + (-vertexA.X + three * vertexB.X - three * vertexC.X + vertexD.X) * cube));
+    result.Y = (half * (dbl * vertexB.Y + (-vertexA.Y + vertexC.Y) * amount + (dbl * vertexA.Y - five * vertexB.Y + four * vertexC.Y - vertexD.Y) * square + (-vertexA.Y + three * vertexB.Y - three * vertexC.Y + vertexD.Y) * cube));
+    result.Z = (half * (dbl * vertexB.Z + (-vertexA.Z + vertexC.Z) * amount + (dbl * vertexA.Z - five * vertexB.Z + four * vertexC.Z - vertexD.Z) * square + (-vertexA.Z + three * vertexB.Z - three * vertexC.Z + vertexD.Z) * cube));
+    return result;
+}
+
+template <typename T>
 inline Vec3<T> operator -(const Vec3<T>& right)
 {
     return Vec3<T>(-right.x, -right.y, -right.z);

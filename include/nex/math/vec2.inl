@@ -183,12 +183,18 @@ inline Vec2<T> Vec2<T>::catmullRom(const Vec2<T>& vertexA, const Vec2<T>& vertex
 
     Vec2<T> result;
 
-    result.X = (static_cast<T>(0.5) * (static_cast<T>(2.0) * vertexB.X + (-vertexA.X + vertexC.X) * amount +
-                       (static_cast<T>(2.0) * vertexA.X - static_cast<T>(5.0) * vertexB.X + static_cast<T>(4.0) * vertexC.X - vertexD.X) * square +
-                       (- vertexA.X + static_cast<T>(3.0) * vertexB.X - static_cast<T>(3.0) * vertexC.X + vertexD.X) * cube));
-    result.Y = (static_cast<T>(0.5) * (static_cast<T>(2.0) * vertexB.Y + (-vertexA.Y + vertexC.Y) * amount +
-                       (static_cast<T>(2.0) * vertexA.Y - static_cast<T>(5.0) * vertexB.Y + static_cast<T>(4.0) * vertexC.Y - vertexD.Y) * square +
-                       (- vertexA.Y + static_cast<T>(3.0) * vertexB.Y - static_cast<T>(3.0) * vertexC.Y + vertexD.Y) * cube));
+    const T half = static_cast<T>(0.5);
+    const T dbl = static_cast<T>(2.0);
+    const T five = static_cast<T>(5.0);
+    const T four = static_cast<T>(4.0);
+    const T three = static_cast<T>(3.0);
+
+    result.x = (half * (dbl * vertexB.x + (-vertexA.x + vertexC.x) * amount +
+                       (dbl * vertexA.x - five * vertexB.x + four * vertexC.x - vertexD.x) * square +
+                       (- vertexA.x + three * vertexB.x - three * vertexC.x + vertexD.x) * cube));
+    result.y = (half * (dbl * vertexB.y + (-vertexA.y + vertexC.y) * amount +
+                       (dbl * vertexA.y - five * vertexB.y + four * vertexC.y - vertexD.y) * square +
+                       (- vertexA.y + three * vertexB.y - three * vertexC.y + vertexD.y) * cube));
     return result;
 }
 
