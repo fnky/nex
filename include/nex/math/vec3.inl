@@ -144,6 +144,26 @@ inline Vec3<T> Vec3<T>::reflect(const Vec3<T>& vector, const Vec3<T>& normal)
 }
 
 template <typename T>
+inline Vec3<T> Vec3<T>::min(const Vec3<T>& vectorA, const Vec3<T>& vectorB)
+{
+    Vec3<T> result;
+    result.x = vectorA.x < vectorB.x ? vectorA.x : vectorB.x;
+    result.y = vectorA.y < vectorB.y ? vectorA.y : vectorB.y;
+    result.z = vectorA.z < vectorB.z ? vectorA.z : vectorB.z;
+    return result;
+}
+
+template <typename T>
+inline Vec3<T> Vec3<T>::max(const Vec3<T>& vectorA, const Vec3<T>& vectorB)
+{
+    Vec3<T> result;
+    result.x = vectorA.x > vectorB.x ? vectorA.x : vectorB.x;
+    result.y = vectorA.y > vectorB.y ? vectorA.y : vectorB.y;
+    result.z = vectorA.z > vectorB.z ? vectorA.z : vectorB.z;
+    return result;
+}
+
+template <typename T>
 inline Vec3<T> operator -(const Vec3<T>& right)
 {
     return Vec3<T>(-right.x, -right.y, -right.z);

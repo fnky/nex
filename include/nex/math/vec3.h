@@ -125,9 +125,9 @@ namespace nx
 
         /**
          * @brief Calculates the cross product of two vectors.
-         * @param vectorA
-         * @param vectorB
-         * @return
+         * @param vectorA = source vector
+         * @param vectorB = source vector
+         * @return the cross product of the vectors.
          */
         static Vec3<T> cross(const Vec3<T>& vectorA, const Vec3<T>& vectorB);
 
@@ -138,6 +138,22 @@ namespace nx
          * @return the reflected vector.
          */
         static Vec3<T> reflect(const Vec3<T>& vector, const Vec3<T>& normal);
+
+        /**
+         * @brief Returns a vector that contains the lowest value from each matching pair of components.
+         * @param vectorA = Source vector.
+         * @param vectorA = source vector.
+         * @return the min values from the pair.
+         */
+        static Vec3<T> min(const Vec3<T>& vectorA, const Vec3<T>& vectorB);
+
+        /**
+         * @brief Returns a vector that contains the heighest value from each matching pair of components.
+         * @param vectorA = Source vector.
+         * @param vectorA = source vector.
+         * @return the max values from the pair.
+         */
+        static Vec3<T> max(const Vec3<T>& vectorA, const Vec3<T>& vectorB);
 
         T x;
         T y;
