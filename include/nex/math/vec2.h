@@ -176,6 +176,17 @@ namespace nx
          */
         static Vec2<T> smoothStep(const Vec2<T>& previous, const Vec2<T>& current, T amount);
 
+        /**
+         * @brief Performs a Catmull-Rom interpolation using the specified positions.
+         * @param vectorA = vector one.
+         * @param vectorB = vector two.
+         * @param vectorC = vector three.
+         * @param vectorD = vector four.
+         * @param amount = amount to interpolate.
+         * @return the interpolated vector.
+         */
+        static Vec2<T> catmullRom(const Vec2<T>& vectorA, const Vec2<T>& vectorB, const Vec2<T>& vectorC, const Vec2<T>& vectorD, const T amount);
+
         //X value.
         T x;
 

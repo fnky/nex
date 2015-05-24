@@ -175,6 +175,24 @@ inline Vec2<T> Vec2<T>::smoothStep(const Vec2<T>& previous, const Vec2<T>& curre
 }
 
 template <typename T>
+inline Vec2<T> Vec2<T>::catmullRom(const Vec2<T>& vertexA, const Vec2<T>& vertexB,
+                                   const Vec2<T>& vertexC, const Vec2<T>& vertexD, const T amount)
+{
+    const T square = amount * amount;
+    const T cube = amount * square;
+
+    Vec2<T> result;
+
+    result.X = (static_cast<T>(0.5) * (static_cast<T>(2.0) * vertexB.X + (-vertexA.X + vertexC.X) * amount +
+                       (static_cast<T>(2.0) * vertexA.X - static_cast<T>(5.0) * vertexB.X + static_cast<T>(4.0) * vertexC.X - vertexD.X) * square +
+                       (- vertexA.X + static_cast<T>(3.0) * vertexB.X - static_cast<T>(3.0) * vertexC.X + vertexD.X) * cube));
+    result.Y = (static_cast<T>(0.5) * (static_cast<T>(2.0) * vertexB.Y + (-vertexA.Y + vertexC.Y) * amount +
+                       (static_cast<T>(2.0) * vertexA.Y - static_cast<T>(5.0) * vertexB.Y + static_cast<T>(4.0) * vertexC.Y - vertexD.Y) * square +
+                       (- vertexA.Y + static_cast<T>(3.0) * vertexB.Y - static_cast<T>(3.0) * vertexC.Y + vertexD.Y) * cube));
+    return result;
+}
+
+template <typename T>
 inline Vec2<T> operator -(const Vec2<T>& right)
 {
     return Vec2<T>(-right.x, -right.y);
