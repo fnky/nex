@@ -163,6 +163,18 @@ inline Vec2<T> Vec2<T>::barycentric(const Vec2<T>& vertexA, const Vec2<T>& verte
 }
 
 template <typename T>
+inline Vec2<T> Vec2<T>::smoothStep(const Vec2<T>& previous, const Vec2<T>& current, T amount)
+{
+    amount =  amount > static_cast<T>(1.0) ? static_cast<T>(1.0): (amount < static_cast<T>(0.0) ? static_cast<T>(0.0) : amount);
+    amount = (amount * amount * (static_cast<T>(3.0) - static_cast<T>(2.0) * amount));
+
+    Vec2<T> result;
+    result.x = previous.x + (current.x - previous.x) * amount;
+    result.y = previous.y + (current.y - previous.y) * amount;
+    return result;
+}
+
+template <typename T>
 inline Vec2<T> operator -(const Vec2<T>& right)
 {
     return Vec2<T>(-right.x, -right.y);

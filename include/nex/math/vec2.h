@@ -167,6 +167,15 @@ namespace nx
          */
         static Vec2<T> barycentric(const Vec2<T>& vertexA, const Vec2<T>& vertexB, const Vec2<T>& vertexC, const T weightA, const T weightB);
 
+        /**
+         * @brief Interpolates between two values using a cubic equation.
+         * @param previous = previous vector.
+         * @param current = current vector.
+         * @param amount = amount to interpolate by.
+         * @return the interpolated vector.
+         */
+        static Vec2<T> smoothStep(const Vec2<T>& previous, const Vec2<T>& current, T amount);
+
         //X value.
         T x;
 
