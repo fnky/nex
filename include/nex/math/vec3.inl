@@ -164,6 +164,30 @@ inline Vec3<T> Vec3<T>::max(const Vec3<T>& vectorA, const Vec3<T>& vectorB)
 }
 
 template <typename T>
+inline Vec3<T> Vec3<T>::clamp(const Vec3<T>& value, const Vec3<T>& min, const Vec3<T>& max)
+{
+    const T valueX = value.x;
+    const T clampX = valueX > max.x ? max.x : valueX;
+    const T resultX = clampX < min.x ? min.x : clampX;
+
+    const T valueY = value.y;
+    const T clampY = valueY > max.y ? max.y : valueY;
+    const T resultY = clampY < min.y ? min.y : clampY;
+
+    const T valueZ = value.z;
+    const T clampZ = valueZ > max.z ? max.z : valueZ;
+    const T resultZ = clampZ < min.z ? min.z : clampZ;
+
+    Vec3<T> result;
+
+    result.x = resultX;
+    result.y = resultY;
+    result.z = resultZ;
+
+    return result;
+}
+
+template <typename T>
 inline Vec3<T> operator -(const Vec3<T>& right)
 {
     return Vec3<T>(-right.x, -right.y, -right.z);

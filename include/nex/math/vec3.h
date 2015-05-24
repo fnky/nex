@@ -155,6 +155,15 @@ namespace nx
          */
         static Vec3<T> max(const Vec3<T>& vectorA, const Vec3<T>& vectorB);
 
+        /**
+         * @brief Restricts a value to be within a specified range.
+         * @param value = value to apply clamping to.
+         * @param min = minimum value allowed.
+         * @param max = maximum value allowed.
+         * @return the restricted value.
+         */
+        static Vec3<T> clamp(const Vec3<T>& value, const Vec3<T>& min, const Vec3<T>& max);
+
         T x;
         T y;
         T z;
