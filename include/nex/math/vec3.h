@@ -164,6 +164,26 @@ namespace nx
          */
         static Vec3<T> clamp(const Vec3<T>& value, const Vec3<T>& min, const Vec3<T>& max);
 
+        /**
+         * @brief Performs a linear interpolation between two vectors.
+         * @param value
+         * @param min
+         * @param amount = Value between 0 and 1 indicating the weight of value2.
+         * @return
+         */
+        static Vec3<T> lerp(const Vec3<T>& previous, const Vec3<T>& current, const T amount);
+
+        /**
+         * @brief Returns a Vector3 containing the 3D Cartesian coordinates of a point specified in Barycentric coordinates relative to a 3D triangle.
+         * @param vertexA = source vertex.
+         * @param vertexB = source vertex.
+         * @param vertexC = source vertex.
+         * @param weightA = weight for vertex a
+         * @param weightB = weight for vertex b
+         * @return
+         */
+        static Vec3<T> barycentric(const Vec3<T>& vertexA, const Vec3<T>& vertexB, const Vec3<T>& vertexC, const T weightA, const T weightB);
+
         T x;
         T y;
         T z;

@@ -188,6 +188,26 @@ inline Vec3<T> Vec3<T>::clamp(const Vec3<T>& value, const Vec3<T>& min, const Ve
 }
 
 template <typename T>
+inline Vec3<T> Vec3<T>::lerp(const Vec3<T>& previous, const Vec3<T>& current, const T amount)
+{
+    Vec3<T> result;
+    result.x = previous.x + (current.x - previous.x) * amount;
+    result.y = previous.y + (current.y - previous.y) * amount;
+    result.z = previous.z + (current.z - previous.z) * amount;
+    return result;
+}
+
+template <typename T>
+inline Vec3<T> Vec3<T>::barycentric(const Vec3<T>& vertexA, const Vec3<T>& vertexB, const Vec3<T>& vertexC, const T weightA, const T weightB)
+{
+    Vec3<T> result;
+    result.x = (vertexA.x + weightA * (vertexB.x - vertexA.x) + weightB * (vertexC.x - vertexA.x));
+    result.y = (vertexA.y + weightA * (vertexB.y - vertexA.y) + weightB * (vertexC.y - vertexA.y));
+    result.z = (vertexA.z + weightA * (vertexB.z - vertexA.z) + weightB * (vertexC.z - vertexA.z));
+    return result;
+}
+
+template <typename T>
 inline Vec3<T> operator -(const Vec3<T>& right)
 {
     return Vec3<T>(-right.x, -right.y, -right.z);
