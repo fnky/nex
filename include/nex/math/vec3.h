@@ -81,6 +81,13 @@ namespace nx
         T dot(const Vec3<T>& other) const;
 
         /**
+         * @brief Calculates the cross product of two vectors.
+         * @param other = other vector to use.
+         * @return the cross product.
+         */
+        Vec3<T> cross(const Vec3<T>& other) const;
+
+        /**
          * @brief normalize this vector into a unit vector.
          */
         void normalize();
@@ -115,6 +122,14 @@ namespace nx
          * @return the dot product of the two vectors.
          */
         static T dot(const Vec3<T>& vectorA, const Vec3<T>& vectorB);
+
+        /**
+         * @brief Calculates the cross product of two vectors.
+         * @param vectorA
+         * @param vectorB
+         * @return
+         */
+        static Vec3<T> cross(const Vec3<T>& vectorA, const Vec3<T>& vectorB);
 
         T x;
         T y;

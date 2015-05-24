@@ -112,6 +112,26 @@ inline Vec3<T> Vec3<T>::normalize(const Vec3<T>& vector)
 }
 
 template <typename T>
+inline Vec3<T> Vec3<T>::cross(const Vec3<T>& other) const
+{
+    Vec3<T> result;
+    result.x = (y * other.z) - (z * other.y);
+    result.y = (z * other.x) - (x * other.z);
+    result.z = (x * other.y) - (y * other.x);
+    return result;
+}
+
+template <typename T>
+inline Vec3<T> Vec3<T>::cross(const Vec3<T>& vectorA, const Vec3<T>& vectorB)
+{
+    Vec3<T> result;
+    result.x = (vectorA.y * vectorB.z) - (vectorA.z * vectorB.y);
+    result.y = (vectorA.z * vectorB.x) - (vectorA.x * vectorB.z);
+    result.z = (vectorA.x * vectorB.y) - (vectorA.y * vectorB.x);
+    return result;
+}
+
+template <typename T>
 inline Vec3<T> operator -(const Vec3<T>& right)
 {
     return Vec3<T>(-right.x, -right.y, -right.z);
