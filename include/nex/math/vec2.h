@@ -62,6 +62,15 @@ namespace nx
         static Vec2<T> max(const Vec2<T>& left, const Vec2<T>& right);
 
         /**
+         * @brief clamp the given vector between the specified range.
+         * @param value = value to clamp.
+         * @param min = max value.
+         * @param max = min value.
+         * @return the value or min or max depending on the value.
+         */
+        static Vec2<T> clamp(const Vec2<T>& value, const Vec2<T>& min, const Vec2<T>& max);
+
+        /**
          * @brief normalize the current vector.
          */
         void normalize();

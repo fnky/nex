@@ -44,6 +44,20 @@ inline Vec2<T> Vec2<T>::max(const Vec2<T>& left, const Vec2<T>& right)
 }
 
 template <typename T>
+inline Vec2<T> Vec2<T>::clamp(const Vec2<T>& value, const Vec2<T>& min, const Vec2<T>& max)
+{
+    const float valueX = value.x;
+    const float clampX = valueX > max.x ? max.x : valueX;
+    const float resultX = clampX < min.x ? min.x : clampX;
+
+    const float valueY = value.y;
+    const float clampY = valueY > max.y ? max.y : valueY;
+    const float resultY = clampY < min.y ? min.y : clampY;
+
+    return Vec2<T>(resultX, resultY);
+}
+
+template <typename T>
 inline void Vec2<T>::normalize()
 {
     const T l = static_cast<T>(1.0) / length();
