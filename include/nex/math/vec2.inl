@@ -193,6 +193,30 @@ inline Vec2<T> Vec2<T>::catmullRom(const Vec2<T>& vertexA, const Vec2<T>& vertex
 }
 
 template <typename T>
+inline Vec2<T> Vec2<T>::hermite(const Vec2<T>& vertexA, const Vec2<T>& tangentA, const Vec2<T>& vertexB, const Vec2<T>& tangentB, const T amount)
+{
+    const T square = amount * amount;
+    const T cube = amount * square;
+
+    //calculate the basis function 1
+    const T h1 = (static_cast<T>(2.0) *  cube - static_cast<T>(3.0) * square + static_cast<T>(1.0));
+
+    //calculate the basis function 2
+    const T h2 = (-static_cast<T>(2.0) * cube + static_cast<T>(3.0) * square);
+
+    //calculate the basis function 3
+    const T h3 = cube - static_cast<T>(2.f) * square + amount;
+
+    //calculate the basis function 4
+    const T h4 = cube - square;
+
+    Vec2<T> results;
+    results.x = (vertexA.x * h1 + vertexB.x * h2 + tangentA.x * h3 + tangentB.x * h4);
+    results.y = (vertexA.y * h1 + vertexB.y * h2 + tangentA.y * h3 + tangentB.y * h4);
+    return results;
+}
+
+template <typename T>
 inline Vec2<T> operator -(const Vec2<T>& right)
 {
     return Vec2<T>(-right.x, -right.y);

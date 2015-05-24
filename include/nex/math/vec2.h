@@ -187,6 +187,17 @@ namespace nx
          */
         static Vec2<T> catmullRom(const Vec2<T>& vectorA, const Vec2<T>& vectorB, const Vec2<T>& vectorC, const Vec2<T>& vectorD, const T amount);
 
+        /**
+         * @brief Performs a Hermite spline interpolation.
+         * @param vectorA = first vector.
+         * @param tangentA = first tangent.
+         * @param vectorB = second vector.
+         * @param tangentB = second tangent.
+         * @param amount = amount to interpolate.
+         * @return the hermite spline interpolation results.
+         */
+        static Vec2<T> hermite(const Vec2<T>& vectorA, const Vec2<T>& tangentA, const Vec2<T>& vectorB, const Vec2<T>& tangentB, const T amount);
+
         //X value.
         T x;
 
