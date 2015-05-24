@@ -215,7 +215,16 @@ namespace nx
          */
         static Vec3<T> hermite(const Vec3<T>& vertexA, const Vec3<T>& tangentA, const Vec3<T>& vertexB, const Vec3<T>& tangentB, const T amount);
 
-
+        /**
+         * TODO (Tyler): Implement the following methods:
+         * - static Vector3 Transform(Vector3 position, Matrix matrix)
+         * - static Vector3 TransformNormal(Vector3 normal, Matrix matrix)
+         * - static Vector3 Transform(Vector3 value, Quaternion rotation)
+         * - static void Transform(Vector3[] sourceArray, ref Matrix matrix, Vector3[] destinationArray)
+         * - static void Transform(Vector3[] sourceArray, int sourceIndex, ref Matrix matrix, Vector3[] destinationArray, int destinationIndex, int length)
+         * - static void TransformNormal(Vector3[] sourceArray, int sourceIndex, ref Matrix matrix, Vector3[] destinationArray, int destinationIndex, int length)
+         * - static void Transform(Vector3[] sourceArray, int sourceIndex, ref Quaternion rotation, Vector3[] destinationArray, int destinationIndex, int length)
+         */
 
         T x;
         T y;
