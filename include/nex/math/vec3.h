@@ -166,10 +166,10 @@ namespace nx
 
         /**
          * @brief Performs a linear interpolation between two vectors.
-         * @param value
-         * @param min
+         * @param previous = previous vector value.
+         * @param current = current vector value.
          * @param amount = Value between 0 and 1 indicating the weight of value2.
-         * @return
+         * @return the linear interpolation of the vectors.
          */
         static Vec3<T> lerp(const Vec3<T>& previous, const Vec3<T>& current, const T amount);
 
@@ -183,6 +183,15 @@ namespace nx
          * @return
          */
         static Vec3<T> barycentric(const Vec3<T>& vertexA, const Vec3<T>& vertexB, const Vec3<T>& vertexC, const T weightA, const T weightB);
+
+        /**
+         * @brief Interpolates between two values using a cubic equation.
+         * @param previous = previous vector value.
+         * @param current = current vector value.
+         * @param amount = weight of the value.
+         * @return the interpolated value.
+         */
+        static Vec3<T> smoothStep(const Vec3<T>& previous, const Vec3<T>& current, T amount);
 
         T x;
         T y;
