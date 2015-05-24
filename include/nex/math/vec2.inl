@@ -26,6 +26,24 @@ y(static_cast<T>(vector.y))
 { }
 
 template <typename T>
+inline Vec2<T> Vec2<T>::min(const Vec2<T>& left, const Vec2<T>& right)
+{
+    Vec2<T> result;
+    result.x = left.x < right.x ? left.x : right.x;
+    result.y = left.y < right.y ? left.y : right.y;
+    return result;
+}
+
+template <typename T>
+inline Vec2<T> Vec2<T>::max(const Vec2<T>& left, const Vec2<T>& right)
+{
+    Vec2<T> result;
+    result.x = left.x > right.x ? left.x : right.x;
+    result.y = left.y > right.y ? left.y : right.y;
+    return result;
+}
+
+template <typename T>
 inline void Vec2<T>::normalize()
 {
     const T l = static_cast<T>(1.0) / length();
@@ -40,6 +58,16 @@ inline Vec2<T> Vec2<T>::normalize(const Vec2<T>& value)
 
     return Vec2<T>(value.x * l,
                    value.y * l);
+}
+
+template <typename T>
+inline Vec2<T> Vec2<T>::reflect(const Vec2<T>& vector, const Vec2<T>& normal)
+{
+    const T distance = (vector.x * normal.x) + (vector.y * normal.y);
+    Vec2<T> result;
+    result.x = vector.x - static_cast<T>(2.0) * distance * normal.x;
+    result.y = vector.y - static_cast<T>(2.0) * distance * normal.y;
+    return result;
 }
 
 template <typename T>

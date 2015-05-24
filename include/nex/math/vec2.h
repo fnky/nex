@@ -46,6 +46,22 @@ namespace nx
         }
 
         /**
+         * @brief return the two minimum values from two given vectors.
+         * @param left = left vector
+         * @param right = right vector
+         * @return minimum x and y
+         */
+        static Vec2<T> min(const Vec2<T>& left, const Vec2<T>& right);
+
+        /**
+         * @brief return the max x and y from two vectors
+         * @param left = left vector.
+         * @param right = right vector.
+         * @return the maximum x and y values.
+         */
+        static Vec2<T> max(const Vec2<T>& left, const Vec2<T>& right);
+
+        /**
          * @brief normalize the current vector.
          */
         void normalize();
@@ -56,6 +72,14 @@ namespace nx
          * @return returns the normal vector.
          */
         static Vec2<T> normalize(const Vec2<T>& value);
+
+        /**
+         * @brief reflect the given vector based on the given normal
+         * @param vector = vector to reflect
+         * @param normal = normal vector
+         * @return the reflected vector.
+         */
+        static Vec2<T> reflect(const Vec2<T>& vector, const Vec2<T>& normal);
 
         /**
          * @brief calculate the length of the given vector.
