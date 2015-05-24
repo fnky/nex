@@ -102,13 +102,7 @@ namespace nx
          */
         T lengthSquared() const;
 
-        /**
-         * @brief Calculates the distance between two vectors using the distance formula.
-         * @param left = left vector
-         * @param right = right vector
-         * @return the distance between the two vectors.
-         */
-        static T distance(const Vec2<T>& left, const Vec2<T>& right);
+
 
         /**
          * @brief Calculate the distance to another given vector.
@@ -116,14 +110,6 @@ namespace nx
          * @return distance between the two vectors.
          */
         T distance(const Vec2<T>& other) const;
-
-         /**
-          * @brief Calculate the distance squared between two given vector.s
-          * @param left = left vector
-          * @param right = right vector
-          * @return distance squared between the vectors.
-          */
-        static T distanceSquared(const Vec2<T>& left, const Vec2<T>& right);
 
         /**
          * @brief Calculate the squared sitance between the given vectors.
@@ -134,6 +120,13 @@ namespace nx
 
         /**
          * @brief Calculate the dot product of two vectors.
+         * @param other = other vector
+         * @return the dot product returns a floating point value between -1 and 1.
+         */
+        T dot(const Vec2<T>& other);
+
+        /**
+         * @brief Calculate the dot product of two vectors.
          * @param left = left vector
          * @param right = right vector
          * @return the dot product returns a floating point value between -1 and 1.
@@ -141,11 +134,20 @@ namespace nx
         static T dot(const Vec2<T>& left, const Vec2<T>& right);
 
         /**
-         * @brief Calculate the dot product of two vectors.
-         * @param other = other vector
-         * @return the dot product returns a floating point value between -1 and 1.
+         * @brief Calculate the distance squared between two given vector.
+         * @param left = left vector
+         * @param right = right vector
+         * @return distance squared between the vectors.
          */
-        T dot(const Vec2<T>& other);
+        static T distanceSquared(const Vec2<T>& left, const Vec2<T>& right);
+
+        /**
+         * @brief Calculates the distance between two vectors using the distance formula.
+         * @param left = left vector
+         * @param right = right vector
+         * @return the distance between the two vectors.
+         */
+        static T distance(const Vec2<T>& left, const Vec2<T>& right);
 
         /**
          * @brief Performs a linear interpolation between two vectors.
