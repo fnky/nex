@@ -47,7 +47,6 @@ namespace nx
             return *this;
         }
 
-
         /**
          * @brief calculates the length of the vector.
          * @return vector length.
@@ -59,6 +58,36 @@ namespace nx
          * @return squared vector length.
          */
         T lengthSquared() const;
+
+        /**
+         * @brief calculates the distances between two vectors.
+         * @param other = the other vector.
+         * @return the distance between them.
+         */
+        T distance(const Vec3<T>& other) const;
+
+        /**
+         * @brief calculates the distance squared between two vectors.
+         * @param other = the other vector.
+         * @return the distance between them.
+         */
+        T distanceSquared(const Vec3<T>& other) const;
+
+        /**
+         * @brief calculates the distances between two vectors.
+         * @param vectorA = the first vector.
+         * @param vectorB = the second vector.
+         * @return the distance between them.
+         */
+        static T distance(const Vec3<T>& vectorA, const Vec3<T>& vectorB);
+
+        /**
+         * @brief calculates the distance squared between two vectors.
+         * @param vectorA = the first vector.
+         * @param vectorB = the second vector.
+         * @return the distance between them.
+         */
+        static T distanceSquared(const Vec3<T>& vectorA, const Vec3<T>& vectorB);
 
         T x;
         T y;
