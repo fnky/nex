@@ -1,3 +1,5 @@
+#include <cmath>
+
 inline Matrix::Matrix()
 {
     //Create an identity matrix.
@@ -51,6 +53,58 @@ inline Matrix::Matrix(const float m11, const float m21, const float m31, const f
 inline row_type& Matrix::operator[] (const uint32 index)
 {
     return m[index];
+}
+
+inline Matrix Matrix::createBillboard(
+        const vec3f& objectPosition,
+        const vec3f& cameraPosition,
+        const vec3f& cameraUpVector,
+        const vec3f& cameraForwardVector)
+{
+    vec3f delta;
+    delta.x = objectPosition.x - cameraPosition.x;
+    delta.y = objectPosition.y - cameraPosition.y;
+    delta.z = objectPosition.z - cameraPosition.z;
+
+    const float vectorLength = delta.lengthSquared();
+
+    //Make sure we are in the proper range.
+    if ((double) vectorLength < 9.99999974737875E-05) {
+        delta = -cameraForwardVector;
+    }
+    else {
+        delta = delta * 1.0f / static_cast<float>(sqrt(vectorLength));
+    }
+
+    vec3f result2 = vec3f::cross(cameraUpVector, delta);
+
+    result2.normalize();
+
+    vec3f result3 = vec3f::cross(delta, result2);
+
+    Matrix matrix;
+
+    matrix[0][0] = result2.x;
+    matrix[0][1] = result2.y;
+    matrix[0][2] = result2.z;
+    matrix[0][3] = 0.0f;
+
+    matrix[1][0] = result3.x;
+    matrix[1][1] = result3.y;
+    matrix[1][2] = result3.z;
+    matrix[1][3] = 0.0f;
+
+    matrix[2][0] = delta.x;
+    matrix[2][1] = delta.y;
+    matrix[2][2] = delta.z;
+    matrix[2][3] = 0.0f;
+
+    matrix[3][0] = objectPosition.x;
+    matrix[3][1] = objectPosition.y;
+    matrix[3][2] = objectPosition.z;
+    matrix[3][2] = 1.0f;
+
+    return matrix;
 }
 
 inline Matrix operator -( Matrix& right)

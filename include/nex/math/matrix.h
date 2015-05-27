@@ -4,6 +4,18 @@
 //Nex includes.
 #include <nex/system/typedefs.h>
 
+#ifndef VEC2_H_INCLUDE
+#include "vec2.h"
+#endif
+
+#ifndef VEC3_H_INCLUDE
+#include "vec3.h"
+#endif
+
+#ifndef VEC4_H_INCLUDE
+#include "vec4.h"
+#endif
+
 namespace nx
 {
     // The elements of the matrix are stored as column major order.
@@ -58,6 +70,19 @@ namespace nx
          * @return pointer to the data.
          */
         row_type& operator[] (const uint32 index);
+
+        /**
+         * @brief Creates a spherical billboard that rotates around a specified object position.
+         * @param objectPosition = Position of the object the billboard will rotate around.
+         * @param cameraPosition = Position of the camera.
+         * @param cameraUpVector = The up vector of the camera.
+         * @param cameraForwardVector = Forward vector of the camera.
+         * @return the matrix for the billboard.
+         */
+        static Matrix createBillboard(const vec3f& objectPosition,
+                                      const vec3f& cameraPosition,
+                                      const vec3f& cameraUpVector,
+                                      const vec3f& cameraForwardVector);
 
         //Our matrix data.
         row_type m[4];
