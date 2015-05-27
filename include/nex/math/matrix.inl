@@ -288,6 +288,28 @@ inline Matrix Matrix::createPerspective(
     return matrix;
 }
 
+inline Matrix Matrix::createPerspectiveOffCenter(
+        const float left,
+        const float right,
+        const float bottom,
+        const float top,
+        const float nearPlaneDistance,
+        const float farPlaneDistance)
+{
+    Matrix matrix;
+    matrix[0][0] = (2.0f * nearPlaneDistance / (right - left));
+    matrix[0][1] = matrix[0][2] = matrix[0][3] = 0.0f;
+    matrix[1][1] = (2.0f * nearPlaneDistance / (top - bottom));
+    matrix[1][0] = matrix[1][2] = matrix[1][3] = 0.0f;
+    matrix[2][0] = ((left + right) / (right - left));
+    matrix[2][1] = ((top + bottom) / (top - bottom));
+    matrix[2][2] = farPlaneDistance / (nearPlaneDistance - farPlaneDistance);
+    matrix[2][3] = -1.0f;
+    matrix[3][2] = (nearPlaneDistance * farPlaneDistance / (nearPlaneDistance - farPlaneDistance));
+    matrix[3][0] = matrix[3][1] = matrix[3][3] = 0.0f;
+    return matrix;
+}
+
 inline Matrix Matrix::createBillboard(
         const vec3f& objectPosition,
         const vec3f& cameraPosition,

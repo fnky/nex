@@ -143,13 +143,13 @@ namespace nx
 
         /**
          * @brief Builds a customized, perspective projection matrix.
-         * @param left
-         * @param right
-         * @param bottom
-         * @param top
-         * @param nearPlaneDistance
-         * @param farPlaneDistance
-         * @return
+         * @param left = Minimum x-value of the view volume at the near view plane.
+         * @param right = Maximum x-value of the view volume at the near view plane.
+         * @param bottom = Minimum y-value of the view volume at the near view plane.
+         * @param top = Maximum y-value of the view volume at the near view plane.
+         * @param nearPlaneDistance = Distance to the near view plane.
+         * @param farPlaneDistance = Distance to the far view plane.
+         * @return the perspective projection matrix.
          */
         static Matrix createPerspectiveOffCenter(
                 const float left,
