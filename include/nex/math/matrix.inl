@@ -1,5 +1,10 @@
 #include <cmath>
 
+/*
+    IF YOU DON'T KNOW MATRIX MATH, DON'T TOUCH THIS STUFF.
+    PLEASE AND THANK YOU.
+*/
+
 inline Matrix::Matrix()
 {
     //Create an identity matrix.
@@ -307,6 +312,25 @@ inline Matrix Matrix::createPerspectiveOffCenter(
     matrix[2][3] = -1.0f;
     matrix[3][2] = (nearPlaneDistance * farPlaneDistance / (nearPlaneDistance - farPlaneDistance));
     matrix[3][0] = matrix[3][1] = matrix[3][3] = 0.0f;
+    return matrix;
+}
+
+inline Matrix Matrix::createOrthographic(
+        const float width,
+        const float height,
+        const float zNearPlane,
+        const float zFarPlane)
+{
+    Matrix matrix;
+    matrix[0][0] = 2.0f / width;
+    matrix[0][1] = matrix[0][2] = matrix[0][3] = 0.0f;
+    matrix[1][1] = 2.0f / height;
+    matrix[2][0] = matrix[1][2] = matrix[1][3] = 0.0f;
+    matrix[2][2] = (1.0f / (zNearPlane - zFarPlane));
+    matrix[2][0] = matrix[2][1] = matrix[2][3] = 0.0f;
+    matrix[3][0] = matrix[3][1] = 0.0f;
+    matrix[3][2] = zNearPlane / (zNearPlane - zFarPlane);
+    matrix[3][3] = 1.0f;
     return matrix;
 }
 

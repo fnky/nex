@@ -160,6 +160,20 @@ namespace nx
                 const float farPlaneDistance);
 
         /**
+         * @brief Builds an orthogonal projection matrix.
+         * @param width = Width of the view volume.
+         * @param height = Height of the view volume.
+         * @param zNearPlane = Minimum z-value of the view volume.
+         * @param zFarPlane = Maximum z-value of the view volume.
+         * @return the orthoganal projection matrix.
+         */
+        static Matrix createOrthographic(
+                const float width,
+                const float height,
+                const float zNearPlane,
+                const float zFarPlane);
+
+        /**
          * @brief Creates a scaling Matrix.
          * @param xScale = Value to scale by on the x-axis.
          * @param yScale = Value to scale by on the y-axis.
