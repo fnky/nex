@@ -174,6 +174,33 @@ namespace nx
                 const float zFarPlane);
 
         /**
+         * @brief Builds a customized, orthogonal projection matrix.
+         * @param left = Minimum x-value of the view volume.
+         * @param right = Maximum x-value of the view volume.
+         * @param bottom = Minimum y-value of the view volume.
+         * @param top = Maximum y-value of the view volume.
+         * @param zNearPlane = Minimum z-value of the view volume.
+         * @param zFarPlane = Maximum z-value of the view volume.
+         * @return the orthagonal projection matrix.
+         */
+        static Matrix createOrthographicOffCenter(
+                const float left,
+                const float right,
+                const float bottom,
+                const float top,
+                const float zNearPlane,
+                const float zFarPlane);
+
+        /**
+         * @brief Creates a view matrix.
+         * @param cameraPosition = The position of the camera.
+         * @param cameraTarget = The target towards which the camera is pointing.
+         * @param cameraUpVector = The direction that is "up" from the camera's point of view.
+         * @return the view matrix.
+         */
+        static Matrix createLookAt(const vec3f& cameraPosition, const vec3f& cameraTarget, const vec3f& cameraUpVector);
+
+        /**
          * @brief Creates a scaling Matrix.
          * @param xScale = Value to scale by on the x-axis.
          * @param yScale = Value to scale by on the y-axis.

@@ -334,6 +334,28 @@ inline Matrix Matrix::createOrthographic(
     return matrix;
 }
 
+inline Matrix Matrix::createOrthographicOffCenter(
+        const float left,
+        const float right,
+        const float bottom,
+        const float top,
+        const float zNearPlane,
+        const float zFarPlane)
+{
+    Matrix matrix;
+    matrix[0][0] = (2.0f / (right - left));
+    matrix[0][1] = matrix[0][2] = matrix[0][3] = 0.0f;
+    matrix[1][1] = (2.0f / (top - bottom));
+    matrix[1][0] = matrix[1][2] = matrix[1][3] = 0.0f;
+    matrix[2][2] = (1.0f / (zNearPlane - zFarPlane));
+    matrix[2][0] = matrix[2][1] = matrix[2][3] = 0.0f;
+    matrix[3][0] = ((left + right) / (left - right));
+    matrix[3][1] = ((top + bottom) / (bottom - top));
+    matrix[3][2] = zNearPlane / (zNearPlane - zFarPlane);
+    matrix[3][3] = 1.0f;
+    return matrix;
+}
+
 inline Matrix Matrix::createBillboard(
         const vec3f& objectPosition,
         const vec3f& cameraPosition,
