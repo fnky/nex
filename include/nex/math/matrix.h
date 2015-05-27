@@ -84,6 +84,21 @@ namespace nx
                                       const vec3f& cameraUpVector,
                                       const vec3f& cameraForwardVector);
 
+        /**
+         * @brief Creates a cylindrical billboard that rotates around a specified axis.
+         * @param objectPosition = Position of the object the billboard will rotate around.
+         * @param cameraPosition = Position of the camera.
+         * @param rotateAxis = Axis to rotate the billboard around.
+         * @param cameraForwardVector = Forward vector of the camera.
+         * @param objectForwardVector = Forward vector of the object.
+         * @return
+         */
+        static Matrix createConstrainedBillboard(const vec3f& objectPosition,
+                                                 const vec3f& cameraPosition,
+                                                 const vec3f& rotateAxis,
+                                                 const vec3f& cameraForwardVector,
+                                                 const vec3f& objectForwardVector);
+
         //Our matrix data.
         row_type m[4];
     };

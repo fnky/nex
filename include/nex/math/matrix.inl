@@ -107,6 +107,82 @@ inline Matrix Matrix::createBillboard(
     return matrix;
 }
 
+inline Matrix Matrix::createConstrainedBillboard(
+        const vec3f& objectPosition,
+        const vec3f& cameraPosition,
+        const vec3f& rotateAxis,
+        const vec3f& cameraForwardVector,
+        const vec3f& objectForwardVector)
+{
+    vec3f delta;
+    delta.x = objectPosition.x - cameraPosition.x;
+    delta.y = objectPosition.y - cameraPosition.y;
+    delta.z = objectPosition.z - cameraPosition.z;
+
+    float length = delta.lengthSquared();
+    if ((double) length < 9.99999974737875E-05) {
+        delta = -cameraForwardVector;
+    }
+    else {
+        delta = delta * 1.0f / static_cast<float>(sqrt(length));
+    }
+
+    vec3f rotationAxis = rotateAxis;
+
+    float result2 = vec3f::dot(rotateAxis, delta);
+
+    vec3f result3;
+    vec3f result4;
+
+    if (abs(result2) > 0.998254656791687)
+    {
+        result3 = objectForwardVector;
+        result2 = vec3f::dot(rotateAxis, result3);
+        if (abs(result2) > 0.998254656791687) {
+            result3 = fabs(
+                        ((rotateAxis.x * vec3f::forward.x) +
+                         (rotateAxis.y * vec3f::forward.y) +
+                         (rotateAxis.z * vec3f::forward.z))) > 0.998254656791687 ? vec3f::right : vec3f::forward;
+        }
+
+        result4 = vec3f::cross(rotateAxis, result3);
+        result4.normalize();
+        result3 = vec3f::cross(result4, rotateAxis);
+        result3.normalize();
+    }
+    else
+    {
+        result4 = vec3f::cross(rotateAxis, delta);
+        result4.normalize();
+        result3 = vec3f::cross(result4, rotationAxis);
+        result3.normalize();
+    }
+
+    Matrix matrix;
+
+    matrix[0][0] = result4.x;
+    matrix[0][1] = result4.y;
+    matrix[0][2] = result4.z;
+    matrix[0][3] = 0.0f;
+
+    matrix[1][0] = rotationAxis.x;
+    matrix[1][1] = rotationAxis.y;
+    matrix[1][2] = rotationAxis.z;
+    matrix[1][3] = 0.0f;
+
+    matrix[2][0] = result3.x;
+    matrix[2][1] = result3.y;
+    matrix[2][2] = result3.z;
+    matrix[2][3] = 0.0f;
+
+    matrix[3][0] = objectPosition.x;
+    matrix[3][1] = objectPosition.y;
+    matrix[3][2] = objectPosition.z;
+    matrix[3][3] = 1.0f;
+
+    return matrix;
+}
+
 inline Matrix operator -( Matrix& right)
 {
     return Matrix(
