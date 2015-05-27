@@ -72,6 +72,13 @@ namespace nx
         row_type& operator[] (const uint32 index);
 
         /**
+         * @brief Allows the users of this class to access the interal values by [y][x] as needed.
+         * @param index to lookup.
+         * @return pointer to the data.
+         */
+        const row_type& operator[] (const uint32 index) const;
+
+        /**
          * @brief Create a translation matrix.
          * @param position = position to translate to.
          * @return the translation matrix.
@@ -91,6 +98,13 @@ namespace nx
          * @return the rotation matrix.
          */
         static Matrix rotateY(const float radians);
+
+        /**
+         * @brief Returns a matrix that can be used to rotate a set of vertices around the z-axis.
+         * @param radians = the amount, in radians, in which to rotate around the z-axis.
+         * @return the rotation matrix.
+         */
+        static Matrix rotateZ(const float radians);
 
         /**
          * @brief Creates a scaling Matrix.

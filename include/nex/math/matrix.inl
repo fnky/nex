@@ -55,6 +55,11 @@ inline row_type& Matrix::operator[] (const uint32 index)
     return m[index];
 }
 
+inline const row_type&  Matrix::operator[] (const uint32 index) const
+{
+    return m[index];
+}
+
 inline Matrix Matrix::translate(const vec3f& position)
 {
     Matrix matrix;
@@ -159,6 +164,36 @@ inline Matrix Matrix::rotateY(const float radians)
     matrix[2][0] = sinResult;
     matrix[2][1] = 0.0f;
     matrix[2][2] = cosResult;
+    matrix[2][3] = 0.0f;
+
+    matrix[3][0] = 0.0f;
+    matrix[3][1] = 0.0f;
+    matrix[3][2] = 0.0f;
+    matrix[3][3] = 1.0f;
+
+    return matrix;
+}
+
+inline Matrix Matrix::rotateZ(const float radians)
+{
+    const float cosResult = cosf(radians);
+    const float sinResult = sinf(radians);
+
+    Matrix matrix;
+
+    matrix[0][0] = cosResult;
+    matrix[0][1] = sinResult;
+    matrix[0][2] = 0.0f;
+    matrix[0][3] = 0.0f;
+
+    matrix[1][0] = -sinResult;
+    matrix[1][1] = cosResult;
+    matrix[1][2] = 0.0f;
+    matrix[1][3] = 0.0f;
+
+    matrix[2][0] = 0.0f;
+    matrix[2][1] = 0.0f;
+    matrix[2][2] = 1.0f;
     matrix[2][3] = 0.0f;
 
     matrix[3][0] = 0.0f;
@@ -307,7 +342,7 @@ inline Matrix operator -( Matrix& right)
 
 }
 
-inline Matrix& operator +=(Matrix& left, Matrix& right)
+inline Matrix& operator +=(Matrix& left, const Matrix& right)
 {
     left[0][0] += right[0][0];
     left[0][1] += right[0][1];
@@ -332,7 +367,7 @@ inline Matrix& operator +=(Matrix& left, Matrix& right)
     return left;
 }
 
-inline Matrix& operator -=(Matrix& left, Matrix& right)
+inline Matrix& operator -=(Matrix& left, const Matrix& right)
 {
     left[0][0] -= right[0][0];
     left[0][1] -= right[0][1];
@@ -357,7 +392,7 @@ inline Matrix& operator -=(Matrix& left, Matrix& right)
     return left;
 }
 
-inline Matrix operator +(Matrix& left, Matrix& right)
+inline Matrix operator +(const Matrix& left, const Matrix& right)
 {
     return Matrix(
             left[0][0] + right[0][0], left[1][0] + right[1][0], left[2][0] + right[2][0], left[3][0] + right[3][0],
@@ -366,7 +401,7 @@ inline Matrix operator +(Matrix& left, Matrix& right)
             left[0][3] + right[0][3], left[1][3] + right[1][3], left[2][3] + right[2][3], left[3][3] + right[3][3]);
 }
 
-inline Matrix operator -(Matrix& left, Matrix& right)
+inline Matrix operator -(const Matrix& left, const Matrix& right)
 {
     return Matrix(
             left[0][0] - right[0][0], left[1][0] - right[1][0], left[2][0] - right[2][0], left[3][0] - right[3][0],
@@ -375,7 +410,7 @@ inline Matrix operator -(Matrix& left, Matrix& right)
             left[0][3] - right[0][3], left[1][3] - right[1][3], left[2][3] - right[2][3], left[3][3] - right[3][3]);
 }
 
-inline Matrix operator *(Matrix& left, float right)
+inline Matrix operator *(const Matrix& left, const float right)
 {
     return Matrix(
             left[0][0] * right, left[1][0] * right, left[2][0] * right, left[3][0] * right,
@@ -384,7 +419,7 @@ inline Matrix operator *(Matrix& left, float right)
             left[0][3] * right, left[1][3] * right, left[2][3] * right, left[3][3] * right);
 }
 
-inline Matrix operator *(Matrix& left, Matrix& right)
+inline Matrix operator *(const Matrix& left, const Matrix& right)
 {
     return Matrix(
             left[0][0] * right[0][0], left[1][0] * right[1][0], left[2][0] * right[2][0], left[3][0] * right[3][0],
@@ -393,7 +428,7 @@ inline Matrix operator *(Matrix& left, Matrix& right)
             left[0][3] * right[0][3], left[1][3] * right[1][3], left[2][3] * right[2][3], left[3][3] * right[3][3]);
 }
 
-inline Matrix operator *(float left, Matrix& right)
+inline Matrix operator *(const float left, const Matrix& right)
 {
     return Matrix(
             left * right[0][0], left * right[1][0], left * right[2][0], left * right[3][0],
@@ -402,7 +437,7 @@ inline Matrix operator *(float left, Matrix& right)
             left * right[0][3], left * right[1][3], left * right[2][3], left * right[3][3]);
 }
 
-inline Matrix& operator *=(Matrix& left, float right)
+inline Matrix& operator *=(Matrix& left, const float right)
 {
     left[0][0] += right;
     left[0][1] += right;
@@ -427,7 +462,7 @@ inline Matrix& operator *=(Matrix& left, float right)
     return left;
 }
 
-inline Matrix& operator *=(Matrix& left, Matrix& right)
+inline Matrix& operator *=(Matrix& left, const Matrix& right)
 {
     left[0][0] *= right[0][0];
     left[0][1] *= right[0][1];
@@ -452,7 +487,7 @@ inline Matrix& operator *=(Matrix& left, Matrix& right)
     return left;
 }
 
-inline Matrix operator /(Matrix& left, Matrix& right)
+inline Matrix operator /(const Matrix& left, const Matrix& right)
 {
     return Matrix(
             left[0][0] / right[0][0], left[1][0] / right[1][0], left[2][0] / right[2][0], left[3][0] / right[3][0],
@@ -461,7 +496,7 @@ inline Matrix operator /(Matrix& left, Matrix& right)
             left[0][3] / right[0][3], left[1][3] / right[1][3], left[2][3] / right[2][3], left[3][3] / right[3][3]);
 }
 
-inline Matrix operator /(Matrix& left, float right)
+inline Matrix operator /(const Matrix& left, const float right)
 {
     const float oneOver = 1.0f / right;
     return Matrix(
@@ -471,7 +506,7 @@ inline Matrix operator /(Matrix& left, float right)
             left[0][3] * oneOver, left[1][3] * oneOver, left[2][3] * oneOver, left[3][3] * oneOver);
 }
 
-inline Matrix& operator /=(Matrix& left, float right)
+inline Matrix& operator /=(Matrix& left, const float right)
 {
     const float oneOver = 1.0f / right;
 
@@ -498,7 +533,7 @@ inline Matrix& operator /=(Matrix& left, float right)
     return left;
 }
 
-inline Matrix& operator /=(Matrix& left, Matrix& right)
+inline Matrix& operator /=(Matrix& left, const Matrix& right)
 {
     left[0][0] /= right[0][0];
     left[0][1] /= right[0][1];
@@ -523,7 +558,7 @@ inline Matrix& operator /=(Matrix& left, Matrix& right)
     return left;
 }
 
-inline bool operator ==(Matrix& left, Matrix& right)
+inline bool operator ==(const Matrix& left, const Matrix& right)
 {
     return (left[0][0] == right[0][0]) && (left[1][0] == right[1][0]) && left[2][0] == right[2][0] && left[3][0] == right[3][0] &&
            (left[0][1] == right[0][1]) && (left[1][1] == right[1][1]) && left[2][1] == right[2][1] && left[3][1] == right[3][1] &&
@@ -531,7 +566,7 @@ inline bool operator ==(Matrix& left, Matrix& right)
            (left[0][3] == right[0][3]) && (left[1][3] == right[1][3]) && left[2][3] == right[2][3] && left[3][3] == right[3][3];
 }
 
-inline bool operator !=(Matrix& left, Matrix& right)
+inline bool operator !=(const Matrix& left, const Matrix& right)
 {
     return (left[0][0] != right[0][0]) || (left[1][0] != right[1][0]) || left[2][0] != right[2][0] || left[3][0] != right[3][0] ||
            (left[0][1] != right[0][1]) || (left[1][1] != right[1][1]) || left[2][1] != right[2][1] || left[3][1] != right[3][1] ||
