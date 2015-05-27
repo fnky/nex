@@ -55,6 +55,120 @@ inline row_type& Matrix::operator[] (const uint32 index)
     return m[index];
 }
 
+inline Matrix Matrix::translate(const vec3f& position)
+{
+    Matrix matrix;
+
+    matrix[0][0] = 1.0f;
+    matrix[0][1] = 0.0f;
+    matrix[0][2] = 0.0f;
+    matrix[0][3] = 0.0f;
+
+    matrix[1][0] = 0.0f;
+    matrix[1][1] = 1.0f;
+    matrix[1][2] = 0.0f;
+    matrix[1][3] = 0.0f;
+
+    matrix[2][0] = 0.0f;
+    matrix[2][1] = 0.0f;
+    matrix[2][2] = 1.0f;
+    matrix[2][3] = 0.0f;
+
+    matrix[3][0] = position.x;
+    matrix[3][1] = position.y;
+    matrix[3][2] = position.z;
+    matrix[3][3] = 1.0f;
+
+    return matrix;
+}
+
+inline Matrix Matrix::scale(const float xScale, const float yScale, const float zScale)
+{
+    Matrix matrix;
+
+    matrix[0][0] = xScale;
+    matrix[0][1] = 0.0f;
+    matrix[0][2] = 0.0f;
+    matrix[0][3] = 0.0f;
+
+    matrix[1][0] = 0.0f;
+    matrix[1][1] = yScale;
+    matrix[1][2] = 0.0f;
+    matrix[1][3] = 0.0f;
+
+    matrix[2][0] = 0.0f;
+    matrix[2][1] = 0.0f;
+    matrix[2][2] = zScale;
+    matrix[2][3] = 0.0f;
+
+    matrix[3][0] = 0.0f;
+    matrix[3][1] = 0.0f;
+    matrix[3][2] = 0.0f;
+    matrix[3][3] = 1.0f;
+
+    return matrix;
+}
+
+inline Matrix Matrix::rotateX(const float radians)
+{
+    const float cosResult = cosf(radians);
+    const float sinResult = sinf(radians);
+
+    Matrix matrix;
+
+    matrix[0][0] = 1.0f;
+    matrix[0][1] = 0.0f;
+    matrix[0][2] = 0.0f;
+    matrix[0][3] = 0.0f;
+
+    matrix[1][0] = 0.0f;
+    matrix[1][1] = cosResult;
+    matrix[1][2] = sinResult;
+    matrix[1][3] = 0.0f;
+
+    matrix[2][0] = 0.0f;
+    matrix[2][1] = -sinResult;
+    matrix[2][2] = cosResult;
+    matrix[2][3] = 0.0f;
+
+    matrix[3][0] = 0.0f;
+    matrix[3][1] = 0.0f;
+    matrix[3][2] = 0.0f;
+    matrix[3][3] = 1.0f;
+
+    return matrix;
+}
+
+inline Matrix Matrix::rotateY(const float radians)
+{
+    const float cosResult = cosf(radians);
+    const float sinResult = sinf(radians);
+
+    Matrix matrix;
+
+    matrix[0][0] = cosResult;
+    matrix[0][1] = 0.0f;
+    matrix[0][2] = -sinResult;
+    matrix[0][3] = 0.0f;
+
+    matrix[1][0] = 0.0f;
+    matrix[1][1] = 1.0f;
+    matrix[1][2] = 0.0f;
+    matrix[1][3] = 0.0f;
+
+    matrix[2][0] = sinResult;
+    matrix[2][1] = 0.0f;
+    matrix[2][2] = cosResult;
+    matrix[2][3] = 0.0f;
+
+    matrix[3][0] = 0.0f;
+    matrix[3][1] = 0.0f;
+    matrix[3][2] = 0.0f;
+    matrix[3][3] = 1.0f;
+
+    return matrix;
+}
+
 inline Matrix Matrix::createBillboard(
         const vec3f& objectPosition,
         const vec3f& cameraPosition,

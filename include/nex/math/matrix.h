@@ -72,6 +72,36 @@ namespace nx
         row_type& operator[] (const uint32 index);
 
         /**
+         * @brief Create a translation matrix.
+         * @param position = position to translate to.
+         * @return the translation matrix.
+         */
+        static Matrix translate(const vec3f& position);
+
+        /**
+         * @brief Returns a matrix that can be used to rotate a set of vertices around the x-axis.
+         * @param radians = The amount, in radians, in which to rotate around the x-axis.
+         * @return the rotation matrix.
+         */
+        static Matrix rotateX(const float radians);
+
+        /**
+         * @brief Returns a matrix that can be used to rotate a set of vertices around the y-axis.
+         * @param radians = the amount, in radians, in which to rotate around the y-axis.
+         * @return the rotation matrix.
+         */
+        static Matrix rotateY(const float radians);
+
+        /**
+         * @brief Creates a scaling Matrix.
+         * @param xScale = Value to scale by on the x-axis.
+         * @param yScale = Value to scale by on the y-axis.
+         * @param zScale = Value to scale by on the z-axis.
+         * @return the scale matrix.
+         */
+        static Matrix scale(const float xScale, const float yScale, const float zScale);
+
+        /**
          * @brief Creates a spherical billboard that rotates around a specified object position.
          * @param objectPosition = Position of the object the billboard will rotate around.
          * @param cameraPosition = Position of the camera.
