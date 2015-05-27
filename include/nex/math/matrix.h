@@ -107,6 +107,28 @@ namespace nx
         static Matrix rotateZ(const float radians);
 
         /**
+         * @brief Creates a new Matrix that rotates around an arbitrary vector.
+         * @param axis = The axis to rotate around.
+         * @param angle = The angle to rotate around the vector in radians.
+         * @return the rotation matrix.
+         */
+        static Matrix createFromAxisAngle(const vec3f& axis, const float angle);
+
+        /**
+         * @brief Builds a perspective projection matrix based on a field of view and returns by value.
+         * @param fieldOfView = Field of view in the y direction, in radians.
+         * @param aspectRatio = Aspect ratio, defined as view space width divided by height. To match the aspect ratio of the viewport.
+         * @param nearPlaneDistance = Distance to the near view plane.
+         * @param farPlaneDistance = Distance to the far view plane.
+         * @return the perspective matrix.
+         */
+        static Matrix createPerspectiveFieldOfView(
+                const float fieldOfView,
+                const float aspectRatio,
+                const float nearPlaneDistance,
+                const float farPlaneDistance);
+
+        /**
          * @brief Creates a scaling Matrix.
          * @param xScale = Value to scale by on the x-axis.
          * @param yScale = Value to scale by on the y-axis.

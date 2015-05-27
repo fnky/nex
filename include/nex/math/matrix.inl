@@ -204,6 +204,71 @@ inline Matrix Matrix::rotateZ(const float radians)
     return matrix;
 }
 
+inline Matrix Matrix::createFromAxisAngle(const vec3f& axis, const float angle)
+{
+    const float xRotation = axis.x;
+    const float yRotation = axis.y;
+    const float zRotation = axis.z;
+
+    const float sinResult = sinf(angle);
+    const float cosResult = cosf(angle);
+
+    const float xRotationSquared = xRotation * xRotation;
+    const float yRotationSquared = yRotation * yRotation;
+    const float zRotationSquared = zRotation * zRotation;
+
+    const float dotA = xRotation * yRotation;
+    const float dotB = xRotation * zRotation;
+    const float dotC = yRotation * zRotation;
+
+    Matrix matrix;
+
+    matrix[0][0] = xRotationSquared + cosResult * (1.0f - xRotationSquared);
+    matrix[0][1] = (dotA - cosResult * dotA + sinResult * zRotation);
+    matrix[0][2] = (dotB - cosResult * dotB - sinResult * yRotation);
+    matrix[0][3] = 0.0f;
+
+    matrix[1][0] = (dotA - cosResult * dotA - sinResult * zRotation);
+    matrix[1][1] = yRotationSquared + cosResult * (1.0f - yRotationSquared);
+    matrix[1][2] = (dotC - cosResult * dotC + sinResult * xRotation);
+    matrix[1][3] = 0.0f;
+
+    matrix[2][0] = (dotB - cosResult * dotB + sinResult * yRotation);
+    matrix[2][1] = (dotC -  cosResult * dotC - sinResult * xRotation);
+    matrix[2][2] = zRotationSquared + cosResult * (1.0f - zRotationSquared);
+    matrix[2][3] = 0.0f;
+
+    matrix[3][0] = 0.0f;
+    matrix[3][1] = 0.0f;
+    matrix[3][2] = 0.0f;
+    matrix[3][3] = 1.0f;
+
+    return matrix;
+}
+
+inline Matrix Matrix::createPerspectiveFieldOfView(
+        const float fieldOfView,
+        const float aspectRatio,
+        const float nearPlaneDistance,
+        const float farPlaneDistance)
+{
+    const float tanRecip = 1.0f / tanf(fieldOfView * 0.5f);
+    const float tanOverAspect = tanRecip / aspectRatio;
+
+    Matrix matrix;
+    matrix[0][0] = tanOverAspect;
+    matrix[0][1] = matrix[0][2] = matrix[0][3] = 0.0f;
+    matrix[1][1] = tanRecip;
+    matrix[1][0] = matrix[1][2] = matrix[1][3] = 0.0f;
+    matrix[2][0] = matrix[2][1] = 0.0f;
+    matrix[2][2] = farPlaneDistance / (nearPlaneDistance - farPlaneDistance);
+    matrix[3][3] = -1.0f;
+    matrix[3][0] = matrix[3][1] = matrix[3][3] = 0.0f;
+    matrix[3][2] = (nearPlaneDistance * farPlaneDistance / (nearPlaneDistance - farPlaneDistance));
+
+    return matrix;
+}
+
 inline Matrix Matrix::createBillboard(
         const vec3f& objectPosition,
         const vec3f& cameraPosition,
