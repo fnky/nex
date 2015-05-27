@@ -30,6 +30,66 @@ z(static_cast<T>(vector.z))
 { }
 
 template <typename T>
+Vec3<T> Vec3<T>::up(
+        static_cast<T>(0.0),
+        static_cast<T>(1.0),
+        static_cast<T>(0.0));
+
+template <typename T>
+Vec3<T> Vec3<T>::down(
+        static_cast<T>(0.0),
+        static_cast<T>(-1.0),
+        static_cast<T>(0.0));
+
+template <typename T>
+Vec3<T> Vec3<T>::right(
+        static_cast<T>(1.0),
+        static_cast<T>(0.0),
+        static_cast<T>(0.0));
+
+template <typename T>
+Vec3<T> Vec3<T>::left(
+        static_cast<T>(-1.0),
+        static_cast<T>(0.0),
+        static_cast<T>(0.0));
+
+template <typename T>
+Vec3<T> Vec3<T>::forward(
+        static_cast<T>(0.0),
+        static_cast<T>(0.0),
+        static_cast<T>(1.0));
+
+template <typename T>
+Vec3<T> Vec3<T>::backward(
+        static_cast<T>(0.0),
+        static_cast<T>(0.0),
+        static_cast<T>(-1.0));
+
+template <typename T>
+Vec3<T> Vec3<T>::zero(
+        static_cast<T>(0.0),
+        static_cast<T>(0.0),
+        static_cast<T>(0.0));
+
+template <typename T>
+Vec3<T> Vec3<T>::unitX(
+        static_cast<T>(1.0),
+        static_cast<T>(0.0),
+        static_cast<T>(0.0));
+
+template <typename T>
+Vec3<T> Vec3<T>::unitY(
+        static_cast<T>(0.0),
+        static_cast<T>(1.0),
+        static_cast<T>(0.0));
+
+template <typename T>
+Vec3<T> Vec3<T>::unitZ(
+        static_cast<T>(0.0),
+        static_cast<T>(0.0),
+        static_cast<T>(1.0));
+
+template <typename T>
 inline T Vec3<T>::length() const
 {
     return static_cast<T>(std::sqrt(x * x + y * y + z * z));

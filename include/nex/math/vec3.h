@@ -30,7 +30,6 @@ namespace nx
          */
         Vec3(T x, T y, T z);
 
-
         /**
          * it's called only when U != T.
          * A call to this constructor will fail to compile if U
@@ -214,6 +213,17 @@ namespace nx
          * @return the interpolated vector.
          */
         static Vec3<T> hermite(const Vec3<T>& vertexA, const Vec3<T>& tangentA, const Vec3<T>& vertexB, const Vec3<T>& tangentB, const T amount);
+
+        static Vec3<T> zero;
+        static Vec3<T> unitX;
+        static Vec3<T> unitY;
+        static Vec3<T> unitZ;
+        static Vec3<T> up;
+        static Vec3<T> down;
+        static Vec3<T> right;
+        static Vec3<T> left;
+        static Vec3<T> forward;
+        static Vec3<T> backward;
 
         /**
          * TODO (Tyler): Implement the following methods:
