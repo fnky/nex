@@ -129,6 +129,37 @@ namespace nx
                 const float farPlaneDistance);
 
         /**
+         * @brief Builds a perspective projection matrix and returns the result by value.
+         * @param width = Width of the view volume at the near view plane.
+         * @param height = Height of the view volume at the near view plane.
+         * @param nearPlaneDistance = Distance to the near view plane.
+         * @param farPlaneDistance = Distance to the far view plane.
+         * @return
+         */
+        static Matrix createPerspective(const float width,
+                                        const float height,
+                                        const float nearPlaneDistance,
+                                        const float farPlaneDistance);
+
+        /**
+         * @brief Builds a customized, perspective projection matrix.
+         * @param left
+         * @param right
+         * @param bottom
+         * @param top
+         * @param nearPlaneDistance
+         * @param farPlaneDistance
+         * @return
+         */
+        static Matrix createPerspectiveOffCenter(
+                const float left,
+                const float right,
+                const float bottom,
+                const float top,
+                const float nearPlaneDistance,
+                const float farPlaneDistance);
+
+        /**
          * @brief Creates a scaling Matrix.
          * @param xScale = Value to scale by on the x-axis.
          * @param yScale = Value to scale by on the y-axis.
