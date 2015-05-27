@@ -102,8 +102,6 @@ namespace nx
          */
         T lengthSquared() const;
 
-
-
         /**
          * @brief Calculate the distance to another given vector.
          * @param other = other vector
