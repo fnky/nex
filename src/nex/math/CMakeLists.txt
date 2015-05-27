@@ -14,8 +14,8 @@ set (NEX_MATH_HEADERS
     ${INC_DIR}/vec4.h
     ${INC_DIR}/vec4.inl
 
-    ${INC_DIR}/mat4.h
-    ${INC_DIR}/mat4.inl
+    ${INC_DIR}/matrix.h
+    ${INC_DIR}/matrix.inl
 
     ${INC_DIR}/rectangle.h
     ${INC_DIR}/rectangle.inl
