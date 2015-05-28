@@ -5,6 +5,8 @@
     PLEASE AND THANK YOU.
 */
 
+//TODO (Tyler): Make this class type agnostic.
+
 inline Matrix::Matrix()
 {
     //Create an identity matrix.
@@ -252,71 +254,44 @@ inline Matrix Matrix::createFromAxisAngle(const vec3f& axis, const float angle)
     return matrix;
 }
 
-inline Matrix Matrix::createPerspectiveFieldOfView(
-        const float fieldOfView,
-        const float aspectRatio,
-        const float nearPlaneDistance,
-        const float farPlaneDistance)
+inline Matrix Matrix::perspective(
+        const float fovy,
+        const float aspect,
+        const float zNear,
+        const float zFar)
 {
-    const float tanRecip = 1.0f / tanf(fieldOfView * 0.5f);
-    const float tanOverAspect = tanRecip / aspectRatio;
+    float tanHalfFovy = tanf(fovy * 0.5f);
 
-    Matrix matrix;
-    matrix[0][0] = tanOverAspect;
-    matrix[0][1] = matrix[0][2] = matrix[0][3] = 0.0f;
-    matrix[1][1] = tanRecip;
-    matrix[1][0] = matrix[1][2] = matrix[1][3] = 0.0f;
-    matrix[2][0] = matrix[2][1] = 0.0f;
-    matrix[2][2] = farPlaneDistance / (nearPlaneDistance - farPlaneDistance);
-    matrix[3][3] = -1.0f;
-    matrix[3][0] = matrix[3][1] = matrix[3][3] = 0.0f;
-    matrix[3][2] = (nearPlaneDistance * farPlaneDistance / (nearPlaneDistance - farPlaneDistance));
-
-    return matrix;
+    Matrix result;
+    result[0][0] = 1.0f / (aspect * tanHalfFovy);
+    result[1][1] = 1.0f / (tanHalfFovy);
+    result[2][2] = -(zFar + zNear) / (zFar - zNear);
+    result[2][3] = -1.0f;
+    result[3][2] = -(2.0f * zFar * zNear) / (zFar - zNear);
+    return result;
 }
 
-inline Matrix Matrix::createPerspective(
+inline Matrix Matrix::perspectiveFov(
+        const float fov,
         const float width,
         const float height,
-        const float nearPlaneDistance,
-        const float farPlaneDistance)
+        const float zNear,
+        const float zFar)
 {
-    Matrix matrix;
-    matrix[0][0] = 2.0f * nearPlaneDistance / width;
-    matrix[0][1] = matrix[0][2] = matrix[0][3] = 0.0f;
-    matrix[1][1] = 2.0f * nearPlaneDistance / height;
-    matrix[1][0] = matrix[1][2] = matrix[1][3] = 0.0f;
-    matrix[2][2] = farPlaneDistance / (nearPlaneDistance - farPlaneDistance);
-    matrix[2][0] = matrix[2][1] = 0.0f;
-    matrix[2][3] = -1.0f;
-    matrix[3][0] = matrix[3][1] = matrix[3][3] = 0.0f;
-    matrix[3][2] = (nearPlaneDistance * farPlaneDistance / (nearPlaneDistance - farPlaneDistance));
-    return matrix;
+    float const rad = fov;
+    float const h = cosf(0.5f * rad) / sinf(0.5f * rad);
+    float const w = h * height / width;
+
+    Matrix result;
+    result[0][0] = w;
+    result[1][1] = h;
+    result[2][2] = - (zFar + zNear) / (zFar - zNear);
+    result[2][3] = -1.0f;
+    result[3][2] = - (2.0f * zFar * zNear) / (zFar - zNear);
+    return result;
 }
 
-inline Matrix Matrix::createPerspectiveOffCenter(
-        const float left,
-        const float right,
-        const float bottom,
-        const float top,
-        const float nearPlaneDistance,
-        const float farPlaneDistance)
-{
-    Matrix matrix;
-    matrix[0][0] = (2.0f * nearPlaneDistance / (right - left));
-    matrix[0][1] = matrix[0][2] = matrix[0][3] = 0.0f;
-    matrix[1][1] = (2.0f * nearPlaneDistance / (top - bottom));
-    matrix[1][0] = matrix[1][2] = matrix[1][3] = 0.0f;
-    matrix[2][0] = ((left + right) / (right - left));
-    matrix[2][1] = ((top + bottom) / (top - bottom));
-    matrix[2][2] = farPlaneDistance / (nearPlaneDistance - farPlaneDistance);
-    matrix[2][3] = -1.0f;
-    matrix[3][2] = (nearPlaneDistance * farPlaneDistance / (nearPlaneDistance - farPlaneDistance));
-    matrix[3][0] = matrix[3][1] = matrix[3][3] = 0.0f;
-    return matrix;
-}
-
-inline Matrix Matrix::createOrthographic(
+inline Matrix Matrix::orthographic(
         const float width,
         const float height,
         const float zNearPlane,
@@ -332,156 +307,6 @@ inline Matrix Matrix::createOrthographic(
     matrix[3][0] = matrix[3][1] = 0.0f;
     matrix[3][2] = zNearPlane / (zNearPlane - zFarPlane);
     matrix[3][3] = 1.0f;
-    return matrix;
-}
-
-inline Matrix Matrix::createOrthographicOffCenter(
-        const float left,
-        const float right,
-        const float bottom,
-        const float top,
-        const float zNearPlane,
-        const float zFarPlane)
-{
-    Matrix matrix;
-    matrix[0][0] = (2.0f / (right - left));
-    matrix[0][1] = matrix[0][2] = matrix[0][3] = 0.0f;
-    matrix[1][1] = (2.0f / (top - bottom));
-    matrix[1][0] = matrix[1][2] = matrix[1][3] = 0.0f;
-    matrix[2][2] = (1.0f / (zNearPlane - zFarPlane));
-    matrix[2][0] = matrix[2][1] = matrix[2][3] = 0.0f;
-    matrix[3][0] = ((left + right) / (left - right));
-    matrix[3][1] = ((top + bottom) / (bottom - top));
-    matrix[3][2] = zNearPlane / (zNearPlane - zFarPlane);
-    matrix[3][3] = 1.0f;
-    return matrix;
-}
-
-inline Matrix Matrix::createBillboard(
-        const vec3f& objectPosition,
-        const vec3f& cameraPosition,
-        const vec3f& cameraUpVector,
-        const vec3f& cameraForwardVector)
-{
-    vec3f delta;
-    delta.x = objectPosition.x - cameraPosition.x;
-    delta.y = objectPosition.y - cameraPosition.y;
-    delta.z = objectPosition.z - cameraPosition.z;
-
-    const float vectorLength = delta.lengthSquared();
-
-    //Make sure we are in the proper range.
-    if ((double) vectorLength < 9.99999974737875E-05) {
-        delta = -cameraForwardVector;
-    }
-    else {
-        delta = delta * 1.0f / static_cast<float>(sqrt(vectorLength));
-    }
-
-    vec3f result2 = vec3f::cross(cameraUpVector, delta);
-
-    result2.normalize();
-
-    vec3f result3 = vec3f::cross(delta, result2);
-
-    Matrix matrix;
-
-    matrix[0][0] = result2.x;
-    matrix[0][1] = result2.y;
-    matrix[0][2] = result2.z;
-    matrix[0][3] = 0.0f;
-
-    matrix[1][0] = result3.x;
-    matrix[1][1] = result3.y;
-    matrix[1][2] = result3.z;
-    matrix[1][3] = 0.0f;
-
-    matrix[2][0] = delta.x;
-    matrix[2][1] = delta.y;
-    matrix[2][2] = delta.z;
-    matrix[2][3] = 0.0f;
-
-    matrix[3][0] = objectPosition.x;
-    matrix[3][1] = objectPosition.y;
-    matrix[3][2] = objectPosition.z;
-    matrix[3][2] = 1.0f;
-
-    return matrix;
-}
-
-inline Matrix Matrix::createConstrainedBillboard(
-        const vec3f& objectPosition,
-        const vec3f& cameraPosition,
-        const vec3f& rotateAxis,
-        const vec3f& cameraForwardVector,
-        const vec3f& objectForwardVector)
-{
-    vec3f delta;
-    delta.x = objectPosition.x - cameraPosition.x;
-    delta.y = objectPosition.y - cameraPosition.y;
-    delta.z = objectPosition.z - cameraPosition.z;
-
-    float length = delta.lengthSquared();
-    if ((double) length < 9.99999974737875E-05) {
-        delta = -cameraForwardVector;
-    }
-    else {
-        delta = delta * 1.0f / static_cast<float>(sqrt(length));
-    }
-
-    vec3f rotationAxis = rotateAxis;
-
-    float result2 = vec3f::dot(rotateAxis, delta);
-
-    vec3f result3;
-    vec3f result4;
-
-    if (abs(result2) > 0.998254656791687)
-    {
-        result3 = objectForwardVector;
-        result2 = vec3f::dot(rotateAxis, result3);
-        if (abs(result2) > 0.998254656791687) {
-            result3 = fabs(
-                        ((rotateAxis.x * vec3f::forward.x) +
-                         (rotateAxis.y * vec3f::forward.y) +
-                         (rotateAxis.z * vec3f::forward.z))) > 0.998254656791687 ? vec3f::right : vec3f::forward;
-        }
-
-        result4 = vec3f::cross(rotateAxis, result3);
-        result4.normalize();
-        result3 = vec3f::cross(result4, rotateAxis);
-        result3.normalize();
-    }
-    else
-    {
-        result4 = vec3f::cross(rotateAxis, delta);
-        result4.normalize();
-        result3 = vec3f::cross(result4, rotationAxis);
-        result3.normalize();
-    }
-
-    Matrix matrix;
-
-    matrix[0][0] = result4.x;
-    matrix[0][1] = result4.y;
-    matrix[0][2] = result4.z;
-    matrix[0][3] = 0.0f;
-
-    matrix[1][0] = rotationAxis.x;
-    matrix[1][1] = rotationAxis.y;
-    matrix[1][2] = rotationAxis.z;
-    matrix[1][3] = 0.0f;
-
-    matrix[2][0] = result3.x;
-    matrix[2][1] = result3.y;
-    matrix[2][2] = result3.z;
-    matrix[2][3] = 0.0f;
-
-    matrix[3][0] = objectPosition.x;
-    matrix[3][1] = objectPosition.y;
-    matrix[3][2] = objectPosition.z;
-    matrix[3][3] = 1.0f;
-
     return matrix;
 }
 

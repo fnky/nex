@@ -16,6 +16,26 @@
 #include "vec4.h"
 #endif
 
+/*
+ * TODO (Tyler): Implement the following.
+ *
+ * - public static Vector2 TransformNormal(Vector2 normal, Matrix matrix)
+ * - public static Vector2 Transform(Vector2 value, Quaternion rotation)
+ * - static Vector3 Transform(Vector3 position, Matrix matrix)
+ * - static Vector3 TransformNormal(Vector3 normal, Matrix matrix)
+ * - static Vector3 Transform(Vector3 value, Quaternion rotation)
+ *
+ * - frustum
+ * - infinite perspective
+ * - lookAt
+ * - pickMatrix
+ * - project
+ * - unproject
+ *
+ * GLM Reference:
+ * http://glm.g-truc.net/0.9.2/api/a00245.html
+ */
+
 namespace nx
 {
     // The elements of the matrix are stored as column major order.
@@ -39,7 +59,7 @@ namespace nx
     //| 0 0 1 z |
     //| 0 0 0 1 |
 
-    typedef float row_type[4];
+    typedef float col_type[4];
 
     class Matrix
     {
@@ -116,48 +136,33 @@ namespace nx
 
         /**
          * @brief Builds a perspective projection matrix based on a field of view and returns by value.
-         * @param fieldOfView = Field of view in the y direction, in radians.
-         * @param aspectRatio = Aspect ratio, defined as view space width divided by height. To match the aspect ratio of the viewport.
-         * @param nearPlaneDistance = Distance to the near view plane.
-         * @param farPlaneDistance = Distance to the far view plane.
+         * @param fovy = Field of view in the y direction, in radians.
+         * @param aspect = Aspect ratio, defined as view space width divided by height. To match the aspect ratio of the viewport.
+         * @param zNear = Distance to the near view plane.
+         * @param zFar = Distance to the far view plane.
          * @return the perspective matrix.
          */
-        static Matrix createPerspectiveFieldOfView(
-                const float fieldOfView,
-                const float aspectRatio,
-                const float nearPlaneDistance,
-                const float farPlaneDistance);
+        static Matrix perspective(
+                const float fovy,
+                const float aspect,
+                const float zNear,
+                const float zFar);
 
         /**
-         * @brief Builds a perspective projection matrix and returns the result by value.
+         * @brief Builds a perspective projection matrix based on a field of view
+         * @param fov = Field of view in the y direction, in radians.
          * @param width = Width of the view volume at the near view plane.
          * @param height = Height of the view volume at the near view plane.
-         * @param nearPlaneDistance = Distance to the near view plane.
-         * @param farPlaneDistance = Distance to the far view plane.
-         * @return
+         * @param zNear = Distance to the near view plane.
+         * @param zFar =  Distance to the far view plane.
+         * @returnthe perspective matrix.
          */
-        static Matrix createPerspective(const float width,
-                                        const float height,
-                                        const float nearPlaneDistance,
-                                        const float farPlaneDistance);
-
-        /**
-         * @brief Builds a customized, perspective projection matrix.
-         * @param left = Minimum x-value of the view volume at the near view plane.
-         * @param right = Maximum x-value of the view volume at the near view plane.
-         * @param bottom = Minimum y-value of the view volume at the near view plane.
-         * @param top = Maximum y-value of the view volume at the near view plane.
-         * @param nearPlaneDistance = Distance to the near view plane.
-         * @param farPlaneDistance = Distance to the far view plane.
-         * @return the perspective projection matrix.
-         */
-        static Matrix createPerspectiveOffCenter(
-                const float left,
-                const float right,
-                const float bottom,
-                const float top,
-                const float nearPlaneDistance,
-                const float farPlaneDistance);
+        static Matrix perspectiveFov(
+                const float fov,
+                const float width,
+                const float height,
+                const float zNear,
+                const float zFar);
 
         /**
          * @brief Builds an orthogonal projection matrix.
@@ -167,39 +172,11 @@ namespace nx
          * @param zFarPlane = Maximum z-value of the view volume.
          * @return the orthoganal projection matrix.
          */
-        static Matrix createOrthographic(
+        static Matrix orthographic(
                 const float width,
                 const float height,
                 const float zNearPlane,
                 const float zFarPlane);
-
-        /**
-         * @brief Builds a customized, orthogonal projection matrix.
-         * @param left = Minimum x-value of the view volume.
-         * @param right = Maximum x-value of the view volume.
-         * @param bottom = Minimum y-value of the view volume.
-         * @param top = Maximum y-value of the view volume.
-         * @param zNearPlane = Minimum z-value of the view volume.
-         * @param zFarPlane = Maximum z-value of the view volume.
-         * @return the orthagonal projection matrix.
-         */
-        static Matrix createOrthographicOffCenter(
-                const float left,
-                const float right,
-                const float bottom,
-                const float top,
-                const float zNearPlane,
-                const float zFarPlane);
-
-        /**
-         * @brief Creates a view matrix.
-         * @param cameraPosition = The position of the camera.
-         * @param cameraTarget = The target towards which the camera is pointing.
-         * @param cameraUpVector = The direction that is "up" from the camera's point of view.
-         * @return the view matrix.
-         */
-        static Matrix createLookAt(const vec3f& cameraPosition, const vec3f& cameraTarget, const vec3f& cameraUpVector);
-
         /**
          * @brief Creates a scaling Matrix.
          * @param xScale = Value to scale by on the x-axis.
@@ -209,36 +186,8 @@ namespace nx
          */
         static Matrix scale(const float xScale, const float yScale, const float zScale);
 
-        /**
-         * @brief Creates a spherical billboard that rotates around a specified object position.
-         * @param objectPosition = Position of the object the billboard will rotate around.
-         * @param cameraPosition = Position of the camera.
-         * @param cameraUpVector = The up vector of the camera.
-         * @param cameraForwardVector = Forward vector of the camera.
-         * @return the matrix for the billboard.
-         */
-        static Matrix createBillboard(const vec3f& objectPosition,
-                                      const vec3f& cameraPosition,
-                                      const vec3f& cameraUpVector,
-                                      const vec3f& cameraForwardVector);
-
-        /**
-         * @brief Creates a cylindrical billboard that rotates around a specified axis.
-         * @param objectPosition = Position of the object the billboard will rotate around.
-         * @param cameraPosition = Position of the camera.
-         * @param rotateAxis = Axis to rotate the billboard around.
-         * @param cameraForwardVector = Forward vector of the camera.
-         * @param objectForwardVector = Forward vector of the object.
-         * @return
-         */
-        static Matrix createConstrainedBillboard(const vec3f& objectPosition,
-                                                 const vec3f& cameraPosition,
-                                                 const vec3f& rotateAxis,
-                                                 const vec3f& cameraForwardVector,
-                                                 const vec3f& objectForwardVector);
-
         //Our matrix data.
-        row_type m[4];
+        col_type m[4];
     };
 
 #include <nex/math/matrix.inl>
