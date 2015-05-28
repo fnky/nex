@@ -198,21 +198,6 @@ namespace nx
          */
         static Vec2<T> hermite(const Vec2<T>& vectorA, const Vec2<T>& tangentA, const Vec2<T>& vectorB, const Vec2<T>& tangentB, const T amount);
 
-        /*
-         * TODO (Tyler): Implement the following.
-         *
-         * - static void Transform(ref Vector2 position, ref Matrix matrix, out Vector2 result)
-         * - public static Vector2 TransformNormal(Vector2 normal, Matrix matrix)
-         * - public static Vector2 Transform(Vector2 value, Quaternion rotation)
-         * - static void Transform(Vector2[] sourceArray, ref Matrix matrix, Vector2[] destinationArray)
-         * - static void Transform(Vector2[] sourceArray, int sourceIndex, ref Matrix matrix, Vector2[] destinationArray, int destinationIndex, int length)
-         * - static void TransformNormal(Vector2[] sourceArray, ref Matrix matrix, Vector2[] destinationArray)
-         * - static void TransformNormal(Vector2[] sourceArray, int sourceIndex, ref Matrix matrix, Vector2[] destinationArray, int destinationIndex, int length)
-         * - static void Transform(Vector2[] sourceArray, ref Quaternion rotation, Vector2[] destinationArray)
-         * - static void Transform(Vector2[] sourceArray, int sourceIndex, ref Quaternion rotation, Vector2[] destinationArray, int destinationIndex, int length)
-         *
-         */
-
         //X value.
         T x;
 
