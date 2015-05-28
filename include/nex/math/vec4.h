@@ -45,6 +45,18 @@ namespace nx
             return *this;
         }
 
+        /**
+         * @brief Calculates the length of the vector.
+         * @return vector length.
+         */
+        T length() const;
+
+        /**
+         * @brief Calculates the length squared of the vector.
+         * @return vector squared length.
+         */
+        T lengthSquared() const;
+
         T x;
         T y;
         T z;

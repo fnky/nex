@@ -33,6 +33,20 @@ inline Vec4<T>::Vec4(const Vec4<U>& vector) :
     w(static_cast<T>(vector.w))
 { }
 
+
+template <typename T>
+inline T Vec4<T>::length() const
+{
+    return sqrtf((x * x) + (y * y) +  (z * z) +  (w * w));
+}
+
+template <typename T>
+inline T Vec4<T>::lengthSquared() const
+{
+    return (x * x) + (y * y) +  (z * z) +  (w * w);
+}
+
+
 template <typename T>
 inline Vec4<T> operator -(const Vec4<T>& right)
 {
