@@ -313,15 +313,17 @@ inline Vec2<T> operator /(const Vec2<T>& left, const Vec2<T>& right)
 template <typename T>
 inline Vec2<T> operator /(const Vec2<T>& left, T right)
 {
-    return Vec2<T>(left.x / right,
-                   left.y / right);
+    const T oneOver = static_cast<T>(1.0) / right;
+    return Vec2<T>(left.x * oneOver,
+                   left.y * oneOver);
 }
 
 template <typename T>
 inline Vec2<T>& operator /=(Vec2<T>& left, T right)
 {
-    left.x /= right;
-    left.y /= right;
+    const T oneOver = static_cast<T>(1.0) / right;
+    left.x *= oneOver;
+    left.y *= oneOver;
 
     return left;
 }

@@ -140,19 +140,22 @@ inline Vec4<T> operator /(const Vec4<T>& left, const Vec4<T>& right)
 template <typename T>
 inline Vec4<T> operator /(const Vec4<T>& left, const T right)
 {
-    return Vec4<T>(left.x / right,
-                   left.y / right,
-                   left.z / right,
-                   left.w / right);
+    const T oneOver = static_cast<T>(1.0) / right;
+    return Vec4<T>(left.x * oneOver,
+                   left.y * oneOver,
+                   left.z * oneOver,
+                   left.w * oneOver);
 }
 
 template <typename T>
 inline Vec4<T>& operator /=(Vec4<T>& left, const T right)
 {
-    left.x /= right;
-    left.y /= right;
-    left.z /= right;
-    left.w /= right;
+    const T oneOver = static_cast<T>(1.0) / right;
+
+    left.x *= oneOver;
+    left.y *= oneOver;
+    left.z *= oneOver;
+    left.w *= oneOver;
 
     return left;
 }

@@ -416,17 +416,19 @@ inline Vec3<T> operator /(const Vec3<T>& left, const Vec3<T>& right)
 template <typename T>
 inline Vec3<T> operator /(const Vec3<T>& left, T right)
 {
-    return Vec3<T>(left.x / right,
-                   left.y / right,
-                   left.z / right);
+    const T oneOver = static_cast<T>(1.0) / right;
+    return Vec3<T>(left.x * oneOver,
+                   left.y * oneOver,
+                   left.z * oneOver);
 }
 
 template <typename T>
 inline Vec3<T>& operator /=(Vec3<T>& left, T right)
 {
-    left.x /= right;
-    left.y /= right;
-    left.z /= right;
+    const T oneOver = static_cast<T>(1.0) / right;
+    left.x *= oneOver;
+    left.y *= oneOver;
+    left.z *= oneOver;
 
     return left;
 }
