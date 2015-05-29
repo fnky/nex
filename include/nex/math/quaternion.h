@@ -22,6 +22,22 @@ namespace nx
          */
         Quaternion(const T x, const T y, const T z, const T w);
 
+        /**
+         * it's called only when U != T.
+         * A call to this constructor will fail to compile if U
+         * is not convertible to T.
+         */
+        template <typename U>
+        explicit Quaternion(const Quaternion<U>& vector);
+
+        T& operator=(const T& lhs) & {
+            x = lhs.x;
+            y = lhs.y;
+            z = lhs.z;
+            w = lhs.w;
+            return *this;
+        }
+
         T x;
         T y;
         T z;
