@@ -133,7 +133,7 @@ inline T Vec4<T>::dot(const Vec4<T>& left, const Vec4<T>& right)
 }
 
 template <typename T>
-inline Vec4<T> Vec4<T>:: normalize(const Vec4<T>& value)
+inline Vec4<T> Vec4<T>::normalize(const Vec4<T>& value)
 {
     const T oneOverLength = 1.0f / value.length();
 
@@ -144,6 +144,17 @@ inline Vec4<T> Vec4<T>:: normalize(const Vec4<T>& value)
     result.z *= oneOverLength;
     result.w *= oneOverLength;
 
+    return result;
+}
+
+template <typename T>
+inline Vec4<T> Vec4<T>::min(const Vec4<T>& left, const Vec4<T>& right)
+{
+    Vec4<T> result;
+    result.x = left.x < right.x ? left.x : right.x;
+    result.y = left.y < right.y ? left.y : right.y;
+    result.z = left.z < right.z ? left.z : right.z;
+    result.w = left.w < right.w ? left.w : right.w;
     return result;
 }
 

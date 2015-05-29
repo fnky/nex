@@ -115,6 +115,14 @@ namespace nx
          */
         static Vec4<T> normalize(const Vec4<T>& value);
 
+        /**
+         * @brief Returns a vector that contains the lowest value from each matching pair of components.
+         * @param left = left source vector.
+         * @param right = right source vector.
+         * @return the min values.
+         */
+        static Vec4<T> min(const Vec4<T>& left, const Vec4<T>& right);
+
         T x;
         T y;
         T z;
