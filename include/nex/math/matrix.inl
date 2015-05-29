@@ -1,5 +1,3 @@
-#include <cmath>
-
 /*
     IF YOU DON'T KNOW MATRIX MATH, DON'T TOUCH THIS STUFF.
     PLEASE AND THANK YOU.

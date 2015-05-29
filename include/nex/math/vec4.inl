@@ -1,5 +1,3 @@
-#include <cmath>
-
 template <typename T>
 inline Vec4<T>::Vec4() :
     x(0),

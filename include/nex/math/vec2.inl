@@ -1,5 +1,3 @@
-#include <cmath>
-
 template <typename T>
 inline Vec2<T>::Vec2() :
 x(0),

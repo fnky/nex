@@ -17,23 +17,26 @@ set (NEX_MATH_HEADERS
     ${INC_DIR}/matrix.h
     ${INC_DIR}/matrix.inl
 
+    ${INC_DIR}/quaternion.h
+    ${INC_DIR}/quaternion.inl
+
     ${INC_DIR}/rectangle.h
     ${INC_DIR}/rectangle.inl
 
-    ${INC_DIR}/ray.h
-    ${INC_DIR}/ray.inl
+    ${INC_DIR}/geo/ray.h
+    ${INC_DIR}/geo/ray.inl
 
-    ${INC_DIR}/plane.h
-    ${INC_DIR}/plane.inl
-    ${INC_DIR}/planeintersectiontype.h
+    ${INC_DIR}/geo/plane.h
+    ${INC_DIR}/geo/plane.inl
+    ${INC_DIR}/geo/planeintersectiontype.h
 
-    ${INC_DIR}/quaternion.h
-    ${INC_DIR}/quaternion.inl
+    ${INC_DIR}/gjk.h
 
     ${INC_DIR}/mathhelper.h
 )
 
 set (NEX_MATH_SRC
+    ${SRC_DIR}/gjk.cpp
     ${SRC_DIR}/mathhelper.cpp
 )
 

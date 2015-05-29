@@ -1,5 +1,3 @@
-#include <cmath>
-
 template <typename T>
 inline Vec3<T>::Vec3() :
 x(0),
@@ -108,7 +106,7 @@ inline T Vec3<T>::distance(const Vec3<T>& vectorA, const Vec3<T>& vectorB)
     const T deltaY = vectorA.y - vectorB.y;
     const T deltaZ = vectorA.z - vectorB.z;
 
-    return static_cast<T>(std::sqrt((deltaX*deltaX) + (deltaY*deltaY) + (deltaZ*deltaZ)));
+    return static_cast<T>(sqrt((deltaX*deltaX) + (deltaY*deltaY) + (deltaZ*deltaZ)));
 }
 
 template <typename T>
@@ -118,7 +116,7 @@ inline T Vec3<T>::distance(const Vec3<T>& other) const
     const T deltaY = y - other.y;
     const T deltaZ = z - other.z;
 
-    return static_cast<T>(std::sqrt((deltaX*deltaX) + (deltaY*deltaY) + (deltaZ*deltaZ)));
+    return static_cast<T>(sqrt((deltaX*deltaX) + (deltaY*deltaY) + (deltaZ*deltaZ)));
 }
 
 template <typename T>

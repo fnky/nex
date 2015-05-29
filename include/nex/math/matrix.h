@@ -139,6 +139,15 @@ namespace nx
         static Matrix createFromAxisAngle(const vec3f& axis, const float angle);
 
         /**
+         * @brief Creates a scaling Matrix.
+         * @param xScale = Value to scale by on the x-axis.
+         * @param yScale = Value to scale by on the y-axis.
+         * @param zScale = Value to scale by on the z-axis.
+         * @return the scale matrix.
+         */
+        static Matrix scale(const float xScale, const float yScale, const float zScale);
+
+        /**
          * @brief Builds a perspective projection matrix based on a field of view and returns by value.
          * @param fovy = Field of view in the y direction, in radians.
          * @param aspect = Aspect ratio, defined as view space width divided by height. To match the aspect ratio of the viewport.
@@ -181,14 +190,6 @@ namespace nx
                 const float height,
                 const float zNearPlane,
                 const float zFarPlane);
-        /**
-         * @brief Creates a scaling Matrix.
-         * @param xScale = Value to scale by on the x-axis.
-         * @param yScale = Value to scale by on the y-axis.
-         * @param zScale = Value to scale by on the z-axis.
-         * @return the scale matrix.
-         */
-        static Matrix scale(const float xScale, const float yScale, const float zScale);
 
         //Our matrix data.
         col_type m[4];
