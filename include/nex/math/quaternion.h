@@ -1,6 +1,10 @@
 #ifndef QUATERNION_H_INCLUDE
 #define QUATERNION_H_INCLUDE
 
+#ifndef VEC3_H_INCLUDE
+#include <nex/math/vec3.h>
+#endif
+
 namespace nx
 {
     template <typename T>
@@ -85,6 +89,14 @@ namespace nx
          * @return the inverse quaternion.
          */
         static Quaternion<T> inverse(const Quaternion& value);
+
+        /**
+         * @brief Creates a Quaternion from a vector and an angle to rotate about the vector.
+         * @param axis = The vector to rotate around.
+         * @param angle = The angle to rotate around the vector in radians.
+         * @return the rotation quaternion.
+         */
+        static Quaternion<T> createFromAxisAngle(Vec3<T> axis, const T angle);
 
         T x;
         T y;

@@ -111,6 +111,23 @@ inline Quaternion<T> Quaternion<T>::inverse(const Quaternion<T>& value)
 }
 
 template <typename T>
+inline Quaternion<T> Quaternion<T>::createFromAxisAngle(Vec3<T> axis, const T angle)
+{
+    const T halfAngle = angle * static_cast<T>(0.5);
+    const T halfSin = static_cast<T>(sin(halfAngle));
+    const T halfCos = static_cast<T>(cos(halfAngle));
+
+    Quaternion<T> result;
+
+    result.x = axis.x * halfSin;
+    result.y = axis.y * halfSin;
+    result.z = axis.z * halfSin;
+    result.w = halfCos;
+
+    return result;
+}
+
+template <typename T>
 inline Quaternion<T> operator -(const Quaternion<T>& right)
 {
     return Quaternion<T>(-right.x, -right.y, -right.z, -right.w);
