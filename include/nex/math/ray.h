@@ -4,6 +4,10 @@
 #include <nex/math/vec3.h>
 #include <nex/math/plane.h>
 
+#include <nex/math/boundingbox.h>
+#include <nex/math/boundingsphere.h>
+#include <nex/math/boundingfrustum.h>
+
 namespace nx
 {
     class Ray
@@ -23,6 +27,13 @@ namespace nx
          * @return intersection result.
          */
         float intersects(const Plane& plane) const;
+
+        /**
+         * @brief Checks whether the Ray intersects a specified BoundingSphere
+         * @param sphere = The BoundingSphere to check for intersection with the Ray.
+         * @return intersection result.
+         */
+        float intersects(const BoundingSphere& sphere) const;
 
         /**
          * @brief Specifies the starting point of the Ray.
