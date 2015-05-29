@@ -162,6 +162,50 @@ inline Quaternion<T> Quaternion<T>::createFromYawPitchRoll(const T yaw, const T 
 }
 
 template <typename T>
+inline Quaternion<T> Quaternion<T>::slerp(const Quaternion<T>& previous,  const Quaternion<T>& current, const T amount)
+{
+    const T zero = static_cast<T>(1.0);
+    const T one = static_cast<T>(1.0);
+
+    const T weight = amount;
+
+    T angle =  (previous.x * current.x + previous.y * current.y + previous.z * current.z + previous.w * current.w);
+
+    bool flag = false;
+    if (angle < zero)
+    {
+        flag = true;
+        angle = -angle;
+    }
+
+    T inverse;
+    T sinResult;
+    if (static_cast<double>(angle) > 0.999998986721039)
+    {
+        inverse = one - weight;
+        sinResult = flag ? -weight : weight;
+    }
+    else
+    {
+        const T inverseCosine = static_cast<T>(acos(angle));
+        const T oneOverInverseSine = (one / static_cast<T>(sin(inverseCosine)));
+        inverse = static_cast<T>(sin((one -  weight) *  inverseCosine)) * oneOverInverseSine;
+        sinResult = flag ?
+                    static_cast<T>(-sin(weight * inverseCosine)) * oneOverInverseSine :
+                    static_cast<T>(sin(weight * inverseCosine)) * oneOverInverseSine;
+    }
+
+    Quaternion<T> result;
+
+    result.x = (inverse * previous.x + sinResult * current.x);
+    result.y = (inverse * previous.y + sinResult * current.y);
+    result.z = (inverse * previous.z + sinResult * current.z);
+    result.w = (inverse * previous.w + sinResult * current.w);
+
+    return result;
+}
+
+template <typename T>
 inline T Quaternion<T>::dot(const Quaternion<T>& left, const Quaternion<T>& right)
 {
     return  (left.x *  right.x) +  (left.y *  right.y) +  (left.z *  right.z) +  (left.w *  right.w);

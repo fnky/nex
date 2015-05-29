@@ -122,6 +122,15 @@ namespace nx
          */
         static T dot(const Quaternion<T>& left, const Quaternion<T>& right);
 
+        /**
+         * @brief Interpolates between two quaternions, using spherical linear interpolation.
+         * @param previous = The previous quaternion.
+         * @param current = The current quaternion.
+         * @param amount = The interpolation weight.
+         * @return the interpolated quaternion.
+         */
+        static Quaternion slerp(const Quaternion<T>& previous,  const Quaternion<T>& current, const T amount);
+
         T x;
         T y;
         T z;
