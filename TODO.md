@@ -1,9 +1,27 @@
-- Implement the following classes -
-
-**** Math Library ****   
+/////////////////////////////////////////////////////////////////////
+// Implement the following                                         //
+/////////////////////////////////////////////////////////////////////
+- BoundingBox
+	* intersections
+- BoundingFrustum
+	* intersections
+- BoundingSphere
+	* intersections
 - Ray
-- Rectangle
-- Plane
-- PlaneIntersection
-- MathHelper
-- GJK
+	* intersections
+
+/////////////////////////////////////////////////////////////////////
+// Other                                                           //
+/////////////////////////////////////////////////////////////////////
+
+- Organize the math 'src' and 'include' folder.
+	- Maybe break up into a few different folder groups because as it is, it is getting cluttered.
+	
+	
+	
+	
+/////////////////////////////////////////////////////////////////////
+// Ideas/Brainstorming                                             //
+/////////////////////////////////////////////////////////////////////
+
+- Nada.
