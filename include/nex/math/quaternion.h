@@ -129,7 +129,7 @@ namespace nx
          * @param amount = The interpolation weight.
          * @return the interpolated quaternion.
          */
-        static Quaternion slerp(const Quaternion<T>& previous,  const Quaternion<T>& current, const T amount);
+        static Quaternion<T> slerp(const Quaternion<T>& previous,  const Quaternion<T>& current, const T amount);
 
         /**
          * @brief Linearly interpolates between two quaternions.
@@ -138,7 +138,15 @@ namespace nx
          * @param amount = The interpolation weight.
          * @return the interpolated quaternion.
          */
-        static Quaternion lerp(const Quaternion<T>& previous,  const Quaternion<T>& current, const T amount);
+        static Quaternion<T> lerp(const Quaternion<T>& previous,  const Quaternion<T>& current, const T amount);
+
+        /**
+         * @brief Concatenates two Quaternions; the result represents the left rotation followed by the right rotation.
+         * @param left = The first Quaternion rotation in the series.
+         * @param right = The second Quaternion rotation in the series.
+         * @return the concententated quaternion.
+         */
+        static Quaternion<T> concatenate(const Quaternion<T>& left, const Quaternion<T>& right);
 
         T x;
         T y;

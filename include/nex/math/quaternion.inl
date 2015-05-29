@@ -238,6 +238,25 @@ inline Quaternion<T> Quaternion<T>::lerp(const Quaternion<T>& previous,  const Q
 }
 
 template <typename T>
+inline Quaternion<T> Quaternion<T>::concatenate(const Quaternion<T>& left, const Quaternion<T>& right)
+{
+
+    const T a1 = (right.y * left.z - right.z * left.y);
+    const T a2 = (right.z * left.x - right.x * left.z);
+    const T a3 = (right.x * left.y - right.y * left.x);
+    const T a4 = (right.x * left.x + right.y * left.y + right.z * left.z);
+
+    Quaternion<T> result;
+
+    result.x = (right.x * left.w + left.x * right.w) + a1;
+    result.y = (right.y * left.w + left.y * right.w) + a2;
+    result.z = (right.z * left.w + left.z * right.w) + a3;
+    result.w = right.w * left.w - a4;
+
+    return result;
+}
+
+template <typename T>
 inline T Quaternion<T>::dot(const Quaternion<T>& left, const Quaternion<T>& right)
 {
     return  (left.x *  right.x) +  (left.y *  right.y) +  (left.z *  right.z) +  (left.w *  right.w);
