@@ -170,6 +170,33 @@ inline Vec4<T> Vec4<T>::max(const Vec4<T>& left, const Vec4<T>& right)
 }
 
 template <typename T>
+inline Vec4<T> Vec4<T>::clamp(const Vec4<T>& value, const Vec4<T>& min, const Vec4<T>& max)
+{
+    const float valueX = value.x;
+    const float minX = valueX > max.x ? max.x : valueX;
+    const float resultX =  minX < min.x ? min.x : minX;
+
+    const float valueY = value.y;
+    const float minY = valueY > max.y ? max.y : valueY;
+    const float resultY =  minY < min.y ? min.y : minY;
+
+    const float valueZ = value.z;
+    const float minZ = valueZ > max.z ? max.z : valueZ;
+    const float resultZ = minZ < min.z ? min.z : minZ;
+
+    const float valueW = value.w;
+    const float minW = valueW > max.w ? max.w : valueW;
+    const float resultW = minW < min.w ? min.w : minW;
+
+    Vec4<T> result;
+    result.x = resultX;
+    result.y = resultY;
+    result.z = resultZ;
+    result.w = resultW;
+    return result;
+}
+
+template <typename T>
 inline Vec4<T> operator -(const Vec4<T>& right)
 {
     return Vec4<T>(-right.x, -right.y, -right.z, -right.w);

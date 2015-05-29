@@ -131,6 +131,15 @@ namespace nx
          */
         static Vec4<T> max(const Vec4<T>& left, const Vec4<T>& right);
 
+        /**
+         * @brief Restricts a value to be within a specified range.
+         * @param value = The value to restrict.
+         * @param min = the minimum value.
+         * @param max = the maximum value.
+         * @return the clamped vector.
+         */
+        static Vec4<T> clamp(const Vec4<T>& value, const Vec4<T>& min, const Vec4<T>& max);
+
         T x;
         T y;
         T z;
