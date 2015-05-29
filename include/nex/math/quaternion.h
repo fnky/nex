@@ -131,6 +131,15 @@ namespace nx
          */
         static Quaternion slerp(const Quaternion<T>& previous,  const Quaternion<T>& current, const T amount);
 
+        /**
+         * @brief Linearly interpolates between two quaternions.
+         * @param previous = The previous quaternion.
+         * @param current = The current quaternion.
+         * @param amount = The interpolation weight.
+         * @return the interpolated quaternion.
+         */
+        static Quaternion lerp(const Quaternion<T>& previous,  const Quaternion<T>& current, const T amount);
+
         T x;
         T y;
         T z;

@@ -206,6 +206,38 @@ inline Quaternion<T> Quaternion<T>::slerp(const Quaternion<T>& previous,  const 
 }
 
 template <typename T>
+inline Quaternion<T> Quaternion<T>::lerp(const Quaternion<T>& previous,  const Quaternion<T>& current, const T amount)
+{
+    const T weight = amount;
+    const T inverseWeight = static_cast<T>(1.0) - weight;
+
+    Quaternion<T> result;
+    if ((previous.x * current.x) + (previous.y * current.y) + (previous.z * current.z) + (previous.w * current.w) >= 0.0)
+    {
+        result.x = (inverseWeight * previous.x + weight * current.x);
+        result.y = (inverseWeight * previous.y + weight * current.y);
+        result.z = (inverseWeight * previous.z + weight * current.z);
+        result.w = (inverseWeight * previous.w + weight * current.w);
+    }
+    else
+    {
+        result.x = (inverseWeight * previous.z - weight * current.z);
+        result.y = (inverseWeight * previous.y - weight * current.y);
+        result.z = (inverseWeight * previous.z - weight * current.z);
+        result.w = (inverseWeight * previous.w - weight * current.w);
+    }
+
+    const T scalar = static_cast<T>(1.0) /  result.length();
+
+    result.x *= scalar;
+    result.y *= scalar;
+    result.z *= scalar;
+    result.w *= scalar;
+
+    return result;
+}
+
+template <typename T>
 inline T Quaternion<T>::dot(const Quaternion<T>& left, const Quaternion<T>& right)
 {
     return  (left.x *  right.x) +  (left.y *  right.y) +  (left.z *  right.z) +  (left.w *  right.w);
