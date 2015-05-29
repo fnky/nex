@@ -2,6 +2,7 @@
 #define PLANE_H_INCLUDE
 
 #include "vec3.h"
+#include "vec4.h"
 
 namespace nx
 {
@@ -33,6 +34,20 @@ namespace nx
          * @brief Changes the coefficients of the Normal vector of this Plane to make it of unit length.
          */
         void normalize();
+
+        /**
+         * @brief Calculates the dot product of a specified Vector4 and this Plane.
+         * @param value = The Vector4 to multiply this Plane by.
+         * @return the dot product.
+         */
+        float dot(const vec4f& value) const;
+
+        /**
+         * @brief Returns the dot product of a specified Vector3 and the Normal vector of this Plane plus the distance (D) value of the Plane.
+         * @param The Vector3 to multiply by.
+         * @return the dot coordinate.
+         */
+        float dotCoordinate(const vec3f& value) const;
 
         /**
          * @brief Changes the coefficients of the Normal vector of this Plane to make it of unit length.

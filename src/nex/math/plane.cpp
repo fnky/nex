@@ -51,6 +51,16 @@ void Plane::normalize()
     distance *= oneOverLength;
 }
 
+float Plane::dot(const vec4f& value) const
+{
+    return (normal.x * value.x + normal.y * value.y + normal.z * value.z + distance * value.w);
+}
+
+float Plane::dotCoordinate(const vec3f& value) const
+{
+    return (normal.x * value.x + normal.y * value.y + normal.z * value.z) + distance;
+}
+
 Plane Plane::normalize(const Plane& plane)
 {
     const float normalLength = (plane.normal.x * plane.normal.x + plane.normal.y * plane. normal.y + plane.normal.z * plane.normal.z);
