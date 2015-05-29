@@ -159,6 +159,17 @@ inline Vec4<T> Vec4<T>::min(const Vec4<T>& left, const Vec4<T>& right)
 }
 
 template <typename T>
+inline Vec4<T> Vec4<T>::max(const Vec4<T>& left, const Vec4<T>& right)
+{
+    Vec4<T> result;
+    result.x = left.x > right.x ? left.x : right.x;
+    result.y = left.y > right.y ? left.y : right.y;
+    result.z = left.z > right.z ? left.z : right.z;
+    result.w = left.w > right.w ? left.w : right.w;
+    return result;
+}
+
+template <typename T>
 inline Vec4<T> operator -(const Vec4<T>& right)
 {
     return Vec4<T>(-right.x, -right.y, -right.z, -right.w);

@@ -123,6 +123,14 @@ namespace nx
          */
         static Vec4<T> min(const Vec4<T>& left, const Vec4<T>& right);
 
+        /**
+         * @brief Returns a vector that contains the heighest value from each matching pair of components.
+         * @param left = left source vector.
+         * @param right = right source vector.
+         * @return the max values.
+         */
+        static Vec4<T> max(const Vec4<T>& left, const Vec4<T>& right);
+
         T x;
         T y;
         T z;
