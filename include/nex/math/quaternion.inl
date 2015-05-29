@@ -26,6 +26,18 @@ inline Quaternion<T>::Quaternion(const Quaternion<U>& vector) :
 { }
 
 template <typename T>
+inline T Quaternion<T>::length() const
+{
+    return sqrt((x * x) + (y * y) + (z * z) + (w * w));
+}
+
+template <typename T>
+inline T Quaternion<T>::lengthSquared() const
+{
+    return (x * x) + (y * y) + (z * z) + (w * w);
+}
+
+template <typename T>
 inline Quaternion<T> operator -(const Quaternion<T>& right)
 {
     return Quaternion<T>(-right.x, -right.y, -right.z, -right.w);

@@ -38,6 +38,18 @@ namespace nx
             return *this;
         }
 
+        /**
+         * @brief Calculates the length of a Quaternion.
+         * @return the length.
+         */
+        T length() const;
+
+        /**
+         * @brief Calculates the length squared of a Quaternion.
+         * @return the length squared.
+         */
+        T lengthSquared() const;
+
         T x;
         T y;
         T z;
