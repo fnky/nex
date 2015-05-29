@@ -10,6 +10,11 @@
 
 namespace nx
 {
+/*
+ * TODO:
+ * float intersects(BoundingFrustum frustum)
+ * float intersects(BoundingBox box);
+ **/
     class Ray
     {
     public:

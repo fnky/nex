@@ -8,7 +8,21 @@ namespace nx
     class Plane
     {
     public:
-        Plane(vec3f normal, float distance);
+
+        /**
+         * @brief Creates a new instance of Plane.
+         * @param normal = The plane normal.
+         * @param distance = The distance of the plane.
+         */
+        Plane(const vec3f& normal, const float distance);
+
+        /**
+         * @brief Creates a new instance of Plane.
+         * @param vertexA = One point of a triangle defining the Plane.
+         * @param vertexB = One point of a triangle defining the Plane.
+         * @param vertexC = One point of a triangle defining the Plane.
+         */
+        Plane(const vec3f& vertexA, const vec3f& vertexB, const vec3f& vertexC);
 
         /**
          * @brief The normal vector of the Plane.
