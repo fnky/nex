@@ -1,8 +1,12 @@
 #ifndef PLANE_H_INCLUDE
 #define PLANE_H_INCLUDE
 
-#include "vec3.h"
-#include "vec4.h"
+#include <nex/math/vec3.h>
+#include <nex/math/vec4.h>
+
+#include <nex/math/planeintersectiontype.h>
+
+#include <nex/math/boundingbox.h>
 
 namespace nx
 {
@@ -55,6 +59,13 @@ namespace nx
          * @return the dot normal.
          */
         float dotNormal(const vec3f& value) const;
+
+        /**
+         * @brief Checks whether the current Plane intersects a specified BoundingBox.
+         * @param box = The BoundingBox to test for intersection with.
+         * @return the intersection results.
+         */
+        PlaneIntersectionType intersects(BoundingBox box) const;
 
         /**
          * @brief Changes the coefficients of the Normal vector of this Plane to make it of unit length.

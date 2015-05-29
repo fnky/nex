@@ -66,6 +66,26 @@ float Plane::dotNormal(const vec3f& value) const
     return (normal.x * value.x + normal.y * value.y + normal.z * value.z);
 }
 
+PlaneIntersectionType Plane::intersects(BoundingBox box) const
+{
+    vec3f resultA;
+    resultA.x = normal.x >= 0.0f ? box.min.x : box.max.x;
+    resultA.y = normal.y >= 0.0f ? box.min.y : box.max.y;
+    resultA.z = normal.z >= 0.0f ? box.min.z : box.max.z;
+
+    vec3f resultB;
+    resultB.x = normal.x >= 0.0f ? box.max.x : box.min.x;
+    resultB.y = normal.y >= 0.0f ? box.max.y : box.min.y;
+    resultB.z = normal.z >= 0.0f ? box.max.z : box.min.z;
+
+    if (normal.x * resultA.x + normal.y * resultA.y + normal.z * resultA.z +  distance > 0.0f)
+        return PlaneIntersectionType::Front;
+
+    return (normal.x * resultB.x) +
+           (normal.y * resultB.y) +
+           (normal.z * resultB.z) + distance < 0.0f ? PlaneIntersectionType::Back : PlaneIntersectionType::Intersecting;
+}
+
 Plane Plane::normalize(const Plane& plane)
 {
     const float normalLength = (plane.normal.x * plane.normal.x + plane.normal.y * plane. normal.y + plane.normal.z * plane.normal.z);
