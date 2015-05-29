@@ -50,6 +50,13 @@ namespace nx
         float dotCoordinate(const vec3f& value) const;
 
         /**
+         * @brief Returns the dot product of a specified Vector3 and the Normal vector of this Plane.
+         * @param value = The Vector3 to multiply by.
+         * @return the dot normal.
+         */
+        float dotNormal(const vec3f& value) const;
+
+        /**
          * @brief Changes the coefficients of the Normal vector of this Plane to make it of unit length.
          * @param plane = plane to  normalize.
          * @return the normalized plane.
