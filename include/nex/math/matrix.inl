@@ -58,12 +58,12 @@ inline Matrix::Matrix(
     m[3][3] = m44;
 }
 
-inline row_type& Matrix::operator[] (const uint32 index)
+inline col_type& Matrix::operator[] (const uint32 index)
 {
     return m[index];
 }
 
-inline const row_type&  Matrix::operator[] (const uint32 index) const
+inline const col_type&  Matrix::operator[] (const uint32 index) const
 {
     return m[index];
 }

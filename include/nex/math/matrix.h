@@ -19,11 +19,15 @@
 /*
  * TODO (Tyler): Implement the following.
  *
- * - public static Vector2 TransformNormal(Vector2 normal, Matrix matrix)
- * - public static Vector2 Transform(Vector2 value, Quaternion rotation)
+ * - static Vector2 TransformNormal(Vector2 normal, Matrix matrix)
+ * - static Vector2 Transform(Vector2 value, Quaternion rotation)
+ *
  * - static Vector3 Transform(Vector3 position, Matrix matrix)
  * - static Vector3 TransformNormal(Vector3 normal, Matrix matrix)
  * - static Vector3 Transform(Vector3 value, Quaternion rotation)
+ *
+ * - static Vector4 Transform(Vector4 vector, Matrix matrix)
+ * - static Vector4 Transform(Vector4 value, Quaternion rotation)
  *
  * - frustum
  * - infinite perspective
@@ -89,14 +93,14 @@ namespace nx
          * @param index to lookup.
          * @return pointer to the data.
          */
-        row_type& operator[] (const uint32 index);
+        col_type& operator[] (const uint32 index);
 
         /**
          * @brief Allows the users of this class to access the interal values by [y][x] as needed.
          * @param index to lookup.
          * @return pointer to the data.
          */
-        const row_type& operator[] (const uint32 index) const;
+        const col_type& operator[] (const uint32 index) const;
 
         /**
          * @brief Create a translation matrix.
