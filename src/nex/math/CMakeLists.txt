@@ -23,12 +23,13 @@ set (NEX_MATH_HEADERS
     ${INC_DIR}/rectangle.h
     ${INC_DIR}/rectangle.inl
 
-    ${INC_DIR}/geo/ray.h
-    ${INC_DIR}/geo/ray.inl
+    ${INC_DIR}/ray.h
+    ${INC_DIR}/ray.inl
 
-    ${INC_DIR}/geo/plane.h
-    ${INC_DIR}/geo/plane.inl
-    ${INC_DIR}/geo/planeintersectiontype.h
+    ${INC_DIR}/plane.h
+    ${INC_DIR}/plane.inl
+
+    ${INC_DIR}/planeintersectiontype.h
 
     ${INC_DIR}/gjk.h
 
@@ -37,7 +38,8 @@ set (NEX_MATH_HEADERS
 
 set (NEX_MATH_SRC
     ${SRC_DIR}/gjk.cpp
-    ${SRC_DIR}/mathhelper.cpp
+    ${SRC_DIR}/ray.cpp
+    ${SRC_DIR}/plane.cpp
 )
 
 include_directories (${NEX_INCLUDE_DIR})

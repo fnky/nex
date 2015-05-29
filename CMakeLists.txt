@@ -1,7 +1,7 @@
 cmake_minimum_required (VERSION 2.6)
 project (nex)
 
-message ("setting up the nex game engine")
+message ("setting up the nex game engine\n")
 
 # Setup some general cmake settings
 set (CMAKE_COLOR_MAKEFILE ON)
