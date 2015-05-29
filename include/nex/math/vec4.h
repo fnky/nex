@@ -77,7 +77,12 @@ namespace nx
          * @param right = right source vector.
          * @return the dot product of the vectors.
          */
-         T dot(const Vec4<T>& other) const;
+        T dot(const Vec4<T>& other) const;
+
+        /**
+         * @brief Turns the current vector into a unit vector.
+         */
+        void normalize();
 
         /**
          * @brief Calculates the distance between two vectors.
@@ -102,6 +107,13 @@ namespace nx
          * @return the dot product of the vectors.
          */
         static T dot(const Vec4<T>& left, const Vec4<T>& right);
+
+        /**
+         * @brief Turns the specifed vector into a unit vector.
+         * @param value = vector to normalize
+         * @return unit vector.
+         */
+        static Vec4<T> normalize(const Vec4<T>& value);
 
         T x;
         T y;

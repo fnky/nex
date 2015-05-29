@@ -85,6 +85,16 @@ inline T Vec4<T>::dot(const Vec4<T>& other) const
 }
 
 template <typename T>
+inline void Vec4<T>::normalize()
+{
+  const T oneOverLength = 1.0f / length();
+  x *= oneOverLength;
+  y *= oneOverLength;
+  z *= oneOverLength;
+  w *= oneOverLength;
+}
+
+template <typename T>
 inline T Vec4<T>::distance(const Vec4<T>& left, const Vec4<T>& right)
 {
     const T deltaX = left.x - right.x;
@@ -120,6 +130,21 @@ inline T Vec4<T>::dot(const Vec4<T>& left, const Vec4<T>& right)
            (left.y * right.y) +
            (left.z * right.z) +
            (left.w * right.w);
+}
+
+template <typename T>
+inline Vec4<T> Vec4<T>:: normalize(const Vec4<T>& value)
+{
+    const T oneOverLength = 1.0f / value.length();
+
+    Vec4<T> result;
+
+    result.x *= oneOverLength;
+    result.y *= oneOverLength;
+    result.z *= oneOverLength;
+    result.w *= oneOverLength;
+
+    return result;
 }
 
 template <typename T>
