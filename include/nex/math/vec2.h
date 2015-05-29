@@ -7,7 +7,6 @@
 namespace nx
 {
     template <typename T>
-
     class Vec2
     {
     public:
