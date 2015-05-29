@@ -61,6 +61,11 @@ namespace nx
         void conjugate();
 
         /**
+         * @brief Inverses the current Quaternion.
+         */
+        void inverse();
+
+        /**
          * @brief Divides each component of the quaternion by the length of the quaternion.
          * @param value = the quaternion to normalize.
          * @return the normalized quaternion.
@@ -73,6 +78,13 @@ namespace nx
          * @return the conjugate.
          */
         static Quaternion<T> conjugate(const Quaternion& value);
+
+        /**
+         * @brief Returns the inverse of a Quaternion.
+         * @param value = Quaternion to calculate the inverse of.
+         * @return the inverse quaternion.
+         */
+        static Quaternion<T> inverse(const Quaternion& value);
 
         T x;
         T y;
