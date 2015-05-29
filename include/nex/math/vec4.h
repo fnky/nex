@@ -1,6 +1,8 @@
 #ifndef VEC4_H_INCLUDE
 #define VEC4_H_INCLUDE
 
+#include <nex/system/typedefs.h>
+
 namespace nx
 {
     template <typename T>
@@ -211,8 +213,8 @@ namespace nx
 
 #include <nex/math/vec4.inl>
 
-    typedef Vec4<int> vec4i;
-    typedef Vec4<int> vec4u;
+    typedef Vec4<int32> vec4i;
+    typedef Vec4<uint32> vec4u;
     typedef Vec4<float> vec4f;
     typedef Vec4<double> vec4d;
 } //namespace nx

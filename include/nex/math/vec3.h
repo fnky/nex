@@ -232,8 +232,8 @@ namespace nx
 
 #include <nex/math/vec3.inl>
 
-    typedef Vec3<int> vec3i;
-    typedef Vec3<int> vec3u;
+    typedef Vec3<int32> vec3i;
+    typedef Vec3<uint32> vec3u;
     typedef Vec3<float> vec3f;
     typedef Vec3<double> vec3d;
 
