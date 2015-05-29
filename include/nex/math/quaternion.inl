@@ -127,6 +127,34 @@ inline Quaternion<T> Quaternion<T>::createFromAxisAngle(Vec3<T> axis, const T an
     return result;
 }
 
+
+template <typename T>
+inline Quaternion<T> Quaternion<T>::createFromYawPitchRoll(const T yaw, const T pitch, const T roll)
+{
+    const T halfScalar = static_cast<T>(0.5);
+
+    const T halfRoll = roll * halfScalar;
+    const T rollSin = static_cast<T>(sin(halfRoll));
+    const T rollCos = static_cast<T>(cos(halfRoll));
+
+    const T halfPitch = pitch * halfScalar;
+    const T pitchSin = static_cast<T>(sin(halfPitch));
+    const T pitchCos = static_cast<T>(cos(halfPitch));
+
+    const T halfYaw = yaw * halfScalar;
+    const T yawSin = static_cast<T>(sin(halfYaw));
+    const T yawCos = static_cast<T>(cos(halfYaw));
+
+    Quaternion<T> result;
+
+    result.x = (yawCos *  pitchSin *  rollCos +  yawSin *  pitchCos *  rollSin);
+    result.y = (yawSin *  pitchCos *  rollCos -  yawCos *  pitchSin *  rollSin);
+    result.z = (yawCos *  pitchCos *  rollSin -  yawSin *  pitchSin *  rollCos);
+    result.w = (yawCos *  pitchCos *  rollCos +  yawSin *  pitchSin *  rollSin);
+
+    return result;
+}
+
 template <typename T>
 inline Quaternion<T> operator -(const Quaternion<T>& right)
 {

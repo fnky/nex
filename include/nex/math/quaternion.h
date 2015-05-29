@@ -98,6 +98,15 @@ namespace nx
          */
         static Quaternion<T> createFromAxisAngle(Vec3<T> axis, const T angle);
 
+        /**
+         * @brief Creates a new Quaternion from specified yaw, pitch, and roll angles.
+         * @param yaw = The yaw angle, in radians, around the y-axis.
+         * @param pitch = The pitch angle, in radians, around the x-axis.
+         * @param roll = The roll angle, in radians, around the z-axis.
+         * @return the rotation quaternion.
+         */
+        static Quaternion<T> createFromYawPitchRoll(const T yaw, const T pitch, const T roll);
+
         T x;
         T y;
         T z;
