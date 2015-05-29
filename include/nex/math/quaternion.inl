@@ -113,65 +113,82 @@ inline Quaternion<T> operator *(const T left, const Quaternion<T>& right)
                 left * right.w);
 }
 
-/*
 template <typename T>
-inline Vec3<T>& operator *=(Vec3<T>& left, T right)
+inline Quaternion<T>& operator *=(Quaternion<T>& left, const T right)
 {
     left.x *= right;
     left.y *= right;
     left.z *= right;
+    left.w *= right;
 
     return left;
 }
 
+
 template <typename T>
-inline Vec3<T>& operator *=(Vec3<T>& left, const Vec3<T>& right)
+inline Quaternion<T>& operator *=(Quaternion<T>& left, const Quaternion<T>& right)
 {
-    left.x *= right.x;
-    left.y *= right.y;
-    left.z *= right.z;
+    const T crossA = (left.y * right.z - left.z * right.y);
+    const T crossB = (left.z * right.x - left.x * right.z);
+    const T crossC =  (left.x * right.y - left.y * right.x);
+    const T crossD = (left.x * right.x + left.y * right.y + left.z * right.z);
+
+    left.x = (left.x * right.w + right.x * left.w) + crossA;
+    left.y = (left.y *  right.w + right.y * left.w) + crossB;
+    left.z = (left.z * right.w + right.z * left.w) + crossC;
+    left.w = left.w * right.w - crossD;
 
     return left;
 }
 
+
 template <typename T>
-inline Vec3<T> operator /(const Vec3<T>& left, const Vec3<T>& right)
+inline Quaternion<T> operator /(const Quaternion<T>& left, const Quaternion<T>& right)
 {
-    return Vec3<T>(left.x / right.x,
-                   left.y / right.y,
-                   left.z / right.z);
+    const T oneOverSquareLength = 1.0f / (right.x * right.x + right.y * right.y + right.z * right.z + right.w * right.w);
+
+    const T scalarX = -right.x * oneOverSquareLength;
+    const T scalarY = -right.y * oneOverSquareLength;
+    const T scalarZ = -right.z * oneOverSquareLength;
+    const T scalarW = right.w * oneOverSquareLength;
+
+    const T xAdd = (left.y * scalarZ - left.z * scalarY);
+    const T yAdd = (left.z * scalarX - left.x * scalarZ);
+    const T zAdd = (left.x * scalarY - left.y * scalarX);
+    const T distance = (left.x * scalarX + left.y * scalarY + left.z * scalarZ);
+
+    Quaternion<T> result;
+
+    result.x = (left.x * scalarW + scalarX * left.w) + xAdd;
+    result.y = (left.y * scalarW + scalarY * left.w) + yAdd;
+    result.z = (left.z * scalarW + scalarZ * left.w) + zAdd;
+    result.w = left.w * scalarW - distance;
+
+    return result;
 }
 
 template <typename T>
-inline Vec3<T> operator /(const Vec3<T>& left, T right)
+inline Quaternion<T>& operator /=(Quaternion<T>& left, const Quaternion<T>& right)
 {
-    const T oneOver = static_cast<T>(1.0) / right;
-    return Vec3<T>(left.x * oneOver,
-                   left.y * oneOver,
-                   left.z * oneOver);
-}
+    const T oneOverSquareLength = 1.0f / (right.x * right.x + right.y * right.y + right.z * right.z + right.w * right.w);
 
-template <typename T>
-inline Vec3<T>& operator /=(Vec3<T>& left, T right)
-{
-    const T oneOver = static_cast<T>(1.0) / right;
-    left.x *= oneOver;
-    left.y *= oneOver;
-    left.z *= oneOver;
+    const T scalarX = -right.x * oneOverSquareLength;
+    const T scalarY = -right.y * oneOverSquareLength;
+    const T scalarZ = -right.z * oneOverSquareLength;
+    const T scalarW = right.w * oneOverSquareLength;
+
+    const T xAdd = (left.y * scalarZ - left.z * scalarY);
+    const T yAdd = (left.z * scalarX - left.x * scalarZ);
+    const T zAdd = (left.x * scalarY - left.y * scalarX);
+    const T distance = (left.x * scalarX + left.y * scalarY + left.z * scalarZ);
+
+    left.x = (left.x * scalarW + scalarX * left.w) + xAdd;
+    left.y = (left.y * scalarW + scalarY * left.w) + yAdd;
+    left.z = (left.z * scalarW + scalarZ * left.w) + zAdd;
+    left.w = left.w * scalarW - distance;
 
     return left;
 }
-
-template <typename T>
-inline Vec3<T>& operator /=(Vec3<T>& left, const Vec3<T>& right)
-{
-    left.x /= right.x;
-    left.y /= right.y;
-    left.z /= right.z;
-
-    return left;
-}
-*/
 
 template <typename T>
 inline bool operator ==(const Quaternion<T>& left, const Quaternion<T>& right)
