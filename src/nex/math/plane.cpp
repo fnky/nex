@@ -3,7 +3,10 @@
 
 namespace nx
 {
-
+Plane::Plane() :
+    normal(vec3f()),
+    distance(0.0f)
+{ }
 Plane::Plane(const vec3f& normal, const float distance) :
     normal(normal),
     distance(distance)
@@ -30,6 +33,42 @@ Plane::Plane(const vec3f& vertexA, const vec3f& vertexB, const vec3f& vertexC)
     normal.z = h3 * oneOverDistance;
 
     distance = -(normal.x * vertexA.x + normal.y * vertexA.y + normal.z * vertexA.z);
+}
+
+void Plane::normalize()
+{
+    const float normalLength = (normal.x * normal.x + normal.y * normal.y + normal.z * normal.z);
+
+    if (fabs(normalLength - 1.0f) < 1.19209289550781E-07f)
+        return;
+
+    const float oneOverLength = 1.0f / sqrtf(normalLength);
+
+    normal.x *= oneOverLength;
+    normal.y *= oneOverLength;
+    normal.z *= oneOverLength;
+
+    distance *= oneOverLength;
+}
+
+Plane Plane::normalize(const Plane& plane)
+{
+    const float normalLength = (plane.normal.x * plane.normal.x + plane.normal.y * plane. normal.y + plane.normal.z * plane.normal.z);
+
+    if (fabs(normalLength - 1.0f) < 1.19209289550781E-07f)
+        return Plane(plane.normal, plane.distance);
+
+    const float oneOverLength = 1.0f / sqrtf(normalLength);
+
+    Plane result;
+
+    result.normal.x *= oneOverLength;
+    result.normal.y *= oneOverLength;
+    result.normal.z *= oneOverLength;
+
+    result.distance *= oneOverLength;
+
+    return plane;
 }
 
 } //namespace nx

@@ -10,6 +10,11 @@ namespace nx
     public:
 
         /**
+         * @brief  Creates a new instance of Plane.
+         */
+        Plane();
+
+        /**
          * @brief Creates a new instance of Plane.
          * @param normal = The plane normal.
          * @param distance = The distance of the plane.
@@ -23,6 +28,18 @@ namespace nx
          * @param vertexC = One point of a triangle defining the Plane.
          */
         Plane(const vec3f& vertexA, const vec3f& vertexB, const vec3f& vertexC);
+
+        /**
+         * @brief Changes the coefficients of the Normal vector of this Plane to make it of unit length.
+         */
+        void normalize();
+
+        /**
+         * @brief Changes the coefficients of the Normal vector of this Plane to make it of unit length.
+         * @param plane = plane to  normalize.
+         * @return the normalized plane.
+         */
+        static Plane normalize(const Plane& plane);
 
         /**
          * @brief The normal vector of the Plane.
