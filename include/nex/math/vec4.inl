@@ -46,6 +46,63 @@ inline T Vec4<T>::lengthSquared() const
     return (x * x) + (y * y) +  (z * z) +  (w * w);
 }
 
+template <typename T>
+inline T Vec4<T>::distance(const Vec4<T>& other) const
+{
+    const float deltaX = x - other.x;
+    const float deltaY = y - other.y;
+    const float deltaZ = z - other.z;
+    const float deltaW = w - other.w;
+
+    return sqrtf(
+                (deltaX * deltaX) +
+                (deltaY * deltaY) +
+                (deltaZ * deltaZ) +
+                (deltaW * deltaW));
+}
+
+template <typename T>
+inline T Vec4<T>::distanceSquared(const Vec4<T>& other) const
+{
+    const float deltaX = x - other.x;
+    const float deltaY = y - other.y;
+    const float deltaZ = z - other.z;
+    const float deltaW = w - other.w;
+
+    return (deltaX * deltaX) +
+           (deltaY * deltaY) +
+           (deltaZ * deltaZ) +
+           (deltaW * deltaW);
+}
+
+template <typename T>
+inline float Vec4<T>::distance(const Vec4<T>& left, const Vec4<T>& right)
+{
+    const float deltaX = left.x - right.x;
+    const float deltaY = left.y - right.y;
+    const float deltaZ = left.z - right.z;
+    const float deltaW = left.w - right.w;
+
+    return sqrtf(
+                (deltaX * deltaX) +
+                (deltaY * deltaY) +
+                (deltaZ * deltaZ) +
+                (deltaW * deltaW));
+}
+
+template <typename T>
+inline float Vec4<T>::distanceSquared(const Vec4<T>& left, const Vec4<T>& right)
+{
+    const float deltaX = left.x - right.x;
+    const float deltaY = left.y - right.y;
+    const float deltaZ = left.z - right.z;
+    const float deltaW = left.w - right.w;
+
+    return (deltaX * deltaX) +
+           (deltaY * deltaY) +
+           (deltaZ * deltaZ) +
+           (deltaW * deltaW);
+}
 
 template <typename T>
 inline Vec4<T> operator -(const Vec4<T>& right)

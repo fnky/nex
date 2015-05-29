@@ -57,6 +57,36 @@ namespace nx
          */
         T lengthSquared() const;
 
+        /**
+         * @brief Calculates the distance between two vectors.
+         * @param other = the other source vector.
+         * @return the distance between this and the other vector.
+         */
+        T distance(const Vec4<T>& other) const;
+
+        /**
+         * @brief Calculates the distance squared between two vectors.
+         * @param other = the other source vector.
+         * @return the distance squared between this and the other vector.
+         */
+        T distanceSquared(const Vec4<T>& other) const;
+
+        /**
+         * @brief Calculates the distance between two vectors.
+         * @param left = Left source vector.
+         * @param right = right source vector.
+         * @return the distance between the given vectors.
+         */
+        static float distance(const Vec4<T>& left, const Vec4<T>& right);
+
+        /**
+         * @brief Calculates the distance squared between two vectors.
+         * @param left = Left source vector.
+         * @param right = right source vector.
+         * @return the distance squared between the given vectors.
+         */
+        static float distanceSquared(const Vec4<T>& left, const Vec4<T>& right);
+
         T x;
         T y;
         T z;
