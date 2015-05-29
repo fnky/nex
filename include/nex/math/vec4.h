@@ -217,4 +217,4 @@ namespace nx
     typedef Vec4<double> vec4d;
 } //namespace nx
 
-#endif
+#endif // VEC4_H_INCLUDE
