@@ -37,7 +37,7 @@ inline Vec4<T>::Vec4(const Vec4<U>& vector) :
 template <typename T>
 inline T Vec4<T>::length() const
 {
-    return sqrtf((x * x) + (y * y) +  (z * z) +  (w * w));
+    return static_cast<T>(sqrt((x * x) + (y * y) +  (z * z) +  (w * w)));
 }
 
 template <typename T>

@@ -92,7 +92,7 @@ Vec3<T> Vec3<T>::unitZ(
 template <typename T>
 inline T Vec3<T>::length() const
 {
-    return static_cast<T>(std::sqrt(x * x + y * y + z * z));
+    return static_cast<T>(sqrt(x * x + y * y + z * z));
 }
 
 template <typename T>
