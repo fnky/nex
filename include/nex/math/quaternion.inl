@@ -68,6 +68,12 @@ inline void Quaternion<T>::inverse()
 }
 
 template <typename T>
+inline T Quaternion<T>::dot(const Quaternion<T>& other)
+{
+    return  (x *  other.x) +  (y *  other.y) +  (z *  other.z) +  (w *  other.w);
+}
+
+template <typename T>
 inline Quaternion<T> Quaternion<T>::normalize(const Quaternion<T>& value)
 {
     const T oneOverLength = static_cast<T>(1.0) / value.length();
@@ -153,6 +159,12 @@ inline Quaternion<T> Quaternion<T>::createFromYawPitchRoll(const T yaw, const T 
     result.w = (yawCos *  pitchCos *  rollCos +  yawSin *  pitchSin *  rollSin);
 
     return result;
+}
+
+template <typename T>
+inline T Quaternion<T>::dot(const Quaternion<T>& left, const Quaternion<T>& right)
+{
+    return  (left.x *  right.x) +  (left.y *  right.y) +  (left.z *  right.z) +  (left.w *  right.w);
 }
 
 template <typename T>

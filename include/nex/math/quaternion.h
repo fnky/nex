@@ -70,6 +70,13 @@ namespace nx
         void inverse();
 
         /**
+         * @brief Calculates the dot product of two Quaternions.
+         * @param other = The other quaternion.
+         * @return the dot product.
+         */
+        T dot(const Quaternion<T>& other);
+
+        /**
          * @brief Divides each component of the quaternion by the length of the quaternion.
          * @param value = the quaternion to normalize.
          * @return the normalized quaternion.
@@ -106,6 +113,14 @@ namespace nx
          * @return the rotation quaternion.
          */
         static Quaternion<T> createFromYawPitchRoll(const T yaw, const T pitch, const T roll);
+
+        /**
+         * @brief Calculates the dot product of two Quaternions.
+         * @param left = Left source quaternion.
+         * @param right = Right source quaternion.
+         * @return the dot product.
+         */
+        static T dot(const Quaternion<T>& left, const Quaternion<T>& right);
 
         T x;
         T y;
