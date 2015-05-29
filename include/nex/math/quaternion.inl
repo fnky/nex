@@ -48,6 +48,14 @@ inline void Quaternion<T>::normalize()
 }
 
 template <typename T>
+inline void Quaternion<T>::conjugate()
+{
+    x = -x;
+    y = -y;
+    z = -z;
+}
+
+template <typename T>
 inline Quaternion<T> Quaternion<T>::normalize(const Quaternion<T>& value)
 {
     const T oneOverLength = static_cast<T>(1.0) / value.length();
@@ -58,6 +66,19 @@ inline Quaternion<T> Quaternion<T>::normalize(const Quaternion<T>& value)
     result.y *= oneOverLength;
     result.z *= oneOverLength;
     result.w *= oneOverLength;
+
+    return result;
+}
+
+template <typename T>
+inline Quaternion<T> Quaternion<T>::conjugate(const Quaternion<T>& value)
+{
+    Quaternion<T> result;
+
+    result.x = -value.x;
+    result.y = -value.y;
+    result.z = -value.z;
+    result.w = value.w;
 
     return result;
 }

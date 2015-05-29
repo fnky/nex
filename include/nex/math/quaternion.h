@@ -56,11 +56,23 @@ namespace nx
         void normalize();
 
         /**
+         * @brief Transforms this Quaternion into its conjugate.
+         */
+        void conjugate();
+
+        /**
          * @brief Divides each component of the quaternion by the length of the quaternion.
          * @param value = the quaternion to normalize.
          * @return the normalized quaternion.
          */
         static Quaternion<T> normalize(const Quaternion& value);
+
+        /**
+         * @brief Transforms this Quaternion into its conjugate.
+         * @param value = The Quaternion of which to return the conjugate.
+         * @return the conjugate.
+         */
+        static Quaternion<T> conjugate(const Quaternion& value);
 
         T x;
         T y;
