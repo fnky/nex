@@ -1,4 +1,5 @@
 #include <nex/math/gjk.h>
+#include <nex/math/mathhelper.h>
 
 namespace nx
 {
@@ -75,12 +76,17 @@ void GJK::updateDeterminant(int xmIdx)
             int index5 = (num5 & 7) - 1;
             int num6 = 1 << index5;
             int index6 = index3 | num6;
-            int index7 =  mEdgeLengthSq[index2][index5] <  mEdgeLengthSq[xmIdx][index5] ? index2 : xmIdx;
-            mDet[index6][index5] =  ( mDet[index3][index2] *  vec3f::dot(mEdges[index7][index5], mY[index2]) +  mDet[index3][xmIdx] *  vec3f::dot(mEdges[index7][index5], mY[xmIdx]));
-            int index8 =  mEdgeLengthSq[index5][index2] <  mEdgeLengthSq[xmIdx][index2] ? index5 : xmIdx;
-            mDet[index6][index2] =  ( mDet[num6 | index1][index5] *  vec3f::dot(mEdges[index8][index2], mY[index5]) +  mDet[num6 | index1][xmIdx] *  vec3f::dot(mEdges[index8][index2], mY[xmIdx]));
-            int index9 =  mEdgeLengthSq[index2][xmIdx] <  mEdgeLengthSq[index5][xmIdx] ? index2 : index5;
-            mDet[index6][xmIdx] =  ( mDet[num4 | num6][index5] *  vec3f::dot(mEdges[index9][xmIdx], mY[index5]) +  mDet[num4 | num6][index2] *  vec3f::dot(mEdges[index9][xmIdx], mY[index2]));
+            int index7 = mEdgeLengthSq[index2][index5] < mEdgeLengthSq[xmIdx][index5] ? index2 : xmIdx;
+
+            mDet[index6][index5] = (mDet[index3][index2] * vec3f::dot(mEdges[index7][index5], mY[index2]) + mDet[index3][xmIdx] * vec3f::dot(mEdges[index7][index5], mY[xmIdx]));
+
+            int index8 = mEdgeLengthSq[index5][index2] < mEdgeLengthSq[xmIdx][index2] ? index5 : xmIdx;
+
+            mDet[index6][index2] = (mDet[num6 | index1][index5] * vec3f::dot(mEdges[index8][index2], mY[index5]) + mDet[num6 | index1][xmIdx] * vec3f::dot(mEdges[index8][index2], mY[xmIdx]));
+
+            int index9 = mEdgeLengthSq[index2][xmIdx] < mEdgeLengthSq[index5][xmIdx] ? index2 : index5;
+
+            mDet[index6][xmIdx] = (mDet[num4 | num6][index5] * vec3f::dot(mEdges[index9][xmIdx], mY[index5]) + mDet[num4 | num6][index2] * vec3f::dot(mEdges[index9][xmIdx], mY[index2]));
             num5 >>= 3;
         }
         num2 >>= 3;
@@ -88,14 +94,20 @@ void GJK::updateDeterminant(int xmIdx)
     }
     if ((mSimplexBits | index1) != 15)
         return;
-    int index10 =  mEdgeLengthSq[1][0] <  mEdgeLengthSq[2][0] ? ( mEdgeLengthSq[1][0] <  mEdgeLengthSq[3][0] ? 1 : 3) : ( mEdgeLengthSq[2][0] <  mEdgeLengthSq[3][0] ? 2 : 3);
-    mDet[15][0] =  ( mDet[14][1] *  vec3f::dot(mEdges[index10][0], mY[1]) +  mDet[14][2] *  vec3f::dot(mEdges[index10][0], mY[2]) +  mDet[14][3] *  vec3f::dot(mEdges[index10][0], mY[3]));
-    int index11 =  mEdgeLengthSq[0][1] <  mEdgeLengthSq[2][1] ? ( mEdgeLengthSq[0][1] <  mEdgeLengthSq[3][1] ? 0 : 3) : ( mEdgeLengthSq[2][1] <  mEdgeLengthSq[3][1] ? 2 : 3);
-    mDet[15][1] =  ( mDet[13][0] *  vec3f::dot(mEdges[index11][1], mY[0]) +  mDet[13][2] *  vec3f::dot(mEdges[index11][1], mY[2]) +  mDet[13][3] *  vec3f::dot(mEdges[index11][1], mY[3]));
-    int index12 =  mEdgeLengthSq[0][2] <  mEdgeLengthSq[1][2] ? ( mEdgeLengthSq[0][2] <  mEdgeLengthSq[3][2] ? 0 : 3) : ( mEdgeLengthSq[1][2] <  mEdgeLengthSq[3][2] ? 1 : 3);
-    mDet[15][2] =  ( mDet[11][0] *  vec3f::dot(mEdges[index12][2], mY[0]) +  mDet[11][1] *  vec3f::dot(mEdges[index12][2], mY[1]) +  mDet[11][3] *  vec3f::dot(mEdges[index12][2], mY[3]));
-    int index13 =  mEdgeLengthSq[0][3] <  mEdgeLengthSq[1][3] ? ( mEdgeLengthSq[0][3] <  mEdgeLengthSq[2][3] ? 0 : 2) : ( mEdgeLengthSq[1][3] <  mEdgeLengthSq[2][3] ? 1 : 2);
-    mDet[15][3] =  ( mDet[7][0] *  vec3f::dot(mEdges[index13][3], mY[0]) +  mDet[7][1] *  vec3f::dot(mEdges[index13][3], mY[1]) +  mDet[7][2] *  vec3f::dot(mEdges[index13][3], mY[2]));
+    int index10 = mEdgeLengthSq[1][0] < mEdgeLengthSq[2][0] ? (mEdgeLengthSq[1][0] < mEdgeLengthSq[3][0] ? 1 : 3) : (mEdgeLengthSq[2][0] < mEdgeLengthSq[3][0] ? 2 : 3);
+
+    mDet[15][0] = (mDet[14][1] * vec3f::dot(mEdges[index10][0], mY[1]) + mDet[14][2] * vec3f::dot(mEdges[index10][0], mY[2]) + mDet[14][3] * vec3f::dot(mEdges[index10][0], mY[3]));
+
+    int index11 = mEdgeLengthSq[0][1] < mEdgeLengthSq[2][1] ? (mEdgeLengthSq[0][1] < mEdgeLengthSq[3][1] ? 0 : 3) : (mEdgeLengthSq[2][1] < mEdgeLengthSq[3][1] ? 2 : 3);
+
+    mDet[15][1] = (mDet[13][0] * vec3f::dot(mEdges[index11][1], mY[0]) + mDet[13][2] * vec3f::dot(mEdges[index11][1], mY[2]) + mDet[13][3] * vec3f::dot(mEdges[index11][1], mY[3]));
+
+    int index12 = mEdgeLengthSq[0][2] < mEdgeLengthSq[1][2] ? (mEdgeLengthSq[0][2] < mEdgeLengthSq[3][2] ? 0 : 3) : (mEdgeLengthSq[1][2] < mEdgeLengthSq[3][2] ? 1 : 3);
+
+    mDet[15][2] = (mDet[11][0] * vec3f::dot(mEdges[index12][2], mY[0]) + mDet[11][1] * vec3f::dot(mEdges[index12][2], mY[1]) + mDet[11][3] * vec3f::dot(mEdges[index12][2], mY[3]));
+
+    int index13 = mEdgeLengthSq[0][3] < mEdgeLengthSq[1][3] ? (mEdgeLengthSq[0][3] < mEdgeLengthSq[2][3] ? 0 : 2) : (mEdgeLengthSq[1][3] < mEdgeLengthSq[2][3] ? 1 : 2);
+    mDet[15][3] = (mDet[7][0] * vec3f::dot(mEdges[index13][3], mY[0]) + mDet[7][1] * vec3f::dot(mEdges[index13][3], mY[1]) + mDet[7][2] * vec3f::dot(mEdges[index13][3], mY[2]));
 }
 
 bool GJK::updateSimplex(int newIndex)
@@ -135,10 +147,10 @@ vec3f GJK::computeClosestPoint()
     while (num2 != 0)
     {
         int index = (num2 & 7) - 1;
-        float num3 = this.det[this.simplexBits][index];
+        float num3 = mDet[mSimplexBits][index];
         num1 += num3;
-        zero += this.y[index] * num3;
-        mMaxLengthSq = MathHelper.Max(this.maxLengthSq, this.yLengthSq[index]);
+        zero += mY[index] * num3;
+        mMaxLengthSq = max(mMaxLengthSq, mYLengthSq[index]);
         num2 >>= 3;
     }
     return zero / num1;
@@ -146,7 +158,29 @@ vec3f GJK::computeClosestPoint()
 
 bool GJK::satisfiesRule(int xBits, int yBits)
 {
+    bool flag = true;
 
+    int num1 = mBitsToIndices[yBits];
+    while (num1 != 0)
+    {
+        int index = (num1 & 7) - 1;
+        int num2 = 1 << index;
+        if ((num2 & xBits) != 0)
+        {
+            if (mDet[xBits][index] <= 0.0)
+            {
+                flag = false;
+                break;
+            }
+        }
+        else if (mDet[xBits | num2][index] > 0.0)
+        {
+            flag = false;
+            break;
+        }
+        num1 >>= 3;
+    }
+    return flag;
 }
 
 } //namespace nx
