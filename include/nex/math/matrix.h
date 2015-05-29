@@ -43,10 +43,10 @@
 namespace nx
 {
     // The elements of the matrix are stored as column major order.
-    // |  0  4  8 12 |
-    // |  1  5  9 13 |
-    // |  2  6 10 14 |
-    // |  3  7 11 15 |
+    // | 0 4 8  12 |
+    // | 1 5 9  13 |
+    // | 2 6 10 14 |
+    // | 3 7 11 15 |
 
     //This is how we address the matrix.
     //| m11 m12 m13 m14 |
