@@ -50,6 +50,18 @@ namespace nx
          */
         T lengthSquared() const;
 
+        /**
+         * @brief Divides each component of the quaternion by the length of the quaternion.
+         */
+        void normalize();
+
+        /**
+         * @brief Divides each component of the quaternion by the length of the quaternion.
+         * @param value = the quaternion to normalize.
+         * @return the normalized quaternion.
+         */
+        static Quaternion<T> normalize(const Quaternion& value);
+
         T x;
         T y;
         T z;

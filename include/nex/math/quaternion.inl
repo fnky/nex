@@ -38,6 +38,31 @@ inline T Quaternion<T>::lengthSquared() const
 }
 
 template <typename T>
+inline void Quaternion<T>::normalize()
+{
+    const T oneOverLength = static_cast<T>(1.0) / length();
+    x *= oneOverLength;
+    y *= oneOverLength;
+    z *= oneOverLength;
+    w *= oneOverLength;
+}
+
+template <typename T>
+inline Quaternion<T> Quaternion<T>::normalize(const Quaternion<T>& value)
+{
+    const T oneOverLength = static_cast<T>(1.0) / value.length();
+
+    Quaternion<T> result;
+
+    result.x *= oneOverLength;
+    result.y *= oneOverLength;
+    result.z *= oneOverLength;
+    result.w *= oneOverLength;
+
+    return result;
+}
+
+template <typename T>
 inline Quaternion<T> operator -(const Quaternion<T>& right)
 {
     return Quaternion<T>(-right.x, -right.y, -right.z, -right.w);
