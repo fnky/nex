@@ -50,7 +50,15 @@ ContainmentType BoundingBox::contains(const BoundingBox& box) const
     if (max.x < min.x || min.x > box.max.x || (max.y < box.min.y || min.y > box.max.y) || (max.z < box.min.z || min.z > box.max.z))
         return ContainmentType::Disjoint;
 
-    return  min.x > box.min.x || box.max.x > max.x || (min.y > box.min.y || box.max.y > max.y) || (min.z >  box.min.z ||  box.max.z >  max.z) ? ContainmentType::Intersects : ContainmentType::Contains;
+    return min.x > box.min.x ||
+           box.max.x > max.x ||
+          (min.y > box.min.y || box.max.y > max.y) ||
+          (min.z >  box.min.z || box.max.z > max.z) ? ContainmentType::Intersects : ContainmentType::Contains;
+}
+
+ContainmentType BoundingBox::contains(const vec3f& point) const
+{
+    return min.x > point.x || point.x > max.x || (min.y > point.y || point.y > max.y) || (min.z > point.z || point.z > max.z) ? ContainmentType::Disjoint : ContainmentType::Contains;
 }
 
 BoundingBox BoundingBox::createMerged(const BoundingBox& original, const BoundingBox& additional)

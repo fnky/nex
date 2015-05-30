@@ -63,6 +63,13 @@ namespace nx
         ContainmentType contains(const BoundingBox& box) const;
 
         /**
+         * @brief Tests whether the BoundingBox contains a point.
+         * @param point = The point to test for overlap.
+         * @return The ContainmentType.
+         */
+        ContainmentType contains(const vec3f& point) const;
+
+        /**
          * @brief Creates the smallest BoundingBox that contains the two specified BoundingBox instances.
          * @param original = One of the BoundingBoxs to contain.
          * @param additional = One of the BoundingBoxs to contain.
