@@ -270,6 +270,35 @@ inline Vec4<T> Vec4<T>::catmullRom(
 }
 
 template <typename T>
+inline Vec4<T> Vec4<T>::hermite(
+        const Vec4<T>& vertexA,
+        const Vec4<T>& tangentA,
+        const Vec4<T>& vertexB,
+        const Vec4<T>& tangentB,
+        const T weight)
+{
+    const T one = static_cast<T>(1.0);
+    const T two = static_cast<T>(2.0);
+    const T three = static_cast<T>(3.0);
+
+    const T weightSquared = weight * weight;
+    const T weightCubed = weight * weightSquared;
+    const T h1 = (two * weightCubed - three * weightSquared + one);
+    const T h2 = (-two * weightCubed + three * weightSquared);
+    const T h3 = weightCubed - two * weightSquared + weight;
+    const T h4 = weightCubed - weightSquared;
+
+    Vec4<T> result;
+
+    result.x = (vertexA.x * h1 + vertexB.x * h2 + tangentA.x * h3 + tangentB.x * h4);
+    result.y = (vertexA.y * h1 + vertexB.y * h2 + tangentA.y * h3 + tangentB.y * h4);
+    result.z = (vertexA.z * h1 + vertexB.z * h2 + tangentA.z * h3 + tangentB.z * h4);
+    result.w = (vertexA.w * h1 + vertexB.w * h2 + tangentA.w * h3 + tangentB.w * h4);
+
+    return result;
+}
+
+template <typename T>
 inline Vec4<T> operator -(const Vec4<T>& right)
 {
     return Vec4<T>(-right.x, -right.y, -right.z, -right.w);

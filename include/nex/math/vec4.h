@@ -187,6 +187,22 @@ namespace nx
                 const Vec4<T>& vertexD,
                 const T weight);
 
+        /**
+         * @brief Performs a Hermite spline interpolation.
+         * @param vertexA = Source position vector.
+         * @param tangentA = Source tangent vector.
+         * @param vertexB = Source position vector.
+         * @param tangentB = Source tangent vector.
+         * @param weight = The weighting factor.
+         * @return
+         */
+        static Vec4<T> hermite(
+                const Vec4<T>& vertexA,
+                const Vec4<T>& tangentA,
+                const Vec4<T>& vertexB,
+                const Vec4<T>& tangentB,
+                const T weight);
+
         T x;
         T y;
         T z;
