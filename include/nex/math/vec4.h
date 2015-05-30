@@ -162,6 +162,14 @@ namespace nx
                 const Vec4<T>& vertexA,
                 const Vec4<T>& vertexB,
                 const Vec4<T>& vertexC, const T weightA, const T weightB);
+        /**
+         * @brief Interpolates between two values using a cubic equation.
+         * @param previous = the previous value.
+         * @param current = the current value.
+         * @param amount = the amount to interpolate by.
+         * @return the interpolated vector.
+         */
+        static Vec4<T> smoothStep(const Vec4<T>& previous, const Vec4<T>& current, T amount);
 
         T x;
         T y;

@@ -222,6 +222,27 @@ inline Vec4<T> Vec4<T>::barycentric(
 }
 
 template <typename T>
+inline Vec4<T> Vec4<T>::smoothStep(const Vec4<T>& previous, const Vec4<T>& current, T amount)
+{
+    const T zero = static_cast<T>(0.0);
+    const T one = static_cast<T>(1.0);
+    const T two = static_cast<T>(2.0);
+    const T three = static_cast<T>(3.0);
+
+    amount = amount > one ? one : (amount < zero ? zero : amount);
+    amount = (amount * amount * (three - two * amount));
+
+    Vec4<T> result;
+
+    result.x = previous.x + (current.x - previous.x) * amount;
+    result.y = previous.y + (current.y - previous.y) * amount;
+    result.z = previous.z + (current.z - previous.z) * amount;
+    result.w = previous.w + (current.w - previous.w) * amount;
+
+    return result;
+}
+
+template <typename T>
 inline Vec4<T> operator -(const Vec4<T>& right)
 {
     return Vec4<T>(-right.x, -right.y, -right.z, -right.w);
