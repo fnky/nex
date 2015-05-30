@@ -5,6 +5,8 @@
 
 #include <nex/math/vec3.h>
 
+#include <nex/math/boundingsphere.h>
+
 namespace nx
 {
     /**
@@ -44,6 +46,13 @@ namespace nx
          * @return smallest BoundingBox that contains the two.
          */
         static BoundingBox createMerged(const BoundingBox& original, const BoundingBox& additional);
+
+        /**
+         * @brief Creates the smallest BoundingBox that will contain the specified BoundingSphere.
+         * @param sphere = The BoundingSphere to contain.
+         * @return the bounding box containg the sphere.
+         */
+        static BoundingBox createFromSphere(const BoundingSphere& sphere);
 
         /**
          * @brief The minimum point the BoundingBox contains.

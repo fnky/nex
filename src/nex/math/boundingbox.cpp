@@ -39,4 +39,18 @@ BoundingBox BoundingBox::createMerged(const BoundingBox& original, const Boundin
     return boundingBox;
 }
 
+BoundingBox BoundingBox::createFromSphere(const BoundingSphere& sphere)
+{
+    BoundingBox result;
+
+    result.min.x = sphere.center.x - sphere.radius;
+    result.min.y = sphere.center.y - sphere.radius;
+    result.min.z = sphere.center.z - sphere.radius;
+    result.max.x = sphere.center.x + sphere.radius;
+    result.max.y = sphere.center.y + sphere.radius;
+    result.max.z = sphere.center.z + sphere.radius;
+
+    return result;
+}
+
 } //namespace nx
