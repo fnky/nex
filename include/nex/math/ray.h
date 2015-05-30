@@ -41,6 +41,13 @@ namespace nx
         float intersects(const BoundingSphere& sphere) const;
 
         /**
+         * @brief Checks whether the Ray intersects a specified BoundingBox
+         * @param boundingBox = The BoundingBox to check for intersection with the Ray.
+         * @return intersection result.
+         */
+        float intersects(const BoundingBox& boundingBox) const;
+
+        /**
          * @brief Specifies the starting point of the Ray.
          */
         vec3f position;
