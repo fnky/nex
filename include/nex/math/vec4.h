@@ -171,6 +171,22 @@ namespace nx
          */
         static Vec4<T> smoothStep(const Vec4<T>& previous, const Vec4<T>& current, T amount);
 
+        /**
+         * @brief Performs a Catmull-Rom interpolation using the specified positions.
+         * @param vertexA = The first position in the interpolation.
+         * @param vertexB = The second position in the interpolation.
+         * @param vertexC = The third position in the interpolation.
+         * @param vertexD = The fourth position in the interpolation.
+         * @param weight = Weighting factor.
+         * @return
+         */
+        static Vec4<T> catmullRom(
+                const Vec4<T>& vertexA,
+                const Vec4<T>& vertexB,
+                const Vec4<T>& vertexC,
+                const Vec4<T>& vertexD,
+                const T weight);
+
         T x;
         T y;
         T z;

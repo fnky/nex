@@ -243,6 +243,33 @@ inline Vec4<T> Vec4<T>::smoothStep(const Vec4<T>& previous, const Vec4<T>& curre
 }
 
 template <typename T>
+inline Vec4<T> Vec4<T>::catmullRom(
+        const Vec4<T>& vertexA,
+        const Vec4<T>& vertexB,
+        const Vec4<T>& vertexC,
+        const Vec4<T>& vertexD,
+        const T weight)
+{
+    const T squared = weight * weight;
+    const T cubed = weight * squared;
+
+    Vec4<T> result;
+
+    const T half = static_cast<T>(0.5);
+    const T db = static_cast<T>(2.0);
+    const T th = static_cast<T>(3.0);
+    const T qd = static_cast<T>(4.0);
+    const T ft = static_cast<T>(5.0);
+
+    result.x = (half * (db * vertexB.x + (-vertexA.x + vertexC.x) * weight + (db * vertexA.x - ft * vertexB.x + qd * vertexC.x - vertexD.x) * squared + (-vertexA.x + th * vertexB.x - th * vertexC.x + vertexD.x) * cubed));
+    result.y = (half * (db * vertexB.y + (-vertexA.y + vertexC.y) * weight + (db * vertexA.y - ft * vertexB.y + qd * vertexC.y - vertexD.y) * squared + (-vertexA.y + th * vertexB.y - th * vertexC.y + vertexD.y) * cubed));
+    result.z = (half * (db * vertexB.z + (-vertexA.z + vertexC.z) * weight + (db * vertexA.z - ft * vertexB.z + qd * vertexC.z - vertexD.z) * squared + (-vertexA.z + th * vertexB.z - th * vertexC.z + vertexD.z) * cubed));
+    result.w = (half * (db * vertexB.w + (-vertexA.w + vertexC.w) * weight + (db * vertexA.w - ft * vertexB.w + qd * vertexC.w - vertexD.w) * squared + (-vertexA.w + th * vertexB.w - th * vertexC.w + vertexD.w) * cubed));
+
+    return result;
+}
+
+template <typename T>
 inline Vec4<T> operator -(const Vec4<T>& right)
 {
     return Vec4<T>(-right.x, -right.y, -right.z, -right.w);
