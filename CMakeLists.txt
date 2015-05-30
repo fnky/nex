@@ -42,8 +42,8 @@ if (CMAKE_COMPILER_IS_GNUCC OR CMAKE_COMPILER_IS_GNUCXX)
 endif()
 
 # Setup some base path variables.
-set (NEX_SOURCE_DIR ${CMAKE_SOURCE_DIR}/src)
-set (NEX_INCLUDE_DIR ${CMAKE_SOURCE_DIR}/include)
+set (NEX_SOURCE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/src)
+set (NEX_INCLUDE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/include)
 
 
 # Setup some include path varibles for people only using a select few systems.
