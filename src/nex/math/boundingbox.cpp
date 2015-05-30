@@ -53,4 +53,18 @@ BoundingBox BoundingBox::createFromSphere(const BoundingSphere& sphere)
     return result;
 }
 
+BoundingBox BoundingBox::createFromPoints(const std::vector<vec3f> points)
+{
+    vec3f min;
+    vec3f max;
+
+    for (auto& point : points)
+    {
+        min = vec3f::min(min, point);
+        max = vec3f::max(max, point);
+    }
+
+    return BoundingBox(min, max);
+}
+
 } //namespace nx

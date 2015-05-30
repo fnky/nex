@@ -55,6 +55,13 @@ namespace nx
         static BoundingBox createFromSphere(const BoundingSphere& sphere);
 
         /**
+         * @brief Creates the smallest BoundingBox that will contain a group of points.
+         * @param points = A list of points the BoundingBox should contain.
+         * @return the bounding box containing the points.
+         */
+        static BoundingBox createFromPoints(const std::vector<vec3f> points);
+
+        /**
          * @brief The minimum point the BoundingBox contains.
          */
         vec3f min;
