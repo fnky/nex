@@ -45,6 +45,14 @@ bool BoundingBox::intersects(const BoundingSphere& sphere) const
     return distanceSquared <= (sphere.radius * sphere.radius);
 }
 
+ContainmentType BoundingBox::contains(const BoundingBox& box) const
+{
+    if (max.x < min.x || min.x > box.max.x || (max.y < box.min.y || min.y > box.max.y) || (max.z < box.min.z || min.z > box.max.z))
+        return ContainmentType::Disjoint;
+
+    return  min.x > box.min.x || box.max.x > max.x || (min.y > box.min.y || box.max.y > max.y) || (min.z >  box.min.z ||  box.max.z >  max.z) ? ContainmentType::Intersects : ContainmentType::Contains;
+}
+
 BoundingBox BoundingBox::createMerged(const BoundingBox& original, const BoundingBox& additional)
 {
     BoundingBox boundingBox;

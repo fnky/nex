@@ -7,6 +7,8 @@
 
 #include <nex/math/boundingsphere.h>
 
+#include <nex/math/containmenttype.h>
+
 namespace nx
 {
     /**
@@ -52,6 +54,13 @@ namespace nx
          * @return the intersection result.
          */
         bool intersects(const BoundingSphere& sphere) const;
+
+        /**
+         * @brief Tests whether the BoundingBox contains another BoundingBox.
+         * @param box = The BoundingBox to test for overlap.
+         * @return The ContainmentType.
+         */
+        ContainmentType contains(const BoundingBox& box) const;
 
         /**
          * @brief Creates the smallest BoundingBox that contains the two specified BoundingBox instances.

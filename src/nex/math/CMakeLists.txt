@@ -30,6 +30,7 @@ set (NEX_MATH_HEADERS
     ${INC_DIR}/plane.inl
 
     ${INC_DIR}/planeintersectiontype.h
+    ${INC_DIR}/containmenttype.h
 
     ${INC_DIR}/boundingbox.h
     ${INC_DIR}/boundingsphere.h
