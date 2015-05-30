@@ -40,6 +40,13 @@ namespace nx
         std::vector<vec3f> getCorners();
 
         /**
+         * @brief Checks whether the current BoundingBox intersects another BoundingBox.
+         * @param box = The BoundingBox to check for intersection with.
+         * @return the intersection result.
+         */
+        bool intersects(const BoundingBox& box);
+
+        /**
          * @brief Creates the smallest BoundingBox that contains the two specified BoundingBox instances.
          * @param original = One of the BoundingBoxs to contain.
          * @param additional = One of the BoundingBoxs to contain.

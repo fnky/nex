@@ -29,6 +29,14 @@ std::vector<vec3f> BoundingBox::getCorners()
     return points;
 }
 
+bool BoundingBox::intersects(const BoundingBox& box)
+{
+    return max.x >= box.min.x &&
+           min.x <= box.max.x &&
+          (max.y >= box.min.y && min.y <= box.max.y) &&
+          (max.z >= box.min.z && min.x <= box.max.z);
+}
+
 BoundingBox BoundingBox::createMerged(const BoundingBox& original, const BoundingBox& additional)
 {
     BoundingBox boundingBox;
