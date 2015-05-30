@@ -149,6 +149,20 @@ namespace nx
          */
         static Vec4<T> lerp(const Vec4<T>& previous, const Vec4<T>& current, const T amount);
 
+        /**
+         * @brief Returns a Vector4 containing the 4D Cartesian coordinates of a point specified in barycentric (areal) coordinates relative to a 4D triangle.
+         * @param vertexA = A Vector4 containing the 4D Cartesian coordinates of vertex 1 of the triangle.
+         * @param vertexB = A Vector4 containing the 4D Cartesian coordinates of vertex 2 of the triangle.
+         * @param vertexC = A Vector4 containing the 4D Cartesian coordinates of vertex 3 of the triangle.
+         * @param weightA = Barycentric coordinate b2, which expresses the weighting factor toward vertex 2 (specified in value2).
+         * @param weightB = Barycentric coordinate b3, which expresses the weighting factor toward vertex 3 (specified in value3).
+         * @return the 4D Cartesian coordinates
+         */
+        static Vec4<T> barycentric(
+                const Vec4<T>& vertexA,
+                const Vec4<T>& vertexB,
+                const Vec4<T>& vertexC, const T weightA, const T weightB);
+
         T x;
         T y;
         T z;

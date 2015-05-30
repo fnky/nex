@@ -208,6 +208,20 @@ inline Vec4<T> Vec4<T>::lerp(const Vec4<T>& previous, const Vec4<T>& current, co
 }
 
 template <typename T>
+inline Vec4<T> Vec4<T>::barycentric(
+        const Vec4<T>& vertexA,
+        const Vec4<T>& vertexB,
+        const Vec4<T>& vertexC, const T weightA, const T weightB)
+{
+    Vec4<T> result;
+    result.x = (vertexA.x + weightA * (vertexB.x - vertexA.x) + weightB * (vertexC.x - vertexA.x));
+    result.y = (vertexA.y + weightA * (vertexB.y - vertexA.y) + weightB * (vertexC.y - vertexA.y));
+    result.z = (vertexA.z + weightA * (vertexB.z - vertexA.z) + weightB * (vertexC.z - vertexA.z));
+    result.w = (vertexA.w + weightA * (vertexB.w - vertexA.w) + weightB * (vertexC.w - vertexA.w));
+    return result;
+}
+
+template <typename T>
 inline Vec4<T> operator -(const Vec4<T>& right)
 {
     return Vec4<T>(-right.x, -right.y, -right.z, -right.w);
