@@ -44,7 +44,14 @@ namespace nx
          * @param box = The BoundingBox to check for intersection with.
          * @return the intersection result.
          */
-        bool intersects(const BoundingBox& box);
+        bool intersects(const BoundingBox& box) const;
+
+        /**
+         * @brief Checks whether the current BoundingBox intersects a BoundingSphere.
+         * @param sphere = The BoundingSphere to check for intersection with.
+         * @return the intersection result.
+         */
+        bool intersects(const BoundingSphere& sphere) const;
 
         /**
          * @brief Creates the smallest BoundingBox that contains the two specified BoundingBox instances.

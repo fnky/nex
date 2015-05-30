@@ -29,12 +29,20 @@ std::vector<vec3f> BoundingBox::getCorners()
     return points;
 }
 
-bool BoundingBox::intersects(const BoundingBox& box)
+bool BoundingBox::intersects(const BoundingBox& box) const
 {
     return max.x >= box.min.x &&
            min.x <= box.max.x &&
           (max.y >= box.min.y && min.y <= box.max.y) &&
           (max.z >= box.min.z && min.x <= box.max.z);
+}
+
+bool BoundingBox::intersects(const BoundingSphere& sphere) const
+{
+    const vec3f clampResult = vec3f::clamp(sphere.center, min, max);
+    const float distanceSquared = vec3f::distanceSquared(sphere.center, clampResult);
+
+    return distanceSquared <= (sphere.radius * sphere.radius);
 }
 
 BoundingBox BoundingBox::createMerged(const BoundingBox& original, const BoundingBox& additional)
