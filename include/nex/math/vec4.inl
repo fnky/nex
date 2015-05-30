@@ -197,6 +197,17 @@ inline Vec4<T> Vec4<T>::clamp(const Vec4<T>& value, const Vec4<T>& min, const Ve
 }
 
 template <typename T>
+inline Vec4<T> Vec4<T>::lerp(const Vec4<T>& previous, const Vec4<T>& current, const T amount)
+{
+    Vec4<T> result;
+    result.x = previous.x + (current.x - previous.x) * amount;
+    result.y = previous.y + (current.y - previous.y) * amount;
+    result.z = previous.z + (current.z - previous.z) * amount;
+    result.w = previous.w + (current.w - previous.w) * amount;
+    return result;
+}
+
+template <typename T>
 inline Vec4<T> operator -(const Vec4<T>& right)
 {
     return Vec4<T>(-right.x, -right.y, -right.z, -right.w);

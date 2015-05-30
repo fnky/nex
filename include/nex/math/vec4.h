@@ -140,6 +140,15 @@ namespace nx
          */
         static Vec4<T> clamp(const Vec4<T>& value, const Vec4<T>& min, const Vec4<T>& max);
 
+        /**
+         * @brief Performs a linear interpolation between two vectors.
+         * @param previous = previous value.
+         * @param current = current value.
+         * @param amount = amount to interpolate by.
+         * @return the interpolated vector.
+         */
+        static Vec4<T> lerp(const Vec4<T>& previous, const Vec4<T>& current, const T amount);
+
         T x;
         T y;
         T z;
