@@ -3,6 +3,8 @@
 
 #include <nex/system/typedefs.h>
 
+#include <cmath>
+
 namespace nx
 {
     template <typename T>
