@@ -12,6 +12,7 @@
 namespace nx
 {
     class BoundingBox;
+    class BoundingFrustum;
 
     /**
      * @brief Defines a sphere.
@@ -45,6 +46,34 @@ namespace nx
          * @return the intersection results.
          */
         bool intersects(const BoundingBox& box) const;
+
+        /**
+         * @brief Checks whether the current BoundingSphere contains the specified BoundingBox.
+         * @param box = The BoundingBox to check against the current BoundingSphere.
+         * @return the containment type.
+         */
+        ContainmentType contains(const BoundingBox& box) const;
+
+        /**
+         * @brief Checks whether the current BoundingSphere contains the specified BoundingFrustum.
+         * @param frustum = The BoundingFrustum to check against the current BoundingSphere.
+         * @return the containment type.
+         */
+        ContainmentType contains(const BoundingFrustum& frustum) const;
+
+        /**
+         * @brief Checks whether the current BoundingSphere contains the specified point.
+         * @param point = The point to check against the current BoundingSphere.
+         * @return the containment type.
+         */
+        ContainmentType contains(const vec3f& point) const;
+
+        /**
+         * @brief Checks whether the current BoundingSphere contains the specified BoundingSphere.
+         * @param sphere = The BoundingSphere to check against the current BoundingSphere.
+         * @return the containment type.
+         */
+        ContainmentType contains(const BoundingSphere& sphere) const;
 
         /**
          * @brief Creates a BoundingSphere that contains the two specified BoundingSphere instances.

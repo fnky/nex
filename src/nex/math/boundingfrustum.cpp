@@ -1,4 +1,5 @@
 #include <nex/math/boundingfrustum.h>
+#include <nex/math/boundingsphere.h>
 #include <nex/math/plane.h>
 #include <nex/math/ray.h>
 

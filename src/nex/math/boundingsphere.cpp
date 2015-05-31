@@ -1,5 +1,6 @@
 #include <nex/math/boundingsphere.h>
 #include <nex/math/boundingbox.h>
+#include <nex/math/boundingfrustum.h>
 
 namespace nx
 {
@@ -27,7 +28,103 @@ bool BoundingSphere::intersects(const BoundingBox& box) const
     return distanceSquared <= (radius * radius);
 }
 
-inline BoundingSphere BoundingSphere::createMerged(const BoundingSphere& original, const BoundingSphere& additional)
+ContainmentType BoundingSphere::contains(const BoundingBox& box) const
+{
+    if (!box.intersects(*this))
+        return ContainmentType::Disjoint;
+
+    const float radiusSquared = radius * radius;
+
+    vec3f test;
+    test.x = center.x - box.min.x;
+    test.y = center.y - box.max.y;
+    test.z = center.z - box.max.z;
+
+    if (test.lengthSquared() > radiusSquared)
+        return ContainmentType::Intersects;
+
+    test.x = center.x - box.max.x;
+    test.y = center.y - box.max.y;
+    test.z = center.z - box.max.z;
+
+    if (test.lengthSquared() > radiusSquared)
+        return ContainmentType::Intersects;
+
+    test.x = center.x - box.max.x;
+    test.y = center.y - box.min.y;
+    test.z = center.z - box.max.z;
+
+    if (test.lengthSquared() > radiusSquared)
+        return ContainmentType::Intersects;
+
+    test.x = center.x - box.min.x;
+    test.y = center.y - box.min.y;
+    test.z = center.z - box.max.z;
+
+    if (test.lengthSquared() > radiusSquared)
+        return ContainmentType::Intersects;
+
+    test.x = center.x - box.min.x;
+    test.y = center.y - box.max.y;
+    test.z = center.z - box.min.z;
+
+    if (test.lengthSquared() > radiusSquared)
+        return ContainmentType::Intersects;
+
+    test.x = center.x - box.max.x;
+    test.y = center.y - box.max.y;
+    test.z = center.z - box.min.z;
+
+    if (test.lengthSquared() > radiusSquared)
+        return ContainmentType::Intersects;
+
+    test.x = center.x - box.max.x;
+    test.y = center.y - box.min.y;
+    test.z = center.z - box.min.z;
+
+    if (test.lengthSquared() > radiusSquared)
+        return ContainmentType::Intersects;
+
+    test.x = center.x - box.min.x;
+    test.y = center.y - box.min.y;
+    test.z = center.z - box.min.z;
+
+    return test.lengthSquared() > radiusSquared ? ContainmentType::Intersects : ContainmentType::Contains;
+}
+
+ContainmentType BoundingSphere::contains(const BoundingFrustum& frustum) const
+{
+    if (!frustum.intersects(*this))
+        return ContainmentType::Disjoint;
+
+    const float radiusSquared = radius * radius;
+    const vec3f* array = frustum.getCorners();
+
+    for (int i = 0; i < 8; i++)
+    {
+        if ((array[i] - center).lengthSquared() > radiusSquared)
+            return ContainmentType::Intersects;
+    }
+
+    return ContainmentType::Contains;
+}
+
+ContainmentType BoundingSphere::contains(const vec3f& point) const
+{
+    return vec3f::distanceSquared(point, center) >= (radius * radius) ? ContainmentType::Disjoint : ContainmentType::Contains;
+}
+
+ContainmentType BoundingSphere::contains(const BoundingSphere& sphere) const
+{
+    const float result = vec3f::distance(center, sphere.center);
+
+    if (radius + sphere.radius < result)
+        return ContainmentType::Disjoint;
+
+    return radius - sphere.radius < result ? ContainmentType::Intersects : ContainmentType::Contains;
+}
+
+BoundingSphere BoundingSphere::createMerged(const BoundingSphere& original, const BoundingSphere& additional)
 {
     const vec3f result = additional.center - original.center;
     const float resultLength = result.length();
@@ -55,7 +152,7 @@ inline BoundingSphere BoundingSphere::createMerged(const BoundingSphere& origina
     return resultSphere;
 }
 
-inline BoundingSphere BoundingSphere::createFromBoundingBox(const BoundingBox& box)
+BoundingSphere BoundingSphere::createFromBoundingBox(const BoundingBox& box)
 {
     BoundingSphere boundingSphere;
     boundingSphere.center = vec3f::lerp(box.min, box.max, 0.5f);
@@ -65,7 +162,7 @@ inline BoundingSphere BoundingSphere::createFromBoundingBox(const BoundingBox& b
     return boundingSphere;
 }
 
-inline BoundingSphere BoundingSphere::createFromPoints(std::vector<vec3f> points)
+BoundingSphere BoundingSphere::createFromPoints(std::vector<vec3f> points)
 {
     if (points.size() == 0)
         return BoundingSphere();

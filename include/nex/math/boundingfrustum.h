@@ -10,6 +10,8 @@
 
 namespace nx
 {
+    class BoundingSphere;
+
     class BoundingFrustum
     {
     public:
