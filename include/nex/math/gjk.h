@@ -1,7 +1,7 @@
 #ifndef GJK_H_INCLUDE
 #define GJK_H_INCLUDE
 
-#include "vec3.h"
+#include <nex/math/vec3.h>
 
 namespace nx
 {
