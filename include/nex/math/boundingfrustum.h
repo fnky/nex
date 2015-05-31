@@ -59,21 +59,35 @@ namespace nx
          * @param box = The BoundingBox to check for intersection with.
          * @return true if the BoundingFrustum and BoundingBox intersect; false otherwise.
          */
-        bool intersects(const BoundingBox& box);
+        bool intersects(const BoundingBox& box) const;
 
         /**
          * @brief Checks whether the current BoundingFrustum intersects the specified BoundingFrustum.
          * @param frustum = The BoundingFrustum to check for intersection.
          * @return the intersection result.
          */
-        bool intersects(BoundingFrustum& frustum);
+        bool intersects(const BoundingFrustum& frustum) const;
+
+        /**
+         * @brief Checks whether the current BoundingFrustum intersects the specified BoundingSphere.
+         * @param sphere = The BoundingSphere to check for intersection with.
+         * @return true if the BoundingFrustum and BoundingSphere intersect; false otherwise.
+         */
+        bool intersects(const BoundingSphere& sphere) const;
 
         /**
          * @brief Checks whether the current BoundingFrustum intersects a Ray.
          * @param ray = The Ray to check for intersection with.
          * @return Distance at which the ray intersects the BoundingFrustum or 0 if there is no intersection.
          */
-        float intersects(const Ray& ray);
+        float intersects(const Ray& ray) const;
+
+        /**
+         * @brief Checks whether the current BoundingFrustum intersects the specified Plane.
+         * @param plane = The Plane to check for intersection.
+         * @return the itnersection type.
+         */
+        PlaneIntersectionType intersects(const Plane& plane) const;
 
         /**
          * @brief Checks whether the current BoundingFrustum contains the specified point.
@@ -94,7 +108,7 @@ namespace nx
          * @param frustum = The BoundingFrustum to check against the current BoundingFrustum.
          * @return the containment type.
          */
-        ContainmentType contains(BoundingFrustum frustum);
+        ContainmentType contains(const BoundingFrustum& frustum) const;
 
         /**
          * @brief Checks whether the current BoundingFrustum contains the specified BoundingSphere.
@@ -104,13 +118,6 @@ namespace nx
         ContainmentType contains(const BoundingSphere& sphere) const;
 
         /**
-         * @brief Checks whether the current BoundingFrustum intersects the specified Plane.
-         * @param plane = The Plane to check for intersection.
-         * @return the itnersection type.
-         */
-        PlaneIntersectionType intersects(const Plane& plane) const;
-
-        /**
          * @brief Compute the bounding frustum from the given matrix.
          * @param matrix = matrix to compute from.
          */
@@ -118,10 +125,10 @@ namespace nx
 
         /**
          * @brief supportMapping
-         * @param v
+         * @param vector
          * @return
          */
-        vec3f supportMapping(const vec3f v);
+        vec3f supportMapping(const vec3f vector) const;
 
     private:
 
@@ -132,7 +139,8 @@ namespace nx
         Plane mPlanes[6];
 
         Matrix mMatrix;
-        GJK mGJK;
+
+        mutable GJK mGJK;
 
     };
 } //namespace nx

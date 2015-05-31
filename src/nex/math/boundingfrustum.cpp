@@ -72,14 +72,14 @@ namespace nx
         mCornerArray[6] = intersectionLine2.computeIntersection(mPlanes[5]);
     }
 
-    vec3f BoundingFrustum::supportMapping(const vec3f v)
+    vec3f BoundingFrustum::supportMapping(const vec3f vector) const
     {
         int searchIndex = 0;
-        float thetaA = vec3f::dot(mCornerArray[0], v);
+        float thetaA = vec3f::dot(mCornerArray[0], vector);
 
         for (int index2 = 1; index2 < 8; ++index2)
         {
-            float thetaB = vec3f::dot(mCornerArray[index2], v);
+            float thetaB = vec3f::dot(mCornerArray[index2], vector);
             if (thetaB > thetaA)
             {
                 searchIndex = index2;
@@ -90,7 +90,7 @@ namespace nx
         return mCornerArray[searchIndex];
     }
 
-    bool BoundingFrustum::intersects(const BoundingBox& box)
+    bool BoundingFrustum::intersects(const BoundingBox& box) const
     {
         mGJK.reset();
 
@@ -126,9 +126,10 @@ namespace nx
             num2 = 4E-05f * mGJK.maxLengthSquared();
         }
         while (!mGJK.fullSimplex() && num1 >= num2);
+        return true;
     }
 
-    bool BoundingFrustum::intersects(BoundingFrustum& frustum)
+    bool BoundingFrustum::intersects(const BoundingFrustum& frustum) const
     {
         mGJK.reset();
 
@@ -170,7 +171,7 @@ namespace nx
         return true;
     }
 
-    float BoundingFrustum::intersects(const Ray& ray)
+    float BoundingFrustum::intersects(const Ray& ray) const
     {
         ContainmentType result1 = contains(ray.position);
         if (result1 == ContainmentType::Contains)
@@ -224,6 +225,49 @@ namespace nx
         }
     }
 
+    bool BoundingFrustum::intersects(const BoundingSphere& sphere) const
+    {
+        mGJK.reset();
+
+        vec3f result1 = mCornerArray[0] - sphere.center;
+
+        if ((double)result1.lengthSquared() < 9.99999974737875E-06)
+            result1 = vec3f::unitX;
+
+        float num1 = std::numeric_limits<float>::max();
+        float num2;
+
+        do
+        {
+            vec3f v;
+            v.x = -result1.x;
+            v.y = -result1.y;
+            v.z = -result1.z;
+
+            vec3f result2 = supportMapping(v);
+            vec3f result3 = supportMapping(result1);
+
+            vec3f result4 = result2 - result3;
+
+            if (result1.x * result4.x + result1.y * result4.y + result1.z * result4.z > 0.0f)
+                return false;
+
+            mGJK.addSupportPoint(result4);
+            result1 = mGJK.closestPoint();
+
+            float num3 = num1;
+
+            num1 = result1.lengthSquared();
+
+            if ((double) num3 - (double) num1 <= 9.99999974737875E-06 * (double)num3)
+                return false;
+
+            num2 = 4E-05f * mGJK.maxLengthSquared();
+        }
+        while (!mGJK.fullSimplex() && num1 >= num2);
+        return true;
+    }
+
     PlaneIntersectionType BoundingFrustum::intersects(const Plane& plane) const
     {
         int result = 0;
@@ -269,7 +313,7 @@ namespace nx
         return !flag ? ContainmentType::Contains : ContainmentType::Intersects;
     }
 
-    ContainmentType BoundingFrustum::contains(BoundingFrustum frustum)
+    ContainmentType BoundingFrustum::contains(const BoundingFrustum& frustum) const
     {
         ContainmentType containmentType = ContainmentType::Disjoint;
         if (intersects(frustum))
