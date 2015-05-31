@@ -40,6 +40,13 @@ namespace nx
         bool intersects(const BoundingSphere& sphere) const;
 
         /**
+         * @brief Checks whether the current BoundingSphere intersects with a specified BoundingBox.
+         * @param box = The BoundingBox to check for intersection with the current BoundingSphere.
+         * @return the intersection results.
+         */
+        bool intersects(const BoundingBox& box) const;
+
+        /**
          * @brief Creates a BoundingSphere that contains the two specified BoundingSphere instances.
          * @param original = BoundingSphere to be merged.
          * @param additional = BoundingSphere to be merged.

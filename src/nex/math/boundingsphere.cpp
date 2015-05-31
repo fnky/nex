@@ -20,6 +20,13 @@ bool BoundingSphere::intersects(const BoundingSphere& sphere) const
     return (radius * radius) + (2.0f * radius * sphere.radius) + (sphere.radius * sphere.radius) > distanceSquared;
 }
 
+bool BoundingSphere::intersects(const BoundingBox& box) const
+{
+    const vec3f clampedResult = vec3f::clamp(center, box.min, box.max);
+    const float distanceSquared = vec3f::distanceSquared(center, clampedResult);
+    return distanceSquared <= (radius * radius);
+}
+
 inline BoundingSphere BoundingSphere::createMerged(const BoundingSphere& original, const BoundingSphere& additional)
 {
     const vec3f result = additional.center - original.center;
