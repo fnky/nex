@@ -14,6 +14,12 @@ BoundingSphere::BoundingSphere(const vec3f center, const float radius) :
     radius(radius)
 { }
 
+bool BoundingSphere::intersects(const BoundingSphere& sphere) const
+{
+    const float distanceSquared = vec3f::distanceSquared(center, sphere.center);
+    return (radius * radius) + (2.0f * radius * sphere.radius) + (sphere.radius * sphere.radius) > distanceSquared;
+}
+
 inline BoundingSphere BoundingSphere::createMerged(const BoundingSphere& original, const BoundingSphere& additional)
 {
     const vec3f result = additional.center - original.center;

@@ -33,6 +33,13 @@ namespace nx
         BoundingSphere(const vec3f center, const float radius);
 
         /**
+         * @brief Checks whether the current BoundingSphere intersects with a specified BoundingSphere.
+         * @param sphere = The BoundingSphere to check for intersection with the current BoundingSphere.
+         * @return the intersection result.
+         */
+        bool intersects(const BoundingSphere& sphere) const;
+
+        /**
          * @brief Creates a BoundingSphere that contains the two specified BoundingSphere instances.
          * @param original = BoundingSphere to be merged.
          * @param additional = BoundingSphere to be merged.
