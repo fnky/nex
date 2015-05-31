@@ -1,11 +1,18 @@
 #ifndef BOUNDINGSPHERE_H_INCLUDE
 #define BOUNDINGSPHERE_H_INCLUDE
 
+#include <vector>
+
 #include <nex/math/mathhelper.h>
+
 #include <nex/math/vec3.h>
+
+#include <nex/math/boundingbox.h>
 
 namespace nx
 {
+    class BoundingBox;
+
     /**
      * @brief Defines a sphere.
      */
@@ -32,6 +39,20 @@ namespace nx
          * @return the resulting sphere.
          */
         static BoundingSphere createMerged(const BoundingSphere& original, const BoundingSphere& additional);
+
+        /**
+         * @brief Creates the smallest BoundingSphere that can contain a specified BoundingBox.
+         * @param The BoundingBox to create the BoundingSphere from.
+         * @return the resulting sphere.
+         */
+        static BoundingSphere createFromBoundingBox(const BoundingBox& box);
+
+        /**
+         * @brief Creates a BoundingSphere that can contain a specified list of points.
+         * @param points = List of points the BoundingSphere must contain.
+         * @return the resulting sphere.
+         */
+        static BoundingSphere createFromPoints(std::vector<vec3f> points);
 
         /**
          * @brief The center point of the sphere.

@@ -1,4 +1,5 @@
 #include <nex/math/boundingsphere.h>
+#include <nex/math/boundingbox.h>
 
 namespace nx
 {
@@ -40,4 +41,15 @@ inline BoundingSphere BoundingSphere::createMerged(const BoundingSphere& origina
 
     return resultSphere;
 }
+
+inline BoundingSphere BoundingSphere::createFromBoundingBox(const BoundingBox& box)
+{
+    BoundingSphere boundingSphere;
+    boundingSphere.center = vec3f::lerp(box.min, box.max, 0.5f);
+
+    const float resultRadius = vec3f::distance(box.max, box.max);
+    boundingSphere.radius = resultRadius * 0.5f;
+    return boundingSphere;
+}
+
 } //namespace nx

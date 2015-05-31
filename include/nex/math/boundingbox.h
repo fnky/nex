@@ -5,12 +5,12 @@
 
 #include <nex/math/vec3.h>
 
-#include <nex/math/boundingsphere.h>
-
 #include <nex/math/containmenttype.h>
 
 namespace nx
 {
+    class BoundingSphere;
+
     /**
      * @brief Defines an axis-aligned box-shaped 3D volume.
      */

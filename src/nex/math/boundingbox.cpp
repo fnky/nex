@@ -1,4 +1,5 @@
 #include <nex/math/boundingbox.h>
+#include <nex/math/boundingsphere.h>
 
 namespace nx
 {
