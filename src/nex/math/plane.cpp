@@ -118,7 +118,7 @@ Plane Plane::normalize(const Plane& plane)
     return plane;
 }
 
-inline Ray Plane::computeIntersectionLine(const Plane& p1, const Plane& p2)
+Ray Plane::computeIntersectionLine(const Plane& p1, const Plane& p2)
 {
     Ray ray;
     ray.direction = vec3f::cross(p1.normal, p2.normal);
