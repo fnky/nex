@@ -82,6 +82,32 @@ namespace nx
                const float m13, const float m23, const float m33, const float m43,
                const float m14, const float m24, const float m34, const float m44);
 
+        //Matrix copy.
+        Matrix& operator=(const Matrix& lhs) & {
+
+            m[0][0] = lhs[0][0];
+            m[0][1] = lhs[0][1];
+            m[0][2] = lhs[0][2];
+            m[0][3] = lhs[0][3];
+
+            m[1][0] = lhs[1][0];
+            m[1][1] = lhs[1][1];
+            m[1][2] = lhs[1][2];
+            m[1][3] = lhs[1][3];
+
+            m[2][0] = lhs[2][0];
+            m[2][1] = lhs[2][1];
+            m[2][2] = lhs[2][2];
+            m[2][3] = lhs[2][3];
+
+            m[3][0] = lhs[3][0];
+            m[3][1] = lhs[3][1];
+            m[3][2] = lhs[3][2];
+            m[3][3] = lhs[3][3];
+
+            return *this;
+        }
+
         /**
          * @brief Returns the address to the array data.
          * @return the pointer to the data.
