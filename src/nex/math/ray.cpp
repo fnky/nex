@@ -147,4 +147,10 @@ float Ray::intersects(const BoundingBox& boundingBox) const
     return result;
 }
 
+inline vec3f Ray::computeIntersection(const Plane& plane) const
+{
+    const float distance = (-plane.distance - vec3f::dot(plane.normal, position)) / vec3f::dot(plane.normal, direction);
+    return (position + direction) * distance;
+}
+
 } //namespace nx

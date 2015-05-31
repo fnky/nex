@@ -48,6 +48,13 @@ namespace nx
         float intersects(const BoundingBox& boundingBox) const;
 
         /**
+         * @brief Computes the intersections between the ray an plane.
+         * @param plane = plane to compute the intersection on.
+         * @return the intersection point.
+         */
+        vec3f computeIntersection(const Plane& plane) const;
+
+        /**
          * @brief Specifies the starting point of the Ray.
          */
         vec3f position;
