@@ -13,11 +13,15 @@ namespace nx
 /*
  * TODO:
  * float intersects(BoundingFrustum frustum)
- * float intersects(BoundingBox box);
  **/
     class Ray
     {
     public:
+
+        /**
+         * @brief Constructs a ray.
+         */
+        Ray();
 
         /**
          * @brief Constructs a ray.

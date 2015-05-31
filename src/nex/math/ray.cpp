@@ -7,6 +7,11 @@
 namespace nx
 {
 
+Ray::Ray() :
+    position(vec3f()),
+    direction(vec3f())
+{ }
+
 Ray::Ray(vec3f position, vec3f direction) :
     position(position),
     direction(direction)
