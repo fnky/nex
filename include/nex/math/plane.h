@@ -11,6 +11,8 @@
 
 namespace nx
 {
+    class Ray;
+
     class Plane
     {
     public:
@@ -81,6 +83,14 @@ namespace nx
          * @return the normalized plane.
          */
         static Plane normalize(const Plane& plane);
+
+        /**
+         * @brief Compute the resulting line intersection between two planes if any.
+         * @param p1 = The first plane.
+         * @param p2 = The second plane.
+         * @return the intersection.
+         */
+        static Ray computeIntersectionLine(const Plane& p1, const Plane& p2);
 
         /**
          * @brief The normal vector of the Plane.

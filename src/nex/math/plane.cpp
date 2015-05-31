@@ -1,4 +1,6 @@
 #include <nex/math/plane.h>
+#include <nex/math/ray.h>
+
 #include <cmath>
 
 namespace nx
@@ -114,6 +116,15 @@ Plane Plane::normalize(const Plane& plane)
     result.distance *= oneOverLength;
 
     return plane;
+}
+
+inline Ray Plane::computeIntersectionLine(const Plane& p1, const Plane& p2)
+{
+    Ray ray;
+    ray.direction = vec3f::cross(p1.normal, p2.normal);
+    const float scalar = 1.0f / ray.direction.length();
+    ray.position = vec3f::cross(-p1.distance * p2.normal + p2.distance * p1.normal, ray.direction) * scalar;
+    return ray;
 }
 
 } //namespace nx
