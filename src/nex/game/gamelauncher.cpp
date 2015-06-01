@@ -1,4 +1,4 @@
-#include <nex/core/gamelauncher.h>
+#include <nex/game/gamelauncher.h>
 
 namespace nx
 {
