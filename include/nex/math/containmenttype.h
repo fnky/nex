@@ -3,12 +3,14 @@
 
 namespace nx
 {
-    enum ContainmentType
-    {
-        Disjoint = -1,
-        Contains = 0,
-        Intersects = 1
-    };
+
+enum ContainmentType
+{
+    Disjoint = -1,
+    Contains = 0,
+    Intersects = 1
+};
+
 } //namespace nx
 
 #endif // CONTAINMENTTYPE_H_INCLUDE

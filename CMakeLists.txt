@@ -52,6 +52,7 @@ set (NEX_SYSTEM_INCLUDE ${NEX_INCLUDE_DIR}/nex/system)
 
 set (NEX_MATH_LIB nex-math)
 set (NEX_SYSTEM_LIB nex-system)
+set (NEX_CORE_LIB nex-core)
 
 add_subdirectory (src/nex)
 add_subdirectory (src/testing)
