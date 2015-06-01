@@ -10,6 +10,11 @@ Game::Game(const String &title, const int32 updatesPerSecond) :
 
 }
 
+Game::~Game()
+{
+
+}
+
 bool Game::initialize()
 {
     return true;

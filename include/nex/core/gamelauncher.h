@@ -3,6 +3,8 @@
 
 #include <nex/core/game.h>
 
+#include <SFML/Window.hpp>
+
 namespace nx
 {
     class GameLauncher
@@ -28,6 +30,11 @@ namespace nx
          * @brief The instance of our current game.
          */
         Game& mGame;
+
+        /**
+         * @brief The main window used to get the event.
+         */
+        sf::Window* mWindow;
 
         /**
          * @brief initialize the game launcher and the game.

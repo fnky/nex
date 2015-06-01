@@ -16,6 +16,11 @@ namespace nx
         Game(const nx::String& title, const int32 updatesPerSecond);
 
         /**
+         * @brief Virtual so we destruct the game derived from this class.
+         */
+        virtual ~Game();
+
+        /**
          * @brief initialize the game launcher and the game.
          * @return true if sucessful.
          */

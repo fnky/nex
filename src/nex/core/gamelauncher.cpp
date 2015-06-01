@@ -3,7 +3,7 @@
 namespace nx
 {
 
-GameLauncher::GameLauncher(Game &game) :
+GameLauncher::GameLauncher(Game& game) :
     mGame(game),
     mRunning(true)
 {
@@ -27,7 +27,10 @@ void GameLauncher::destroy()
 
 void GameLauncher::run()
 {
+    while(mRunning)
+    {
 
+    }
 }
 
 } //namespace nx
