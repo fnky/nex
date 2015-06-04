@@ -22,7 +22,7 @@ float Ray::intersects(const Plane& plane) const
     const float dotA = (plane.normal.x * direction.x + plane.normal.y * direction.y + plane.normal.z * direction.z);
 
     //Check for out of bounds.
-    if ((double)abs(dotA) < 9.99999974737875E-06)
+    if (std::abs(dotA) < 9.99999974737875E-06)
         return 0.0f;
 
     const float dotB = (plane.normal.x * position.x + plane.normal.y * position.y + plane.normal.z * position.z);

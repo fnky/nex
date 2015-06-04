@@ -164,6 +164,15 @@ public:
      */
     static Matrix createFromAxisAngle(const vec3f& axis, const float angle);
 
+    static Matrix frustum(
+            const float left,
+            const float right,
+            const float bottom,
+            const float top,
+            const float nearVal,
+            const float farVal
+        );
+
     /**
      * @brief Creates a scaling Matrix.
      * @param xScale = Value to scale by on the x-axis.

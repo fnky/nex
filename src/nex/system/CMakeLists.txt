@@ -11,6 +11,7 @@ set (NEX_SYSTEM_HEADERS
     ${INC_DIR}/string.inl
     ${INC_DIR}/instream.h
     ${INC_DIR}/outstream.h
+    ${INC_DIR}/noncopyable.h
 )
 
 set (NEX_SYSTEM_SRC

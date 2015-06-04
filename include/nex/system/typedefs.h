@@ -22,4 +22,7 @@ typedef unsigned int uint32;
     typedef unsigned long long uint64;
 #endif
 
+typedef float real32;
+typedef double real64;
+
 #endif // TYPEDEFS_H_INCLUDE

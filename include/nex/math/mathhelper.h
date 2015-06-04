@@ -95,6 +95,18 @@ inline float clamp(float value, const float min, const float max)
   return value;
 }
 
+/**
+ * @brief Linearly interpolates between two values.
+ * @param previous = previous value.
+ * @param current = current value.
+ * @param amount = the interpolation weight.
+ * @return the interpolated value.
+ */
+inline float lerp(const float previous, const float current, const float amount)
+{
+    return previous + (current - previous) * amount;
+}
+
 } //namespace nx
 
 #endif // MATHHELPER_H_INCLUDE

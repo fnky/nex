@@ -45,15 +45,14 @@ endif()
 set (NEX_SOURCE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/src)
 set (NEX_INCLUDE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/include)
 
-
 # Setup some include path varibles for people only using a select few systems.
 set (NEX_MATH_INCLUDE ${NEX_INCLUDE_DIR}/nex/math)
 set (NEX_SYSTEM_INCLUDE ${NEX_INCLUDE_DIR}/nex/system)
+set (NEX_CORE_INCLUDE ${NEX_INCLUDE_DIR}/nex/core)
 
 set (NEX_MATH_LIB nex-math)
 set (NEX_SYSTEM_LIB nex-system)
-# set (NEX_WINDOW_LIB nex-window)
-# set (NEX_GAME_LIB nex-game)
+set (NEX_CORE_LIB nex-core)
 
 add_subdirectory (src/nex)
 add_subdirectory (src/testing)

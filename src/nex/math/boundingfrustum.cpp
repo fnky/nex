@@ -191,7 +191,7 @@ namespace nx
 
                 dotB += plane.distance;
 
-                if (abs(dotA) < 9.99999974737875E-06)
+                if (std::abs(dotA) < 9.99999974737875E-06)
                 {
                     if (dotB > 0.0f)
                         return 0.0f;

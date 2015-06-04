@@ -252,6 +252,26 @@ inline Matrix Matrix::createFromAxisAngle(const vec3f& axis, const float angle)
     return matrix;
 }
 
+inline Matrix Matrix::frustum(
+        const float left,
+        const float right,
+        const float bottom,
+        const float top,
+        const float nearVal,
+        const float farVal
+    )
+{
+    Matrix result;
+    result[0][0] = (2.0f * nearVal) / (right - left);
+    result[1][1] = (2.0f * nearVal) / (top - bottom);
+    result[2][0] = (right + left) / (right - left);
+    result[2][1] = (top + bottom) / (top - bottom);
+    result[2][2] = -(farVal + nearVal) / (farVal - nearVal);
+    result[2][3] = -1.0f;
+    result[3][2] = -(2.0f * farVal * nearVal) / (farVal - nearVal);
+    return result;
+}
+
 inline Matrix Matrix::perspective(
         const float fovy,
         const float aspect,
