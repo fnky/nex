@@ -4,17 +4,9 @@
 //Nex includes.
 #include <nex/system/typedefs.h>
 
-#ifndef VEC2_H_INCLUDE
-#include "vec2.h"
-#endif
-
-#ifndef VEC3_H_INCLUDE
-#include "vec3.h"
-#endif
-
-#ifndef VEC4_H_INCLUDE
-#include "vec4.h"
-#endif
+#include <nex/math/vec2.h>
+#include <nex/math/vec3.h>
+#include <nex/math/vec4.h>
 
 /*
  * TODO (Tyler): Implement the following.
@@ -43,10 +35,10 @@
 namespace nx
 {
 // The elements of the matrix are stored as column major order.
-// | 0 4 8  12 |
-// | 1 5 9  13 |
-// | 2 6 10 14 |
-// | 3 7 11 15 |
+// | 0 2 |    | 0 3 6 |    |  0  4  8 12 |
+// | 1 3 |    | 1 4 7 |    |  1  5  9 13 |
+//            | 2 5 8 |    |  2  6 10 14 |
+//                         |  3  7 11 15 |
 
 //This is how we address the matrix.
 //| m11 m12 m13 m14 |
@@ -63,12 +55,14 @@ namespace nx
 //| 0 0 1 z |
 //| 0 0 0 1 |
 
-typedef float col_type[4];
-
+//friend Vector3 operator*(const Vector3& vec, const Matrix4& m);
+//friend Vector4 operator*(const Vector4& vec, const Matrix4& m);
+template <typename T>
 class Matrix
 {
 public:
 
+    typedef T col_type[4];
     /**
      * @brief Constructs an identity matrix.
      */
@@ -77,10 +71,10 @@ public:
     /**
      * @brief Create a matrix with the specified values.
      */
-    Matrix(const float m11, const float m21, const float m31, const float m41,
-           const float m12, const float m22, const float m32, const float m42,
-           const float m13, const float m23, const float m33, const float m43,
-           const float m14, const float m24, const float m34, const float m44);
+    Matrix(const T m11, const T m21, const T m31, const T m41,
+           const T m12, const T m22, const T m32, const T m42,
+           const T m13, const T m23, const T m33, const T m43,
+           const T m14, const T m24, const T m34, const T m44);
 
     //Matrix copy.
     Matrix& operator=(const Matrix& lhs) & {
@@ -112,7 +106,7 @@ public:
      * @brief Returns the address to the array data.
      * @return the pointer to the data.
      */
-    inline float* getPtr() { return (float*)&m; }
+    inline T* getPtr() { return (T*)&m; }
 
     /**
      * @brief Allows the users of this class to access the interal values by [y][x] as needed.
@@ -133,28 +127,28 @@ public:
      * @param position = position to translate to.
      * @return the translation matrix.
      */
-    static Matrix translate(const vec3f& position);
+    static Matrix translate(const Vec3<T>& position);
 
     /**
      * @brief Returns a matrix that can be used to rotate a set of vertices around the x-axis.
      * @param radians = The amount, in radians, in which to rotate around the x-axis.
      * @return the rotation matrix.
      */
-    static Matrix rotateX(const float radians);
+    static Matrix rotateX(const T radians);
 
     /**
      * @brief Returns a matrix that can be used to rotate a set of vertices around the y-axis.
      * @param radians = the amount, in radians, in which to rotate around the y-axis.
      * @return the rotation matrix.
      */
-    static Matrix rotateY(const float radians);
+    static Matrix rotateY(const T radians);
 
     /**
      * @brief Returns a matrix that can be used to rotate a set of vertices around the z-axis.
      * @param radians = the amount, in radians, in which to rotate around the z-axis.
      * @return the rotation matrix.
      */
-    static Matrix rotateZ(const float radians);
+    static Matrix rotateZ(const T radians);
 
     /**
      * @brief Creates a new Matrix that rotates around an arbitrary vector.
@@ -162,15 +156,25 @@ public:
      * @param angle = The angle to rotate around the vector in radians.
      * @return the rotation matrix.
      */
-    static Matrix createFromAxisAngle(const vec3f& axis, const float angle);
+    static Matrix createFromAxisAngle(const Vec3<T>& axis, const T angle);
 
+    /**
+     * @brief Creates a new frustum matrix.
+     * @param left = Left plane.
+     * @param right = Right plane.
+     * @param bottom = Bottom plane.
+     * @param top = Top plane.
+     * @param nearVal = The near plane value.
+     * @param farVal = the far plane value.
+     * @return the new frustum matrix.
+     */
     static Matrix frustum(
-            const float left,
-            const float right,
-            const float bottom,
-            const float top,
-            const float nearVal,
-            const float farVal
+            const T left,
+            const T right,
+            const T bottom,
+            const T top,
+            const T nearVal,
+            const T farVal
         );
 
     /**
@@ -180,7 +184,7 @@ public:
      * @param zScale = Value to scale by on the z-axis.
      * @return the scale matrix.
      */
-    static Matrix scale(const float xScale, const float yScale, const float zScale);
+    static Matrix scale(const T xScale, const T yScale, const T zScale);
 
     /**
      * @brief Builds a perspective projection matrix based on a field of view and returns by value.

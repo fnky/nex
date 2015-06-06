@@ -1,16 +1,18 @@
 #include <iostream>
 #include <cmath>
 
-#include <nex/core/event.h>
-#include <nex/core/eventprovider.h>
-#include <nex/core/gfxprovider.h>
+#include <nex/core/windowprovider.h>
+
+using namespace nx;
 
 int main(int argc, char** args)
 {
-    using namespace nx;
+    WindowProvider* window = WindowProvider::newInstance();
+    if (!window->create(800, 600, Style::Default))
+    {
+        return false;
+    }
 
-    EventProvider ep;
-    GfxProvider gfx;
 
     return 0;
 }

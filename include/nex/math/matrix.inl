@@ -56,12 +56,12 @@ inline Matrix::Matrix(
     m[3][3] = m44;
 }
 
-inline col_type& Matrix::operator[] (const uint32 index)
+inline Matrix::col_type& Matrix::operator[] (const uint32 index)
 {
     return m[index];
 }
 
-inline const col_type&  Matrix::operator[] (const uint32 index) const
+inline const Matrix::col_type&  Matrix::operator[] (const uint32 index) const
 {
     return m[index];
 }
@@ -431,6 +431,27 @@ inline Matrix operator *(const float left, const Matrix& right)
             left * right[0][1], left * right[1][1], left * right[2][1], left * right[3][1],
             left * right[0][2], left * right[1][2], left * right[2][2], left * right[3][2],
             left * right[0][3], left * right[1][3], left * right[2][3], left * right[3][3]);
+}
+
+// | 0 2 |    | 0 3 6 |    |  0  4  8 12 |
+// | 1 3 |    | 1 4 7 |    |  1  5  9 13 |
+//            | 2 5 8 |    |  2  6 10 14 |
+//                         |  3  7 11 15 |
+inline Vector4 Matrix4::operator*(const Vector4& rhs) const
+{
+    return Vector4(m[0]*rhs.x + m[4]*rhs.y + m[8]*rhs.z  + m[12]*rhs.w,
+                   m[1]*rhs.x + m[5]*rhs.y + m[9]*rhs.z  + m[13]*rhs.w,
+                   m[2]*rhs.x + m[6]*rhs.y + m[10]*rhs.z + m[14]*rhs.w,
+                   m[3]*rhs.x + m[7]*rhs.y + m[11]*rhs.z + m[15]*rhs.w);
+}
+
+
+
+inline Vector3 Matrix4::operator*(const Vector3& rhs) const
+{
+    return Vector3(m[0]*rhs.x + m[4]*rhs.y + m[8]*rhs.z,
+                   m[1]*rhs.x + m[5]*rhs.y + m[9]*rhs.z,
+                   m[2]*rhs.x + m[6]*rhs.y + m[10]*rhs.z);
 }
 
 inline Matrix& operator *=(Matrix& left, const float right)
