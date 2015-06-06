@@ -77,7 +77,7 @@ public:
            const T m14, const T m24, const T m34, const T m44);
 
     //Matrix copy.
-    Matrix& operator=(const Matrix& lhs) & {
+    Matrix<T>& operator=(const Matrix<T>& lhs) & {
 
         m[0][0] = lhs[0][0];
         m[0][1] = lhs[0][1];
@@ -108,47 +108,57 @@ public:
      */
     inline T* getPtr() { return (T*)&m; }
 
-    /**
-     * @brief Allows the users of this class to access the interal values by [y][x] as needed.
-     * @param index to lookup.
-     * @return pointer to the data.
-     */
-    col_type& operator[] (const uint32 index);
+    inline col_type& operator[] (const uint32 index)
+    {
+        return m[index];
+    }
+
+    inline const col_type& operator[] (const uint32 index) const
+    {
+        return m[index];
+    }
 
     /**
      * @brief Allows the users of this class to access the interal values by [y][x] as needed.
      * @param index to lookup.
      * @return pointer to the data.
      */
-    const col_type& operator[] (const uint32 index) const;
+    //col_type& operator[] (const uint32 index);
+
+    /**
+     * @brief Allows the users of this class to access the interal values by [y][x] as needed.
+     * @param index to lookup.
+     * @return pointer to the data.
+     */
+    //col_type& operator[] (const uint32 index) const;
 
     /**
      * @brief Create a translation matrix.
      * @param position = position to translate to.
      * @return the translation matrix.
      */
-    static Matrix translate(const Vec3<T>& position);
+    static Matrix<T> translate(const Vec3<T>& position);
 
     /**
      * @brief Returns a matrix that can be used to rotate a set of vertices around the x-axis.
      * @param radians = The amount, in radians, in which to rotate around the x-axis.
      * @return the rotation matrix.
      */
-    static Matrix rotateX(const T radians);
+    static Matrix<T> rotateX(const T radians);
 
     /**
      * @brief Returns a matrix that can be used to rotate a set of vertices around the y-axis.
      * @param radians = the amount, in radians, in which to rotate around the y-axis.
      * @return the rotation matrix.
      */
-    static Matrix rotateY(const T radians);
+    static Matrix<T> rotateY(const T radians);
 
     /**
      * @brief Returns a matrix that can be used to rotate a set of vertices around the z-axis.
      * @param radians = the amount, in radians, in which to rotate around the z-axis.
      * @return the rotation matrix.
      */
-    static Matrix rotateZ(const T radians);
+    static Matrix<T> rotateZ(const T radians);
 
     /**
      * @brief Creates a new Matrix that rotates around an arbitrary vector.
@@ -156,7 +166,7 @@ public:
      * @param angle = The angle to rotate around the vector in radians.
      * @return the rotation matrix.
      */
-    static Matrix createFromAxisAngle(const Vec3<T>& axis, const T angle);
+    static Matrix<T> createFromAxisAngle(const Vec3<T>& axis, const T angle);
 
     /**
      * @brief Creates a new frustum matrix.
@@ -168,7 +178,7 @@ public:
      * @param farVal = the far plane value.
      * @return the new frustum matrix.
      */
-    static Matrix frustum(
+    static Matrix<T> frustum(
             const T left,
             const T right,
             const T bottom,
@@ -184,7 +194,7 @@ public:
      * @param zScale = Value to scale by on the z-axis.
      * @return the scale matrix.
      */
-    static Matrix scale(const T xScale, const T yScale, const T zScale);
+    static Matrix<T> scale(const T xScale, const T yScale, const T zScale);
 
     /**
      * @brief Builds a perspective projection matrix based on a field of view and returns by value.
@@ -194,11 +204,11 @@ public:
      * @param zFar = Distance to the far view plane.
      * @return the perspective matrix.
      */
-    static Matrix perspective(
-            const float fovy,
-            const float aspect,
-            const float zNear,
-            const float zFar);
+    static Matrix<T> perspective(
+            const T fovy,
+            const T aspect,
+            const T zNear,
+            const T zFar);
 
     /**
      * @brief Builds a perspective projection matrix based on a field of view
@@ -209,12 +219,12 @@ public:
      * @param zFar =  Distance to the far view plane.
      * @returnthe perspective matrix.
      */
-    static Matrix perspectiveFov(
-            const float fov,
-            const float width,
-            const float height,
-            const float zNear,
-            const float zFar);
+    static Matrix<T> perspectiveFov(
+            const T fov,
+            const T width,
+            const T height,
+            const T zNear,
+            const T zFar);
 
     /**
      * @brief Builds an orthogonal projection matrix.
@@ -224,11 +234,11 @@ public:
      * @param zFarPlane = Maximum z-value of the view volume.
      * @return the orthoganal projection matrix.
      */
-    static Matrix orthographic(
-            const float width,
-            const float height,
-            const float zNearPlane,
-            const float zFarPlane);
+    static Matrix<T> orthographic(
+            const T width,
+            const T height,
+            const T zNearPlane,
+            const T zFarPlane);
 
     //Our matrix data.
     col_type m[4];
@@ -236,6 +246,9 @@ public:
 }; //class matrix
 
 #include <nex/math/matrix.inl>
+
+typedef Matrix<float> mat4f;
+typedef Matrix<double> mat4d;
 
 } //namespace nx
 

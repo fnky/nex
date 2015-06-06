@@ -5,35 +5,41 @@
 
 //TODO (Tyler): Make this class type agnostic.
 
-inline Matrix::Matrix()
+template <typename T>
+inline Matrix<T>::Matrix()
 {
     //Create an identity matrix.
-    m[0][0] = 1.0f;
-    m[0][1] = 0.0f;
-    m[0][2] = 0.0f;
-    m[0][3] = 0.0f;
 
-    m[1][0] = 0.0f;
-    m[1][1] = 1.0f;
-    m[1][2] = 0.0f;
-    m[1][3] = 0.0f;
+    const T zero = static_cast<T>(0.0);
+    const T one = static_cast<T>(1.0);
 
-    m[2][0] = 0.0f;
-    m[2][1] = 0.0f;
-    m[2][2] = 1.0f;
-    m[2][3] = 0.0f;
+    m[0][0] = one;
+    m[0][1] = zero;
+    m[0][2] = zero;
+    m[0][3] = zero;
 
-    m[3][0] = 0.0f;
-    m[3][1] = 0.0f;
-    m[3][2] = 0.0f;
-    m[3][3] = 1.0f;
+    m[1][0] = zero;
+    m[1][1] = one;
+    m[1][2] = zero;
+    m[1][3] = zero;
+
+    m[2][0] = zero;
+    m[2][1] = zero;
+    m[2][2] = one;
+    m[2][3] = zero;
+
+    m[3][0] = zero;
+    m[3][1] = zero;
+    m[3][2] = zero;
+    m[3][3] = one;
 }
 
-inline Matrix::Matrix(
-       const float m11, const float m21, const float m31, const float m41,
-       const float m12, const float m22, const float m32, const float m42,
-       const float m13, const float m23, const float m33, const float m43,
-       const float m14, const float m24, const float m34, const float m44)
+template <typename T>
+inline Matrix<T>::Matrix(
+       const T m11, const T m21, const T m31, const T m41,
+       const T m12, const T m22, const T m32, const T m42,
+       const T m13, const T m23, const T m33, const T m43,
+       const T m14, const T m24, const T m34, const T m44)
 {
     m[0][0] = m11;
     m[1][0] = m21;
@@ -56,281 +62,315 @@ inline Matrix::Matrix(
     m[3][3] = m44;
 }
 
-inline Matrix::col_type& Matrix::operator[] (const uint32 index)
+
+
+template <typename T>
+inline Matrix<T> Matrix<T>::translate(const Vec3<T>& position)
 {
-    return m[index];
-}
+    const T zero = static_cast<T>(0.0);
+    const T one = static_cast<T>(1.0);
 
-inline const Matrix::col_type&  Matrix::operator[] (const uint32 index) const
-{
-    return m[index];
-}
+    Matrix<T> matrix;
 
-inline Matrix Matrix::translate(const vec3f& position)
-{
-    Matrix matrix;
+    matrix[0][0] = one;
+    matrix[0][1] = zero;
+    matrix[0][2] = zero;
+    matrix[0][3] = zero;
 
-    matrix[0][0] = 1.0f;
-    matrix[0][1] = 0.0f;
-    matrix[0][2] = 0.0f;
-    matrix[0][3] = 0.0f;
+    matrix[1][0] = zero;
+    matrix[1][1] = one;
+    matrix[1][2] = zero;
+    matrix[1][3] = zero;
 
-    matrix[1][0] = 0.0f;
-    matrix[1][1] = 1.0f;
-    matrix[1][2] = 0.0f;
-    matrix[1][3] = 0.0f;
-
-    matrix[2][0] = 0.0f;
-    matrix[2][1] = 0.0f;
-    matrix[2][2] = 1.0f;
-    matrix[2][3] = 0.0f;
+    matrix[2][0] = zero;
+    matrix[2][1] = zero;
+    matrix[2][2] = one;
+    matrix[2][3] = zero;
 
     matrix[3][0] = position.x;
     matrix[3][1] = position.y;
     matrix[3][2] = position.z;
-    matrix[3][3] = 1.0f;
+    matrix[3][3] = one;
 
     return matrix;
 }
 
-inline Matrix Matrix::scale(const float xScale, const float yScale, const float zScale)
+template <typename T>
+inline Matrix<T> Matrix<T>::scale(const T xScale, const T yScale, const T zScale)
 {
-    Matrix matrix;
+    const T zero = static_cast<T>(0.0);
+    const T one = static_cast<T>(1.0);
+
+    Matrix<T> matrix;
 
     matrix[0][0] = xScale;
-    matrix[0][1] = 0.0f;
-    matrix[0][2] = 0.0f;
-    matrix[0][3] = 0.0f;
+    matrix[0][1] = zero;
+    matrix[0][2] = zero;
+    matrix[0][3] = zero;
 
-    matrix[1][0] = 0.0f;
+    matrix[1][0] = zero;
     matrix[1][1] = yScale;
-    matrix[1][2] = 0.0f;
-    matrix[1][3] = 0.0f;
+    matrix[1][2] = zero;
+    matrix[1][3] = zero;
 
-    matrix[2][0] = 0.0f;
-    matrix[2][1] = 0.0f;
+    matrix[2][0] = zero;
+    matrix[2][1] = zero;
     matrix[2][2] = zScale;
-    matrix[2][3] = 0.0f;
+    matrix[2][3] = zero;
 
-    matrix[3][0] = 0.0f;
-    matrix[3][1] = 0.0f;
-    matrix[3][2] = 0.0f;
-    matrix[3][3] = 1.0f;
+    matrix[3][0] = zero;
+    matrix[3][1] = zero;
+    matrix[3][2] = zero;
+    matrix[3][3] = one;
 
     return matrix;
 }
 
-inline Matrix Matrix::rotateX(const float radians)
+template <typename T>
+inline Matrix<T> Matrix<T>::rotateX(const T radians)
 {
-    const float cosResult = cosf(radians);
-    const float sinResult = sinf(radians);
+    const T cosResult = static_cast<T>(cos(radians));
+    const T sinResult = static_cast<T>(sin(radians));
 
-    Matrix matrix;
+    const T zero = static_cast<T>(0.0);
+    const T one = static_cast<T>(1.0);
 
-    matrix[0][0] = 1.0f;
-    matrix[0][1] = 0.0f;
-    matrix[0][2] = 0.0f;
-    matrix[0][3] = 0.0f;
+    Matrix<T> matrix;
 
-    matrix[1][0] = 0.0f;
+    matrix[0][0] = one;
+    matrix[0][1] = zero;
+    matrix[0][2] = zero;
+    matrix[0][3] = zero;
+
+    matrix[1][0] = zero;
     matrix[1][1] = cosResult;
     matrix[1][2] = sinResult;
-    matrix[1][3] = 0.0f;
+    matrix[1][3] = zero;
 
-    matrix[2][0] = 0.0f;
+    matrix[2][0] = zero;
     matrix[2][1] = -sinResult;
     matrix[2][2] = cosResult;
-    matrix[2][3] = 0.0f;
+    matrix[2][3] = zero;
 
-    matrix[3][0] = 0.0f;
-    matrix[3][1] = 0.0f;
-    matrix[3][2] = 0.0f;
-    matrix[3][3] = 1.0f;
+    matrix[3][0] = zero;
+    matrix[3][1] = zero;
+    matrix[3][2] = zero;
+    matrix[3][3] = one;
 
     return matrix;
 }
 
-inline Matrix Matrix::rotateY(const float radians)
+template <typename T>
+inline Matrix<T> Matrix<T>::rotateY(const T radians)
 {
-    const float cosResult = cosf(radians);
-    const float sinResult = sinf(radians);
+    const T cosResult = static_cast<T>(cos(radians));
+    const T sinResult = static_cast<T>(sin(radians));
 
-    Matrix matrix;
+    const T zero = static_cast<T>(0.0);
+    const T one = static_cast<T>(1.0);
+
+    Matrix<T> matrix;
 
     matrix[0][0] = cosResult;
-    matrix[0][1] = 0.0f;
+    matrix[0][1] = zero;
     matrix[0][2] = -sinResult;
-    matrix[0][3] = 0.0f;
+    matrix[0][3] = zero;
 
-    matrix[1][0] = 0.0f;
-    matrix[1][1] = 1.0f;
-    matrix[1][2] = 0.0f;
-    matrix[1][3] = 0.0f;
+    matrix[1][0] = zero;
+    matrix[1][1] = one;
+    matrix[1][2] = zero;
+    matrix[1][3] = zero;
 
     matrix[2][0] = sinResult;
-    matrix[2][1] = 0.0f;
+    matrix[2][1] = zero;
     matrix[2][2] = cosResult;
-    matrix[2][3] = 0.0f;
+    matrix[2][3] = zero;
 
-    matrix[3][0] = 0.0f;
-    matrix[3][1] = 0.0f;
-    matrix[3][2] = 0.0f;
-    matrix[3][3] = 1.0f;
+    matrix[3][0] = zero;
+    matrix[3][1] = zero;
+    matrix[3][2] = zero;
+    matrix[3][3] = one;
 
     return matrix;
 }
 
-inline Matrix Matrix::rotateZ(const float radians)
+template <typename T>
+inline Matrix<T> Matrix<T>::rotateZ(const T radians)
 {
-    const float cosResult = cosf(radians);
-    const float sinResult = sinf(radians);
+    const T cosResult = static_cast<T>(cos(radians));
+    const T sinResult = static_cast<T>(sin(radians));
 
-    Matrix matrix;
+    const T zero = static_cast<T>(0.0);
+    const T one = static_cast<T>(1.0);
+
+    Matrix<T> matrix;
 
     matrix[0][0] = cosResult;
     matrix[0][1] = sinResult;
-    matrix[0][2] = 0.0f;
-    matrix[0][3] = 0.0f;
+    matrix[0][2] = zero;
+    matrix[0][3] = zero;
 
     matrix[1][0] = -sinResult;
     matrix[1][1] = cosResult;
-    matrix[1][2] = 0.0f;
-    matrix[1][3] = 0.0f;
+    matrix[1][2] = zero;
+    matrix[1][3] = zero;
 
-    matrix[2][0] = 0.0f;
-    matrix[2][1] = 0.0f;
-    matrix[2][2] = 1.0f;
-    matrix[2][3] = 0.0f;
+    matrix[2][0] = zero;
+    matrix[2][1] = zero;
+    matrix[2][2] = one;
+    matrix[2][3] = zero;
 
-    matrix[3][0] = 0.0f;
-    matrix[3][1] = 0.0f;
-    matrix[3][2] = 0.0f;
-    matrix[3][3] = 1.0f;
+    matrix[3][0] = zero;
+    matrix[3][1] = zero;
+    matrix[3][2] = zero;
+    matrix[3][3] = one;
 
     return matrix;
 }
 
-inline Matrix Matrix::createFromAxisAngle(const vec3f& axis, const float angle)
+template <typename T>
+inline Matrix<T> Matrix<T>::createFromAxisAngle(const Vec3<T>& axis, const T angle)
 {
-    const float xRotation = axis.x;
-    const float yRotation = axis.y;
-    const float zRotation = axis.z;
+    const T xRotation = axis.x;
+    const T yRotation = axis.y;
+    const T zRotation = axis.z;
 
-    const float sinResult = sinf(angle);
-    const float cosResult = cosf(angle);
+    const T sinResult = static_cast<T>(sin(angle));
+    const T cosResult = static_cast<T>(cos(angle));
 
-    const float xRotationSquared = xRotation * xRotation;
-    const float yRotationSquared = yRotation * yRotation;
-    const float zRotationSquared = zRotation * zRotation;
+    const T xRotationSquared = xRotation * xRotation;
+    const T yRotationSquared = yRotation * yRotation;
+    const T zRotationSquared = zRotation * zRotation;
 
-    const float dotA = xRotation * yRotation;
-    const float dotB = xRotation * zRotation;
-    const float dotC = yRotation * zRotation;
+    const T dotA = xRotation * yRotation;
+    const T dotB = xRotation * zRotation;
+    const T dotC = yRotation * zRotation;
 
-    Matrix matrix;
+    const T zero = static_cast<T>(0.0);
+    const T one = static_cast<T>(1.0);
 
-    matrix[0][0] = xRotationSquared + cosResult * (1.0f - xRotationSquared);
+    Matrix<T> matrix;
+
+    matrix[0][0] = xRotationSquared + cosResult * (one - xRotationSquared);
     matrix[0][1] = (dotA - cosResult * dotA + sinResult * zRotation);
     matrix[0][2] = (dotB - cosResult * dotB - sinResult * yRotation);
-    matrix[0][3] = 0.0f;
+    matrix[0][3] = zero;
 
     matrix[1][0] = (dotA - cosResult * dotA - sinResult * zRotation);
-    matrix[1][1] = yRotationSquared + cosResult * (1.0f - yRotationSquared);
+    matrix[1][1] = yRotationSquared + cosResult * (one - yRotationSquared);
     matrix[1][2] = (dotC - cosResult * dotC + sinResult * xRotation);
-    matrix[1][3] = 0.0f;
+    matrix[1][3] = zero;
 
     matrix[2][0] = (dotB - cosResult * dotB + sinResult * yRotation);
     matrix[2][1] = (dotC -  cosResult * dotC - sinResult * xRotation);
-    matrix[2][2] = zRotationSquared + cosResult * (1.0f - zRotationSquared);
-    matrix[2][3] = 0.0f;
+    matrix[2][2] = zRotationSquared + cosResult * (one - zRotationSquared);
+    matrix[2][3] = zero;
 
-    matrix[3][0] = 0.0f;
-    matrix[3][1] = 0.0f;
-    matrix[3][2] = 0.0f;
-    matrix[3][3] = 1.0f;
+    matrix[3][0] = zero;
+    matrix[3][1] = zero;
+    matrix[3][2] = zero;
+    matrix[3][3] = one;
 
     return matrix;
 }
 
-inline Matrix Matrix::frustum(
-        const float left,
-        const float right,
-        const float bottom,
-        const float top,
-        const float nearVal,
-        const float farVal
+template <typename T>
+inline Matrix<T> Matrix<T>::frustum(
+        const T left,
+        const T right,
+        const T bottom,
+        const T top,
+        const T nearVal,
+        const T farVal
     )
 {
-    Matrix result;
-    result[0][0] = (2.0f * nearVal) / (right - left);
-    result[1][1] = (2.0f * nearVal) / (top - bottom);
+    const T one = static_cast<T>(1.0);
+    const T two = static_cast<T>(2.0);
+
+    Matrix<T> result;
+    result[0][0] = (two * nearVal) / (right - left);
+    result[1][1] = (two * nearVal) / (top - bottom);
     result[2][0] = (right + left) / (right - left);
     result[2][1] = (top + bottom) / (top - bottom);
     result[2][2] = -(farVal + nearVal) / (farVal - nearVal);
-    result[2][3] = -1.0f;
-    result[3][2] = -(2.0f * farVal * nearVal) / (farVal - nearVal);
+    result[2][3] = -one;
+    result[3][2] = -(two * farVal * nearVal) / (farVal - nearVal);
     return result;
 }
 
-inline Matrix Matrix::perspective(
-        const float fovy,
-        const float aspect,
-        const float zNear,
-        const float zFar)
+template <typename T>
+inline Matrix<T> Matrix<T>::perspective(
+        const T fovy,
+        const T aspect,
+        const T zNear,
+        const T zFar)
 {
-    float tanHalfFovy = tanf(fovy * 0.5f);
+    const T tanHalfFovy = static_cast<T>(tan(fovy * static_cast<T>(0.5)));
 
-    Matrix result;
-    result[0][0] = 1.0f / (aspect * tanHalfFovy);
-    result[1][1] = 1.0f / (tanHalfFovy);
+    const T one = static_cast<T>(1.0);
+    const T two = static_cast<T>(2.0);
+
+    Matrix<T> result;
+    result[0][0] = one / (aspect * tanHalfFovy);
+    result[1][1] = one / (tanHalfFovy);
     result[2][2] = -(zFar + zNear) / (zFar - zNear);
-    result[2][3] = -1.0f;
-    result[3][2] = -(2.0f * zFar * zNear) / (zFar - zNear);
+    result[2][3] = -one;
+    result[3][2] = -(two * zFar * zNear) / (zFar - zNear);
     return result;
 }
 
-inline Matrix Matrix::perspectiveFov(
-        const float fov,
-        const float width,
-        const float height,
-        const float zNear,
-        const float zFar)
+template <typename T>
+inline Matrix<T> Matrix<T>::perspectiveFov(
+        const T fov,
+        const T width,
+        const T height,
+        const T zNear,
+        const T zFar)
 {
-    float const rad = fov;
-    float const h = cosf(0.5f * rad) / sinf(0.5f * rad);
-    float const w = h * height / width;
 
-    Matrix result;
+    const T half = static_cast<T>(0.5);
+
+    const T rad = fov;
+    const T h = static_cast<T>(cos(half * rad)) / static_cast<T>(sin(half * rad));
+    const T w = h * height / width;
+
+    Matrix<T> result;
     result[0][0] = w;
     result[1][1] = h;
     result[2][2] = - (zFar + zNear) / (zFar - zNear);
-    result[2][3] = -1.0f;
-    result[3][2] = - (2.0f * zFar * zNear) / (zFar - zNear);
+    result[2][3] = -static_cast<T>(1.0);
+    result[3][2] = - (static_cast<T>(2.0) * zFar * zNear) / (zFar - zNear);
     return result;
 }
 
-inline Matrix Matrix::orthographic(
-        const float width,
-        const float height,
-        const float zNearPlane,
-        const float zFarPlane)
+template <typename T>
+inline Matrix<T> Matrix<T>::orthographic(
+        const T width,
+        const T height,
+        const T zNearPlane,
+        const T zFarPlane)
 {
-    Matrix matrix;
-    matrix[0][0] = 2.0f / width;
-    matrix[0][1] = matrix[0][2] = matrix[0][3] = 0.0f;
-    matrix[1][1] = 2.0f / height;
-    matrix[2][0] = matrix[1][2] = matrix[1][3] = 0.0f;
-    matrix[2][2] = (1.0f / (zNearPlane - zFarPlane));
-    matrix[2][0] = matrix[2][1] = matrix[2][3] = 0.0f;
-    matrix[3][0] = matrix[3][1] = 0.0f;
+    const T zero = static_cast<T>(0.0);
+    const T one = static_cast<T>(1.0);
+    const T two = static_cast<T>(2.0);
+
+    Matrix<T> matrix;
+    matrix[0][0] = two / width;
+    matrix[0][1] = matrix[0][2] = matrix[0][3] = zero;
+    matrix[1][1] = two / height;
+    matrix[2][0] = matrix[1][2] = matrix[1][3] = zero;
+    matrix[2][2] = (one / (zNearPlane - zFarPlane));
+    matrix[2][0] = matrix[2][1] = matrix[2][3] = zero;
+    matrix[3][0] = matrix[3][1] = zero;
     matrix[3][2] = zNearPlane / (zNearPlane - zFarPlane);
-    matrix[3][3] = 1.0f;
+    matrix[3][3] = one;
     return matrix;
 }
 
-inline Matrix operator -( Matrix& right)
+template <typename T>
+inline Matrix<T> operator -(Matrix<T>& right)
 {
-    return Matrix(
+    return Matrix<T>(
             -right[0][0], -right[1][0], -right[2][0], -right[3][0],
             -right[0][1], -right[1][1], -right[2][1], -right[3][1],
             -right[0][2], -right[1][2], -right[2][2], -right[3][2],
@@ -338,7 +378,8 @@ inline Matrix operator -( Matrix& right)
 
 }
 
-inline Matrix& operator +=(Matrix& left, const Matrix& right)
+template <typename T>
+inline Matrix<T>& operator +=(Matrix<T>& left, const Matrix<T>& right)
 {
     left[0][0] += right[0][0];
     left[0][1] += right[0][1];
@@ -363,7 +404,8 @@ inline Matrix& operator +=(Matrix& left, const Matrix& right)
     return left;
 }
 
-inline Matrix& operator -=(Matrix& left, const Matrix& right)
+template <typename T>
+inline Matrix<T>& operator -=(Matrix<T>& left, const Matrix<T>& right)
 {
     left[0][0] -= right[0][0];
     left[0][1] -= right[0][1];
@@ -388,45 +430,50 @@ inline Matrix& operator -=(Matrix& left, const Matrix& right)
     return left;
 }
 
-inline Matrix operator +(const Matrix& left, const Matrix& right)
+template <typename T>
+inline Matrix<T> operator +(const Matrix<T>& left, const Matrix<T>& right)
 {
-    return Matrix(
+    return Matrix<T>(
             left[0][0] + right[0][0], left[1][0] + right[1][0], left[2][0] + right[2][0], left[3][0] + right[3][0],
             left[0][1] + right[0][1], left[1][1] + right[1][1], left[2][1] + right[2][1], left[3][1] + right[3][1],
             left[0][2] + right[0][2], left[1][2] + right[1][2], left[2][2] + right[2][2], left[3][2] + right[3][2],
             left[0][3] + right[0][3], left[1][3] + right[1][3], left[2][3] + right[2][3], left[3][3] + right[3][3]);
 }
 
-inline Matrix operator -(const Matrix& left, const Matrix& right)
+template <typename T>
+inline Matrix<T> operator -(const Matrix<T>& left, const Matrix<T>& right)
 {
-    return Matrix(
+    return Matrix<T>(
             left[0][0] - right[0][0], left[1][0] - right[1][0], left[2][0] - right[2][0], left[3][0] - right[3][0],
             left[0][1] - right[0][1], left[1][1] - right[1][1], left[2][1] - right[2][1], left[3][1] - right[3][1],
             left[0][2] - right[0][2], left[1][2] - right[1][2], left[2][2] - right[2][2], left[3][2] - right[3][2],
             left[0][3] - right[0][3], left[1][3] - right[1][3], left[2][3] - right[2][3], left[3][3] - right[3][3]);
 }
 
-inline Matrix operator *(const Matrix& left, const float right)
+template <typename T>
+inline Matrix<T> operator *(const Matrix<T>& left, const T right)
 {
-    return Matrix(
+    return Matrix<T>(
             left[0][0] * right, left[1][0] * right, left[2][0] * right, left[3][0] * right,
             left[0][1] * right, left[1][1] * right, left[2][1] * right, left[3][1] * right,
             left[0][2] * right, left[1][2] * right, left[2][2] * right, left[3][2] * right,
             left[0][3] * right, left[1][3] * right, left[2][3] * right, left[3][3] * right);
 }
 
-inline Matrix operator *(const Matrix& left, const Matrix& right)
+template <typename T>
+inline Matrix<T> operator *(const Matrix<T>& left, const Matrix<T>& right)
 {
-    return Matrix(
+    return Matrix<T>(
             left[0][0] * right[0][0], left[1][0] * right[1][0], left[2][0] * right[2][0], left[3][0] * right[3][0],
             left[0][1] * right[0][1], left[1][1] * right[1][1], left[2][1] * right[2][1], left[3][1] * right[3][1],
             left[0][2] * right[0][2], left[1][2] * right[1][2], left[2][2] * right[2][2], left[3][2] * right[3][2],
             left[0][3] * right[0][3], left[1][3] * right[1][3], left[2][3] * right[2][3], left[3][3] * right[3][3]);
 }
 
-inline Matrix operator *(const float left, const Matrix& right)
+template <typename T>
+inline Matrix<T> operator *(const T left, const Matrix<T>& right)
 {
-    return Matrix(
+    return Matrix<T>(
             left * right[0][0], left * right[1][0], left * right[2][0], left * right[3][0],
             left * right[0][1], left * right[1][1], left * right[2][1], left * right[3][1],
             left * right[0][2], left * right[1][2], left * right[2][2], left * right[3][2],
@@ -437,6 +484,7 @@ inline Matrix operator *(const float left, const Matrix& right)
 // | 1 3 |    | 1 4 7 |    |  1  5  9 13 |
 //            | 2 5 8 |    |  2  6 10 14 |
 //                         |  3  7 11 15 |
+/*template <typename T>
 inline Vector4 Matrix4::operator*(const Vector4& rhs) const
 {
     return Vector4(m[0]*rhs.x + m[4]*rhs.y + m[8]*rhs.z  + m[12]*rhs.w,
@@ -445,16 +493,16 @@ inline Vector4 Matrix4::operator*(const Vector4& rhs) const
                    m[3]*rhs.x + m[7]*rhs.y + m[11]*rhs.z + m[15]*rhs.w);
 }
 
-
-
+template <typename T>
 inline Vector3 Matrix4::operator*(const Vector3& rhs) const
 {
     return Vector3(m[0]*rhs.x + m[4]*rhs.y + m[8]*rhs.z,
                    m[1]*rhs.x + m[5]*rhs.y + m[9]*rhs.z,
                    m[2]*rhs.x + m[6]*rhs.y + m[10]*rhs.z);
 }
-
-inline Matrix& operator *=(Matrix& left, const float right)
+*/
+template <typename T>
+inline Matrix<T>& operator *=(Matrix<T>& left, const T right)
 {
     left[0][0] += right;
     left[0][1] += right;
@@ -479,7 +527,8 @@ inline Matrix& operator *=(Matrix& left, const float right)
     return left;
 }
 
-inline Matrix& operator *=(Matrix& left, const Matrix& right)
+template <typename T>
+inline Matrix<T>& operator *=(Matrix<T>& left, const Matrix<T>& right)
 {
     left[0][0] *= right[0][0];
     left[0][1] *= right[0][1];
@@ -504,28 +553,31 @@ inline Matrix& operator *=(Matrix& left, const Matrix& right)
     return left;
 }
 
-inline Matrix operator /(const Matrix& left, const Matrix& right)
+template <typename T>
+inline Matrix<T> operator /(const Matrix<T>& left, const Matrix<T>& right)
 {
-    return Matrix(
+    return Matrix<T>(
             left[0][0] / right[0][0], left[1][0] / right[1][0], left[2][0] / right[2][0], left[3][0] / right[3][0],
             left[0][1] / right[0][1], left[1][1] / right[1][1], left[2][1] / right[2][1], left[3][1] / right[3][1],
             left[0][2] / right[0][2], left[1][2] / right[1][2], left[2][2] / right[2][2], left[3][2] / right[3][2],
             left[0][3] / right[0][3], left[1][3] / right[1][3], left[2][3] / right[2][3], left[3][3] / right[3][3]);
 }
 
-inline Matrix operator /(const Matrix& left, const float right)
+template <typename T>
+inline Matrix<T> operator /(const Matrix<T>& left, const T right)
 {
-    const float oneOver = 1.0f / right;
-    return Matrix(
+    const T oneOver = static_cast<T>(1.0) / right;
+    return Matrix<T>(
             left[0][0] * oneOver, left[1][0] * oneOver, left[2][0] * oneOver, left[3][0] * oneOver,
             left[0][1] * oneOver, left[1][1] * oneOver, left[2][1] * oneOver, left[3][1] * oneOver,
             left[0][2] * oneOver, left[1][2] * oneOver, left[2][2] * oneOver, left[3][2] * oneOver,
             left[0][3] * oneOver, left[1][3] * oneOver, left[2][3] * oneOver, left[3][3] * oneOver);
 }
 
-inline Matrix& operator /=(Matrix& left, const float right)
+template <typename T>
+inline Matrix<T>& operator /=(Matrix<T>& left, const T right)
 {
-    const float oneOver = 1.0f / right;
+    const T oneOver = static_cast<T>(1.0) / right;
 
     left[0][0] *= oneOver;
     left[0][1] *= oneOver;
@@ -550,7 +602,8 @@ inline Matrix& operator /=(Matrix& left, const float right)
     return left;
 }
 
-inline Matrix& operator /=(Matrix& left, const Matrix& right)
+template <typename T>
+inline Matrix<T>& operator /=(Matrix<T>& left, const Matrix<T>& right)
 {
     left[0][0] /= right[0][0];
     left[0][1] /= right[0][1];
@@ -575,7 +628,8 @@ inline Matrix& operator /=(Matrix& left, const Matrix& right)
     return left;
 }
 
-inline bool operator ==(const Matrix& left, const Matrix& right)
+template <typename T>
+inline bool operator ==(const Matrix<T>& left, const Matrix<T>& right)
 {
     return (left[0][0] == right[0][0]) && (left[1][0] == right[1][0]) && left[2][0] == right[2][0] && left[3][0] == right[3][0] &&
            (left[0][1] == right[0][1]) && (left[1][1] == right[1][1]) && left[2][1] == right[2][1] && left[3][1] == right[3][1] &&
@@ -583,7 +637,8 @@ inline bool operator ==(const Matrix& left, const Matrix& right)
            (left[0][3] == right[0][3]) && (left[1][3] == right[1][3]) && left[2][3] == right[2][3] && left[3][3] == right[3][3];
 }
 
-inline bool operator !=(const Matrix& left, const Matrix& right)
+template <typename T>
+inline bool operator !=(const Matrix<T>& left, const Matrix<T>& right)
 {
     return (left[0][0] != right[0][0]) || (left[1][0] != right[1][0]) || left[2][0] != right[2][0] || left[3][0] != right[3][0] ||
            (left[0][1] != right[0][1]) || (left[1][1] != right[1][1]) || left[2][1] != right[2][1] || left[3][1] != right[3][1] ||

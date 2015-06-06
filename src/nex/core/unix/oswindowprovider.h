@@ -4,7 +4,7 @@
 #include <nex/core/windowprovider.h>
 
 /////////////////////////////////////////////////
-/// Windows Implementation of the GfxProvider  //
+/// Unix Implementation of the GfxProvider     //
 /////////////////////////////////////////////////
 
 namespace nx
@@ -42,16 +42,6 @@ private:
      * @brief The handle to the current window.
      */
     WindowHandle mWindowHandle;
-
-    /**
-     * @brief Only register the class on the first window class.
-     */
-    bool mHasRegisteredClass;
-
-    /**
-     * @brief Registers the window class.
-     */
-    void registerClass();
 };
 
 } // namespace priv

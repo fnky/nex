@@ -10,7 +10,7 @@ namespace nx
     BoundingFrustum::BoundingFrustum()
     { }
 
-    void BoundingFrustum::setMatrix(const Matrix& value)
+    void BoundingFrustum::setMatrix(const mat4f& value)
     {
         //Store our matrix.
         mMatrix = value;

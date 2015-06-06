@@ -54,7 +54,7 @@ public:
      * @brief Get the current matrix.
      * @return the matrix.
      */
-    Matrix getMatrix() const { return mMatrix; }
+    mat4f getMatrix() const { return mMatrix; }
 
     /**
      * @brief Checks whether the current BoundingFrustum intersects a BoundingBox.
@@ -123,7 +123,7 @@ public:
      * @brief Compute the bounding frustum from the given matrix.
      * @param matrix = matrix to compute from.
      */
-    void setMatrix(const Matrix& matrix);
+    void setMatrix(const mat4f& matrix);
 
     /**
      * @brief supportMapping
@@ -140,7 +140,7 @@ private:
 
     Plane mPlanes[6];
 
-    Matrix mMatrix;
+    mat4f mMatrix;
 
     mutable GJK mGJK;
 

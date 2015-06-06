@@ -3,6 +3,8 @@
 
 #include <nex/core/windowprovider.h>
 
+#include <nex/math/matrix.h>
+
 using namespace nx;
 
 int main(int argc, char** args)
@@ -12,7 +14,6 @@ int main(int argc, char** args)
     {
         return false;
     }
-
 
     return 0;
 }
