@@ -1,5 +1,6 @@
-#include <nex/core/win32/oswindowprovider.h>
+#include <nex/core/unix/oswindowprovider.h>
 
+#include <X11/Xlib.h>
 /////////////////////////////////////////////////
 /// Unix Implementation of the GfxProvider     //
 /////////////////////////////////////////////////
@@ -10,7 +11,10 @@ namespace priv
 {
 
 OSWindowProvider::OSWindowProvider() :
-    mWindowHandle(0)
+    mWindowHandle(0),
+    mDisplay(0),
+    mWindow(0),
+    mScreen(0)
 {
 
 }
@@ -22,9 +26,23 @@ OSWindowProvider::~OSWindowProvider()
 
 bool OSWindowProvider::create(uint32 width, uint32 height, Style style)
 {
-    
+    // Open a connection to the x server.
+    mDisplay = XOpenDisplay(NULL);
+    mScreen = DefaultScreen(mDisplay);
+    ::Window root = XRootWindow(mDisplay, mScreen);
+
+    //TODO: Figure out what to do here.
+
+    //Seems like we need a color map and some sort of visual info.
 
     return true;
+}
+
+void OSWindowProvider::destroy()
+{
+    // Close our connection to the x server.
+    XCloseDisplay(mDisplay);
+    mDisplay = 0;
 }
 
 void OSWindowProvider::show()

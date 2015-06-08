@@ -30,6 +30,11 @@ public:
     virtual bool create(uint32 width, uint32 height, Style style) = 0;
 
     /**
+     * @brief Destroys the window provider.
+     */
+    virtual void destroy() = 0;
+
+    /**
      * @brief Show the window provider.
      */
     virtual void show() = 0;
