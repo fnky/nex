@@ -48,6 +48,10 @@ set (NEX_INCLUDE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/include)
 set (NEX_SYSTEM_LIB nex-system)
 set (NEX_MATH_LIB nex-math)
 set (NEX_CORE_LIB nex-core)
+set (NEX_GAME_LIB nex-game)
 
+# Add our library folder.
 add_subdirectory (src/nex)
+
+# Enable this to build the nex test project.
 add_subdirectory (src/testing)

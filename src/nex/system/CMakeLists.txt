@@ -12,12 +12,14 @@ set (NEX_SYSTEM_HEADERS
     ${INC_DIR}/instream.h
     ${INC_DIR}/outstream.h
     ${INC_DIR}/noncopyable.h
+    ${INC_DIR}/logger.h
 )
 
 set (NEX_SYSTEM_SRC
     ${SRC_DIR}/string.cpp
     ${SRC_DIR}/instream.cpp
     ${SRC_DIR}/outstream.cpp
+    ${SRC_DIR}/logger.cpp
 )
 
 include_directories (${NEX_INCLUDE_DIR})

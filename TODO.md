@@ -1,24 +1,15 @@
 /////////////////////////////////////////////////////////////////////
 // Implement the following                                         //
 /////////////////////////////////////////////////////////////////////
-- BoundingBox
-	* intersections
-- BoundingFrustum
-	* intersections
-- BoundingSphere
-	* intersections
-- Ray
-	* intersections
+
+WindowProvider
+GfxProvider
+SfxProvider
 
 /////////////////////////////////////////////////////////////////////
 // Other                                                           //
 /////////////////////////////////////////////////////////////////////
 
-- Organize the math 'src' and 'include' folder.
-	- Maybe break up into a few different folder groups because as it is, it is getting cluttered.
-	
-	
-	
 	
 /////////////////////////////////////////////////////////////////////
 // Ideas/Brainstorming                                             //

@@ -1,6 +1,9 @@
 #include <nex/core/unix/oswindowprovider.h>
 
+// Unix specfic includes.
+#include <X11/X.h>
 #include <X11/Xlib.h>
+#include <GL/glx.h>
 /////////////////////////////////////////////////
 /// Unix Implementation of the GfxProvider     //
 /////////////////////////////////////////////////
@@ -29,7 +32,11 @@ bool OSWindowProvider::create(uint32 width, uint32 height, Style style)
     // Open a connection to the x server.
     mDisplay = XOpenDisplay(NULL);
     mScreen = DefaultScreen(mDisplay);
+
     ::Window root = XRootWindow(mDisplay, mScreen);
+
+    int count;
+    XVisualInfo* visuals = XGetVisualInfo(mDisplay, 0, NULL, &count);
 
     //TODO: Figure out what to do here.
 
