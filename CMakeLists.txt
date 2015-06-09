@@ -54,4 +54,4 @@ set (NEX_GAME_LIB nex-game)
 add_subdirectory (src/nex)
 
 # Enable this to build the nex test project.
-add_subdirectory (src/testing)
+# add_subdirectory (src/testing)

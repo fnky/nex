@@ -1,4 +1,6 @@
 add_subdirectory (system)
 add_subdirectory (math)
-add_subdirectory (core)
-add_subdirectory (game)
+
+# Theses libraries are still under development.
+# add_subdirectory (core)
+# add_subdirectory (game)
