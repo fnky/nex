@@ -108,29 +108,25 @@ public:
      */
     inline T* getPtr() { return (T*)&m; }
 
+    /**
+     * @brief Allows the users of this class to access the interal values by [y][x] as needed.
+     * @param index to lookup.
+     * @return pointer to the data.
+     */
     inline col_type& operator[] (const uint32 index)
     {
         return m[index];
     }
 
+    /**
+     * @brief Allows the users of this class to access the interal values by [y][x] as needed.
+     * @param index to lookup.
+     * @return pointer to the data.
+     */
     inline const col_type& operator[] (const uint32 index) const
     {
         return m[index];
     }
-
-    /**
-     * @brief Allows the users of this class to access the interal values by [y][x] as needed.
-     * @param index to lookup.
-     * @return pointer to the data.
-     */
-    //col_type& operator[] (const uint32 index);
-
-    /**
-     * @brief Allows the users of this class to access the interal values by [y][x] as needed.
-     * @param index to lookup.
-     * @return pointer to the data.
-     */
-    //col_type& operator[] (const uint32 index) const;
 
     /**
      * @brief Create a translation matrix.
@@ -239,6 +235,16 @@ public:
             const T height,
             const T zNearPlane,
             const T zFarPlane);
+
+
+    /**
+     * @brief Create a look at matrix.
+     * @param eye = The eye vector.
+     * @param center = The center vector.
+     * @param up = the up vector.
+     * @return the look at matrix.
+     */
+    static Matrix<T> lookAt(const Vec3<T>& eye, const Vec3<T>& center, const Vec3<T>& up);
 
     //Our matrix data.
     col_type m[4];

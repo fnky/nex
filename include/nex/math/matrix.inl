@@ -368,6 +368,29 @@ inline Matrix<T> Matrix<T>::orthographic(
 }
 
 template <typename T>
+inline Matrix<T> Matrix<T>::lookAt(const Vec3<T>& eye, const Vec3<T>& center, const Vec3<T>& up)
+{
+    Vec3<T> const f(Vec3<T>::normalize(center - eye));
+    Vec3<T> const s(Vec3<T>::normalize(Vec3<T>::cross(f, up)));
+    Vec3<T> const u(Vec3<T>::cross(s, f));
+
+    Matrix<T> result;
+    result[0][0] = s.x;
+    result[1][0] = s.y;
+    result[2][0] = s.z;
+    result[0][1] = u.x;
+    result[1][1] = u.y;
+    result[2][1] = u.z;
+    result[0][2] =-f.x;
+    result[1][2] =-f.y;
+    result[2][2] =-f.z;
+    result[3][0] =-Vec3<T>::dot(s, eye);
+    result[3][1] =-Vec3<T>::dot(u, eye);
+    result[3][2] = Vec3<T>::dot(f, eye);
+    return result;
+}
+
+template <typename T>
 inline Matrix<T> operator -(Matrix<T>& right)
 {
     return Matrix<T>(
