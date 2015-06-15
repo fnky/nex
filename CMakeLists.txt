@@ -41,17 +41,20 @@ if (CMAKE_COMPILER_IS_GNUCC OR CMAKE_COMPILER_IS_GNUCXX)
     set (CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -static-libgcc -static-libstdc++")
 endif()
 
+set (EXECUTABLE_OUTPUT_PATH ${CMAKE_BINARY_DIR}/bin)
+
 # Setup some base path variables.
 set (NEX_SOURCE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/src)
 set (NEX_INCLUDE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/include)
 
 set (NEX_SYSTEM_LIB nex-system)
+set (NEX_FILESYSTEM_LIB nex-filesystem)
 set (NEX_MATH_LIB nex-math)
-set (NEX_CORE_LIB nex-core)
+set (NEX_WINDOW_LIB nex-window)
 set (NEX_GAME_LIB nex-game)
 
 # Add our library folder.
 add_subdirectory (src/nex)
 
 # Enable this to build the nex test project.
-# add_subdirectory (src/testing)
+add_subdirectory (src/testing)

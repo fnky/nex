@@ -23,67 +23,75 @@ public:
     /**
      * @brief Virtual destructor so we call any destructors from overriding classes.
      */
-    virtual ~InStream();
+    ~InStream();
+
+    /**
+     * @brief Copy the specifed number of bytes into the in stream.
+     * @param buffer = The buffer to copy data from.
+     * @param offset = The starting point to read data from.
+     * @param size = The number of bytes to read.
+     */
+    void copy(uint8* buffer, uint32 offset, uint32 size);
 
     /**
      * @brief Read a 8-bit signed integer from the stream.
      * @return int8
      */
-    virtual int8 readInt8() = 0;
+    int8 readInt8();
 
     /**
      * @brief Read a 16-bit signed integer from the stream.
      * @return int16
      */
-    virtual int16 readInt16() = 0;
+    int16 readInt16();
 
     /**
      * @brief Read a 32-bit signed integer from the stream.
      * @return int32
      */
-    virtual int32 readInt32() = 0;
+    int32 readInt32();
 
     /**
      * @brief Read a 64-bit signed integer from the stream.
      * @return int64
      */
-    virtual int64 readInt64() = 0;
+    int64 readInt64();
 
     /**
      * @brief Read a 8-bit unsigned integer from the stream.
      * @return uint8
      */
-    virtual uint8 readUint8() = 0;
+    uint8 readUint8();
 
     /**
      * @brief Read a 16-bit unsigned integer from the stream.
      * @return uint16
      */
-    virtual uint16 readUint16() = 0;
+     uint16 readUint16();
 
     /**
      * @brief Read a 32-bit unsigned integer from the stream.
      * @return uint32
      */
-    virtual uint32 readUint32() = 0;
+    uint32 readUint32();
 
     /**
      * @brief Read a 64-bit unsigned integer from the stream.
      * @return uint64
      */
-    virtual uint64 readUint64() = 0;
+    uint64 readUint64();
 
     /**
      * @brief Read a 32-bit floating point number from the stream.
      * @return 32-bit floating pointer number.
      */
-    virtual real32 readReal32() = 0;
+    real32 readReal32();
 
     /**
      * @brief Read a 64-bit floatinb point number from the stream.
      * @return 64-bit floating point number.
      */
-    virtual real64 readReal64() = 0;
+    real64 readReal64();
 
     /**
      * @brief The current location where we will be reading data from.
@@ -114,6 +122,11 @@ protected:
      * @brief The size of the buffer.
      */
     uint32 mSize;
+
+    /**
+     * @brief The actual byte buffer.
+     */
+    uint8* mBuffer;
 };
 
 } //namespace nx

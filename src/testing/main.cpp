@@ -1,12 +1,13 @@
 #include <iostream>
-#include <nex/system/logger.h>
-#include <nex/core/windowprovider.h>
-#include <nex/core/displaymode.h>
+
+#include <nex/filesystem/directory.h>
 
 using namespace nx;
 
 int main(int argc, char** args)
 {
 
+    Directory::create("../..");
+    Directory::remove("../..");
     return 0;
 }
