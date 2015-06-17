@@ -44,6 +44,10 @@ std::string Path::getFullPath(const std::string& relative)
 
     char* ptr = realpath(relative.c_str(), buffer);
 
+    if (ptr == 0) {
+        return std::string("");
+    }
+
     return std::string(ptr);
 }
 

@@ -26,6 +26,11 @@ public:
      */
     static bool exists(const std::string& path);
 
+    /**
+     * @brief Remove the specified file.
+     * @param path = Path to the file to remove.
+     */
+    static void remove(const std::string& path);
 };
 
 } // namespace nx

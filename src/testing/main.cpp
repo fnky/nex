@@ -22,5 +22,10 @@ int main(int argc, char** args)
     std::string fullPath = Path::getFullPath(filePath);
 
     std::string fileExt = Path::getExtension(filePath);
+
+    File::remove(filePath);
+
+    bool fileExists = File::exists(filePath);
+
     return 0;
 }
