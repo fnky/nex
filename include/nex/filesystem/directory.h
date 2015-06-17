@@ -29,6 +29,7 @@ public:
 
     /**
      * @brief Remove the directory specified if it exists.
+     * (BE CAREFUL THIS REMOVES EVERYTHING IN THE FOLDER)
      * @param path = The path to create.
      */
     static void remove(const std::string& path);

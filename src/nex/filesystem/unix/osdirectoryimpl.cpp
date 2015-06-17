@@ -64,8 +64,9 @@ void Directory::remove(const std::string& dirname)
     }
 
     while ((entry = readdir(dir)) != NULL) {
+
         if (strcmp(entry->d_name, ".") && strcmp(entry->d_name, "..")) {
-            //snprintf(path, (size_t) PATH_MAX, "%s/%s", dirname, entry->d_name);
+
             path = dirname + "/" + std::string(entry->d_name);
             if (entry->d_type == DT_DIR) {
                 remove(path);
@@ -77,34 +78,89 @@ void Directory::remove(const std::string& dirname)
              * well tested, we are just printing as if we are deleting.
              */
             //printf(%s\n", path);
-            std::cout << "(not really) Deleting: " << path << std::endl;
+            //std::cout << "(not really) Deleting: " << path << std::endl;
             /*
              * When you are finished testing this and feel you are ready to do the real
              * deleting, use this: remove*STUB*(path);
              * (see "man 3 remove")
              * Please note that I DONT TAKE RESPONSIBILITY for data you delete with this!
              */
+            ::remove(path.c_str());
         }
 
     }
     closedir(dir);
 
+    ::remove(dirname.c_str());
     /*
      * Now the directory is emtpy, finally delete the directory itself. (Just
      * printing here, see above)
      */
     //printf("(not really) Deleting: %s\n", dirname);
-    std::cout << "not really) Deleting:" << dirname << std::endl;
+    //std::cout << "not really) Deleting:" << dirname << std::endl;
 }
 
-std::vector<DirectoryInfo> Directory::getDirectories(const std::string& dir)
+std::vector<DirectoryInfo> Directory::getDirectories(const std::string& dirname)
 {
+    DIR* dir;
+    struct dirent* entry;
+    std::string path;
 
+    std::vector<DirectoryInfo> directories;
+
+    dir = opendir(dirname.c_str());
+    if (dir != NULL) {
+        while ((entry = readdir(dir)) != NULL) {
+
+            if (strcmp(entry->d_name, ".") && strcmp(entry->d_name, "..")) {
+
+                path = dirname + "/" + std::string(entry->d_name);
+                if (entry->d_type == DT_DIR) {
+
+                    DirectoryInfo info;
+                    info.path = path;
+
+                    directories.push_back(info);
+
+                }
+            }
+
+        }
+    }
+    closedir(dir);
+
+    return directories;
 }
 
-std::vector<FileInfo> Directory::getFiles(const std::string& dir)
+std::vector<FileInfo> Directory::getFiles(const std::string& dirname)
 {
+    DIR* dir;
+    struct dirent* entry;
+    std::string path;
 
+    std::vector<FileInfo> files;
+
+    dir = opendir(dirname.c_str());
+    if (dir != NULL) {
+        while ((entry = readdir(dir)) != NULL) {
+
+            if (strcmp(entry->d_name, ".") && strcmp(entry->d_name, "..")) {
+
+                path = dirname + "/" + std::string(entry->d_name);
+                if (entry->d_type != DT_DIR) {
+
+                    FileInfo info;
+                    info.path = path;
+
+                    files.push_back(info);
+                }
+            }
+
+        }
+    }
+    closedir(dir);
+
+    return files;
 }
 
 } // namespace nx

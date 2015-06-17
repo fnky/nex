@@ -9,6 +9,7 @@ set (HEADERS
     ${INC_DIR}/fileinfo.h
     ${INC_DIR}/directory.h
     ${INC_DIR}/directoryinfo.h
+    ${INC_DIR}/path.h
 )
 
 set (SRC
@@ -16,11 +17,13 @@ set (SRC
     ${SRC_DIR}/fileinfo.cpp
     ${SRC_DIR}/directory.cpp
     ${SRC_DIR}/directoryinfo.cpp
+    ${SRC_DIR}/path.cpp
 )
 
 set (OS_SRC
     ${OS_DIR}/osfileimpl.cpp
     ${OS_DIR}/osdirectoryimpl.cpp
+    ${OS_DIR}/ospathimpl.cpp
 )
 
 include_directories (${NEX_INCLUDE_DIR})
