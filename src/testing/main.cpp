@@ -6,7 +6,6 @@
 
 using namespace nx;
 
-
 int main(int argc, char** args)
 {
     std::string folderPath = Path::combine(Path::combine("..", ".."), "test");

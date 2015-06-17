@@ -10,15 +10,31 @@ std::string Path::combine(const std::string& left, const std::string& right)
     return left + DIRECTORY_SEPARATOR + right;
 }
 
-//TODO: Handle this case "../../test"
 std::string Path::getExtension(const std::string &path)
 {
-    const char *dot = strrchr(path.c_str(), '.');
+    //First use strrchr to find the last '.' in the pathname.
+    //If it doesn't exist, there's no "extension".
 
-    if(!dot || dot == path)
-        return "";
+    const char* last = strrchr(path.c_str(), '.');
+    if (last == 0) {
+        return 0;
+    }
 
-    return std::string(dot + 1);
+    //Next, use strchr to check whether there's any '/' after the last '.'.
+    //If so, the last '.' is in a directory component, not the filename, so there's no extension.
+
+    const char* ptr = strchr(last, DIRECTORY_SEPARATOR);
+    while (ptr != 0) {
+        if (ptr > last) {
+            return "";
+        }
+        ptr = strchr(ptr+1, DIRECTORY_SEPARATOR);
+    }
+
+    //Otherwise, you found the extension. You can use the pointer to the position one past the '.' directly as a C string.
+    //No need to copy it to new storage unless the original string will be freed or clobbered before you use it.
+
+    return std::string(last);
 }
 
 } // namespace nx

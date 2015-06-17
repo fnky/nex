@@ -1,5 +1,5 @@
 #include <nex/filesystem/directory.h>
-
+#include <nex/filesystem/path.h>
 /**
  *
  * Unix directory implementation.
@@ -12,7 +12,6 @@
 #include <dirent.h>
 #include <sys/stat.h>
 #include <sys/types.h>
-
 
 #include <iostream>
 
@@ -118,10 +117,10 @@ std::vector<DirectoryInfo> Directory::getDirectories(const std::string& dirname)
                 if (entry->d_type == DT_DIR) {
 
                     DirectoryInfo info;
+                    info.name = Path::getDirectoryName(path);
                     info.path = path;
 
                     directories.push_back(info);
-
                 }
             }
 
@@ -151,6 +150,8 @@ std::vector<FileInfo> Directory::getFiles(const std::string& dirname)
 
                     FileInfo info;
                     info.path = path;
+                    info.name = Path::getFileName(path);
+                    info.extention = Path::getExtension(path);
 
                     files.push_back(info);
                 }
