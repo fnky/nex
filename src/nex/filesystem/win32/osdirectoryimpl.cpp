@@ -10,7 +10,7 @@
 #include <string.h>
 
 #include <windows.h>
-
+#include <iostream>
 namespace nx
 {
 
@@ -30,89 +30,66 @@ std::vector<std::string> split(const std::string& string)
 
 bool Directory::exists(const std::string& path)
 {
+    DWORD dwAttrib = GetFileAttributesA(path.c_str());
 
+    return (dwAttrib != INVALID_FILE_ATTRIBUTES &&
+            (dwAttrib & FILE_ATTRIBUTE_DIRECTORY));
 }
 
 void Directory::create(const std::string& path)
 {
-    /*std::vector<std::string> tokens = split(path);
+    std::vector<std::string> tokens = split(path);
 
     std::string fullPath;
     for (auto& token : tokens)
     {
         fullPath += token + '/';
-        mkdir(fullPath.c_str(), 0777);
-    }*/
+
+        ::CreateDirectoryA(fullPath.c_str(), 0);
+    }
 }
 
 void Directory::remove(const std::string& dirname)
 {
-   /* HANDLE hFind;
     WIN32_FIND_DATA FindFileData;
 
-    std::string dirPath;
-    std::string fileName;
+    std::string searchPath = dirname;
+    searchPath += "\\*.*";
 
-    _tcscpy(dirPath, sPath);
-    _tcscat(dirPath, "\\*");
-    _tcscpy(fileName, sPath);
-    _tcscat(fileName, "\\");
+    std::string currentFile = "";
 
-    hFind = FindFirstFile(dirPath, &FindFileData);
-
-    if(hFind == INVALID_HANDLE_VALUE)
-        return FALSE;
-
-    _tcscpy(dirPath,fileName);
-
-    bool bSearch = true;
-    while(bSearch) {
-
-        if (FindNextFile(hFind, &FindFileData)) {
-
-            if (IsDots(FindFileData.cFileName))
-                continue;
-
-            _tcscat(fileName, FindFileData.cFileName);
-
-            if ((FindFileData.dwFileAttributes & FILE_ATTRIBUTE_DIRECTORY)) {
-
-                // we have found a directory, recurse
-                if (!remove(fileName)) {
-                    FindClose(hFind);
-                }
-                // remove the empty directory
-                RemoveDirectoryA(fileName);
-                _tcscpy(fileName,dirPath);
-            }
-            else {
-
-                if (FindFileData.dwFileAttributes & FILE_ATTRIBUTE_READONLY)
-                    _chmod(fileName, _S_IWRITE);
-
-                if (!DeleteFile(fileName)) {
-                    FindClose(hFind);
-                    return FALSE;
-                }
-                _tcscpy(fileName,dirPath);
-            }
-        }
-        else {
-
-            if(GetLastError() == ERROR_NO_MORE_FILES)
-                bSearch = false;
-
-            else {
-                // some error occured, close the handle and return FALSE
-                FindClose(hFind);
-                return FALSE;
-            }
-        }
+    HANDLE hFind = FindFirstFile(searchPath.c_str(), &FindFileData);
+    if (hFind == INVALID_HANDLE_VALUE) {
+        return;
     }
+    else
+    {
+        do
+        {
+            // Check if its a directory...
+            if ((FindFileData.dwFileAttributes & FILE_ATTRIBUTE_DIRECTORY))
+            {
+                std::string filePath = FindFileData.cFileName;
 
-    FindClose(hFind);
+                // Ignore '.' and '..'
+                if (strcmp(".", filePath.c_str()) && strcmp("..", filePath.c_str())) {
 
-    return RemoveDirectory(sPath);*/
+                    searchPath = dirname + "\\" + filePath;
+                    remove(searchPath);
+                }
+            }
+            else
+            {
+                searchPath = dirname + "\\";
+                currentFile = searchPath + FindFileData.cFileName;
+                ::DeleteFileA(currentFile.c_str());
+            }
+        }
+        while (FindNextFile(hFind, &FindFileData) != 0);
+
+        FindClose(hFind);
+    }
+    ::RemoveDirectoryA(dirname.c_str());
 }
 
 std::vector<DirectoryInfo> Directory::getDirectories(const std::string& dirname)
