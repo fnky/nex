@@ -32,7 +32,7 @@ public:
      * @param size = The number of bytes to read.
      * @return the number of bytes red, or -1 on error.
      */
-    virtual int64 read(void*data, int64 size);
+    virtual int64 read(void* data, int64 size);
 
     /**
      * @brief Change the current reading position.
