@@ -20,8 +20,8 @@ set (NEX_MATH_HEADERS
     ${INC_DIR}/quaternion.h
     ${INC_DIR}/quaternion.inl
 
-    ${INC_DIR}/rectangle.h
-    ${INC_DIR}/rectangle.inl
+    ${INC_DIR}/rect.h
+    ${INC_DIR}/rect.inl
 
     ${INC_DIR}/ray.h
     ${INC_DIR}/ray.inl

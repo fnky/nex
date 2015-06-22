@@ -3,7 +3,6 @@
     PLEASE AND THANK YOU.
 */
 
-//TODO (Tyler): Make this class type agnostic.
 
 template <typename T>
 inline Matrix<T>::Matrix()

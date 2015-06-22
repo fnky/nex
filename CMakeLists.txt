@@ -52,6 +52,7 @@ set (NEX_FILESYSTEM_LIB nex-filesystem)
 set (NEX_MATH_LIB nex-math)
 set (NEX_WINDOW_LIB nex-window)
 set (NEX_GAME_LIB nex-game)
+set (NEX_GFX_LIB nex-gfx)
 
 # Add our library folder.
 add_subdirectory (src/nex)

@@ -10,6 +10,8 @@ set (HEADERS
     ${INC_DIR}/directory.h
     ${INC_DIR}/directoryinfo.h
     ${INC_DIR}/path.h
+    ${INC_DIR}/fileinputstream.h
+    ${INC_DIR}/fileoutputstream.h
 )
 
 set (SRC
@@ -17,7 +19,8 @@ set (SRC
     ${SRC_DIR}/fileinfo.cpp
     ${SRC_DIR}/directory.cpp
     ${SRC_DIR}/directoryinfo.cpp
-    ${SRC_DIR}/path.cpp
+    ${SRC_DIR}/fileinputstream.cpp
+    ${SRC_DIR}/fileoutputstream.cpp
 )
 
 set (OS_SRC
