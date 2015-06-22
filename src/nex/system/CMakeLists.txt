@@ -11,6 +11,9 @@ set (NEX_SYSTEM_HEADERS
     ${INC_DIR}/string.inl
     ${INC_DIR}/instream.h
     ${INC_DIR}/outstream.h
+    ${INC_DIR}/memoryinputstream.h
+    ${INC_DIR}/memoryoutputstream.h
+
     ${INC_DIR}/noncopyable.h
     ${INC_DIR}/logger.h
 )
@@ -19,6 +22,8 @@ set (NEX_SYSTEM_SRC
     ${SRC_DIR}/string.cpp
     ${SRC_DIR}/instream.cpp
     ${SRC_DIR}/outstream.cpp
+    ${SRC_DIR}/memoryinputstream.cpp
+    ${SRC_DIR}/memoryoutputstream.cpp
     ${SRC_DIR}/logger.cpp
 )
 
