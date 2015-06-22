@@ -3,4 +3,7 @@
 namespace nx
 {
 
+OutStream::~OutStream()
+{ }
+
 } // namespace nx

@@ -31,7 +31,7 @@ set (OS_SRC
 
 include_directories (${NEX_INCLUDE_DIR})
 add_library (${NEX_FILESYSTEM_LIB} STATIC ${HEADERS} ${SRC} ${OS_SRC})
-
+target_link_libraries (${NEX_FILESYSTEM_LIB} ${NEX_SYSTEM_LIB})
 if (WIN32)
     target_link_libraries (${NEX_FILESYSTEM_LIB} Shlwapi)
 endif (WIN32)

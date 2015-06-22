@@ -3,5 +3,7 @@
 namespace nx
 {
 
+InStream::~InStream()
+{ }
 
 } //namespace nx
