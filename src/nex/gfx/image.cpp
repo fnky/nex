@@ -1,4 +1,5 @@
 #include <nex/gfx/image.h>
+#include <nex/gfx/imageloader.h>
 
 // Standard includes.
 #include <cstring>
@@ -66,7 +67,27 @@ void Image::create(uint32 width, uint32 height, const uint8* pixels)
     }
 }
 
-void Image::createMaskFromColor(const Color &color, uint8 alpha)
+bool Image::loadFromFile(const std::string& filename)
+{
+    return nx::priv::ImageLoader::getInstance().loadImageFromFile(filename, mPixels, mSize);
+}
+
+bool Image::loadFromMemory(const void* data, std::size_t size)
+{
+    return nx::priv::ImageLoader::getInstance().loadImageFromMemory(data, size, mPixels, mSize);
+}
+
+bool Image::loadFromStream(InStream& stream)
+{
+    return nx::priv::ImageLoader::getInstance().loadImageFromStream(stream, mPixels, mSize);
+}
+
+bool Image::saveToFile(const std::string& filename) const
+{
+    return nx::priv::ImageLoader::getInstance().saveImageToFile(filename, mPixels, mSize);
+}
+
+void Image::createMaskFromColor(const Color& color, uint8 alpha)
 {
     // Make sure that the image is not empty
     if (!mPixels.empty())
@@ -83,7 +104,7 @@ void Image::createMaskFromColor(const Color &color, uint8 alpha)
     }
 }
 
-void Image::copy(const Image &source, uint32 destX, uint32 destY, const recti &sourceRect, bool applyAlpha)
+void Image::copy(const Image& source, uint32 destX, uint32 destY, const recti& sourceRect, bool applyAlpha)
 {
     // Make sure that both images are valid
     if ((source.mSize.x == 0) || (source.mSize.y == 0) || (mSize.x == 0) || (mSize.y == 0))
@@ -185,7 +206,6 @@ Color Image::getPixel(unsigned int x, unsigned int y) const
     const uint8* pixel = &mPixels[(x + y * mSize.x) * 4];
     return Color(pixel[0], pixel[1], pixel[2], pixel[3]);
 }
-
 
 const uint8* Image::getPixelsPtr() const
 {

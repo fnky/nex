@@ -44,6 +44,11 @@ endif()
 set (EXECUTABLE_OUTPUT_PATH ${CMAKE_BINARY_DIR}/bin)
 
 # Setup some base path variables.
+set (NEX_EXTLIB_DIR ${CMAKE_CURRENT_SOURCE_DIR}/extlib)
+set (NEX_EXTLIB_HEADER_DIR ${CMAKE_CURRENT_SOURCE_DIR}/extlib/headers)
+
+# Include external library headers.
+
 set (NEX_SOURCE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/src)
 set (NEX_INCLUDE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/include)
 

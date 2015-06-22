@@ -12,7 +12,11 @@ set (HEADERS
 set (SRC
     ${SRC_DIR}/color.cpp
     ${SRC_DIR}/image.cpp
+    ${SRC_DIR}/imageloader.h
+    ${SRC_DIR}/imageloader.cpp
 )
 
-include_directories (${NEX_INCLUDE_DIR})
+include_directories (${NEX_INCLUDE_DIR} ${NEX_SOURCE_DIR})
+include_directories (${NEX_EXTLIB_HEADER_DIR}/stb_image)
+
 add_library (${NEX_GFX_LIB} STATIC ${HEADERS} ${SRC})

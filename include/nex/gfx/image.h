@@ -13,6 +13,8 @@
 // Standard includes.
 #include <string>
 #include <vector>
+#include <algorithm>
+#include <cstring>
 
 namespace nx
 {
@@ -124,7 +126,7 @@ public:
      * @brief Return the size (width and height) of the image.
      * @return Size of the image, in pixels.
      */
-    vec2u size() const;
+    inline vec2u size() const { return mSize; }
 
     /**
      * @brief Get a read-only pointer to the array of pixels.
