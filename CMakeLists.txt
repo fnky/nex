@@ -7,10 +7,13 @@ message ("setting up the nex game engine\n")
 set (CMAKE_COLOR_MAKEFILE ON)
 set (CMAKE_EXPORT_COMPILE_COMMANDS 1)
 
+set (BUILD_SHARED_LIBS false)
+
 # Set the default build if none was set already.
 if (NOT DEFINED CMAKE_BUILD_TYPE)
     set (CMAKE_BUILD_TYPE Debug)
 endif ()
+
 
 # Detect the current platform and add the correct definitions.
 if (WIN32)
@@ -45,10 +48,10 @@ set (EXECUTABLE_OUTPUT_PATH ${CMAKE_BINARY_DIR}/bin)
 
 # Setup some base path variables.
 set (NEX_EXTLIB_DIR ${CMAKE_CURRENT_SOURCE_DIR}/extlib)
-set (NEX_EXTLIB_HEADER_DIR ${CMAKE_CURRENT_SOURCE_DIR}/extlib/headers)
+set (NEX_STB_IMAGE_INCLUDE ${NEX_EXTLIB_DIR}/stb_image)
+set (NEX_FREETYPE_INCLUDE ${NEX_EXTLIB_DIR}/freetype/include)
 
 # Include external library headers.
-
 set (NEX_SOURCE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/src)
 set (NEX_INCLUDE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/include)
 
@@ -58,6 +61,10 @@ set (NEX_MATH_LIB nex-math)
 set (NEX_WINDOW_LIB nex-window)
 set (NEX_GAME_LIB nex-game)
 set (NEX_GFX_LIB nex-gfx)
+
+# Add the external library builds.
+
+add_subdirectory (${NEX_EXTLIB_DIR}/freetype)
 
 # Add our library folder.
 add_subdirectory (src/nex)
