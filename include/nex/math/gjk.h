@@ -5,6 +5,7 @@
 
 namespace nx
 {
+
 /**
  * @brief The GJK class, does magic voodoo.
  */
