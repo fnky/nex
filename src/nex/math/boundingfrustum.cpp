@@ -12,11 +12,11 @@ namespace nx
 
     void BoundingFrustum::setMatrix(const mat4f& value)
     {
-        //Store our matrix.
+        // Store our matrix.
         mMatrix = value;
 
-        //Calculate all of the planes for the bounding frustum.
-
+        // Calculate all of the planes for the bounding frustum.
+        // TODO (Tyler): Test this.
         mPlanes[2].normal.x = -value[0][3] - value[0][0];
         mPlanes[2].normal.y = -value[1][3] - value[1][0];
         mPlanes[2].normal.z = -value[2][3] - value[2][0];
@@ -47,7 +47,7 @@ namespace nx
         mPlanes[1].normal.z = -value[2][3] + value[2][2];
         mPlanes[1].distance = -value[3][3] + value[3][2];
 
-        //Normalize all of the planes.
+        // Normalize all of the planes.
         for (int index = 0; index < 6; ++index)
         {
             const float oneOverLength = 1.0f / mPlanes[index].normal.length();

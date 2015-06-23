@@ -30,25 +30,25 @@ void GJK::reset()
 
 bool GJK::addSupportPoint(const vec3f& newPoint)
 {
-    int index1 = (mBitsToIndices[mSimplexBits ^ 15] & 7) - 1;
+    int index = (mBitsToIndices[mSimplexBits ^ 15] & 7) - 1;
 
-    mY[index1] = newPoint;
-    mYLengthSq[index1] = newPoint.lengthSquared();
+    mY[index] = newPoint;
+    mYLengthSq[index] = newPoint.lengthSquared();
 
     int num = mBitsToIndices[mSimplexBits];
     while (num != 0)
     {
         int index2 = (num & 7) - 1;
         vec3f vector3 = mY[index2] - newPoint;
-        mEdges[index2][index1] = vector3;
-        mEdges[index1][index2] = -vector3;
-        mEdgeLengthSq[index1][index2] = mEdgeLengthSq[index2][index1] = vector3.lengthSquared();
+        mEdges[index2][index] = vector3;
+        mEdges[index][index2] = -vector3;
+        mEdgeLengthSq[index][index2] = mEdgeLengthSq[index2][index] = vector3.lengthSquared();
         num >>= 3;
     }
 
-    updateDeterminant(index1);
+    updateDeterminant(index);
 
-    return updateSimplex(index1);
+    return updateSimplex(index);
 }
 
 void GJK::updateDeterminant(int xmIdx)
