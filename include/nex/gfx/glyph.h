@@ -1,10 +1,7 @@
 #ifndef GLYPH_H_INCLUDE
 #define GLYPH_H_INCLUDE
-
+#include <nex/system/typedefs.h>
 #include <nex/math/rect.h>
-
-using sf::IntRect;
-using sf::FloatRect;
 
 namespace nx
 {
@@ -15,7 +12,8 @@ struct Glyph
         advance(0)
     {}
 
-    float advance;
+    real32 advance;
+
     rectf bounds;
     recti textureRect;
 };
