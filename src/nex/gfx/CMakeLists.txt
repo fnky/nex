@@ -44,7 +44,7 @@ set (SRC
 )
 
 include_directories (${NEX_INCLUDE_DIR} ${NEX_SOURCE_DIR})
-include_directories (${NEX_STB_IMAGE_INCLUDE})
+include_directories (${NEX_STB_IMAGE_INCLUDE} ${NEX_FREETYPE_INCLUDE})
 
 add_library (${NEX_GFX_LIB} STATIC ${HEADERS} ${SRC})
 
