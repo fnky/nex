@@ -1,5 +1,6 @@
 #include <nex/filesystem/directory.h>
 #include <nex/filesystem/path.h>
+
 /**
  *
  * Unix directory implementation.

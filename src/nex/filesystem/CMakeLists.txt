@@ -19,6 +19,7 @@ set (SRC
     ${SRC_DIR}/fileinfo.cpp
     ${SRC_DIR}/directory.cpp
     ${SRC_DIR}/directoryinfo.cpp
+    ${SRC_DIR}/path.cpp
     ${SRC_DIR}/fileinputstream.cpp
     ${SRC_DIR}/fileoutputstream.cpp
 )
