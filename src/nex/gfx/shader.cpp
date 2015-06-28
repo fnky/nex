@@ -9,19 +9,19 @@ namespace nx
 {
 
 Shader::Shader() :
-    mHasVertexShader(false),
-    mHasGeometryShader(false),
-    mHasFragmentShader(false),
-    mShaderProgram(0),
-    mVertexShader(0),
-    mGeometryShader(0),
-    mFragmentShader(0)
+    m_hasVertexShader(false),
+    m_hasGeometryShader(false),
+    m_hasFragmentShader(false),
+    m_shaderProgram(0),
+    m_vertexShader(0),
+    m_geometryShader(0),
+    m_fragmentShader(0)
 { }
 
 Shader::~Shader()
 {
-    if (mShaderProgram > 0) {
-        glDeleteProgram(mShaderProgram);
+    if (m_shaderProgram > 0) {
+        glDeleteProgram(m_shaderProgram);
     }
 }
 
@@ -47,27 +47,27 @@ bool Shader::compileShader(const std::string& source, ShaderType type)
 
     if (type == VertexShader) {
         // Create and compile the vertex shader
-        mVertexShader = glCreateShader(GL_VERTEX_SHADER);
-        glShaderSource(mVertexShader, 1, &sourceCStr, NULL);
-        glCompileShader(mVertexShader);
-        mHasVertexShader = true;
-        temp = mVertexShader;
+        m_vertexShader = glCreateShader(GL_VERTEX_SHADER);
+        glShaderSource(m_vertexShader, 1, &sourceCStr, NULL);
+        glCompileShader(m_vertexShader);
+        m_hasVertexShader = true;
+        temp = m_vertexShader;
     }
     else if (type == GeometryShader) {
         // Create and compile the geometry shader
-        mGeometryShader = glCreateShader(GL_GEOMETRY_SHADER);
-        glShaderSource(mGeometryShader, 1, &sourceCStr, NULL);
-        glCompileShader(mGeometryShader);
-        mHasGeometryShader = true;
-        temp = mGeometryShader;
+        m_geometryShader = glCreateShader(GL_GEOMETRY_SHADER);
+        glShaderSource(m_geometryShader, 1, &sourceCStr, NULL);
+        glCompileShader(m_geometryShader);
+        m_hasGeometryShader = true;
+        temp = m_geometryShader;
     }
     else if (type == FragmentShader) {
         // Create and compile the fragment shader.
-        mFragmentShader = glCreateShader(GL_FRAGMENT_SHADER);
-        glShaderSource(mFragmentShader, 1, &sourceCStr, NULL);
-        glCompileShader(mFragmentShader);
-        mHasFragmentShader = true;
-        temp = mFragmentShader;
+        m_fragmentShader = glCreateShader(GL_FRAGMENT_SHADER);
+        glShaderSource(m_fragmentShader, 1, &sourceCStr, NULL);
+        glCompileShader(m_fragmentShader);
+        m_hasFragmentShader = true;
+        temp = m_fragmentShader;
     }
 
     // Check the compile results.
@@ -87,28 +87,28 @@ bool Shader::compileShader(const std::string& source, ShaderType type)
 void Shader::linkProgram()
 {
     // Link the vertex and fragment shader into a shader program
-    mShaderProgram = glCreateProgram();
+    m_shaderProgram = glCreateProgram();
 
-    if (mHasVertexShader)
-        glAttachShader(mShaderProgram, mVertexShader);
+    if (m_hasVertexShader)
+        glAttachShader(m_shaderProgram, m_vertexShader);
 
-    if (mHasGeometryShader)
-        glAttachShader(mShaderProgram, mGeometryShader);
+    if (m_hasGeometryShader)
+        glAttachShader(m_shaderProgram, m_geometryShader);
 
-    if (mHasFragmentShader)
-        glAttachShader(mShaderProgram, mFragmentShader);
+    if (m_hasFragmentShader)
+        glAttachShader(m_shaderProgram, m_fragmentShader);
     //glBindFragDataLocation(mShaderProgram, 0, "outColor");
-    glLinkProgram(mShaderProgram);
+    glLinkProgram(m_shaderProgram);
 }
 
 void Shader::addAttribute(const std::string& attribute)
 {
-    mAttributes[attribute] = glGetAttribLocation(mShaderProgram, attribute.c_str());
+    m_attributes[attribute] = glGetAttribLocation(m_shaderProgram, attribute.c_str());
 }
 
 void Shader::addUniform(const std::string& uniform)
 {
-    mUniforms[uniform] = glGetUniformLocation(mShaderProgram, uniform.c_str());
+    m_uniforms[uniform] = glGetUniformLocation(m_shaderProgram, uniform.c_str());
 }
 
 } //namespace nx

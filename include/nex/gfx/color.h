@@ -2,6 +2,7 @@
 #define COLOR_H_INCLUDE
 
 #include <nex/system/typedefs.h>
+#include <nex/math/vec3.h>
 
 namespace nx
 {
@@ -35,6 +36,12 @@ public:
      * @return Color represented as a 32-bit unsigned integer
      */
     uint32 toInteger() const;
+
+    /**
+     * @brief Retrive the color as a floating point vector (0.0 <-> 1.0)
+     * @return vec3f as a color.
+     */
+    vec3f toVector() const;
 
     static const Color Black;
     static const Color White;

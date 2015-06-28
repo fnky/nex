@@ -4,8 +4,8 @@ namespace nx
 {
 
 VertexBuffer::VertexBuffer() :
-    mCreated(false),
-    mId(0)
+    m_created(false),
+    m_id(0)
 { }
 
 VertexBuffer::~VertexBuffer()
@@ -15,22 +15,22 @@ VertexBuffer::~VertexBuffer()
 
 void VertexBuffer::create()
 {
-    glGenBuffers(1, &mId);
-    mCreated = true;
+    glGenBuffers(1, &m_id);
+    m_created = true;
 }
 
 void VertexBuffer::destroy()
 {
-    if (mCreated) {
-        glDeleteBuffers(1, &mId);
-        mCreated = false;
+    if (m_created) {
+        glDeleteBuffers(1, &m_id);
+        m_created = false;
     }
 }
 
 void VertexBuffer::bufferData(GLsizeiptr size, const void *data, DrawType drawType)
 {
     // Make sure we have a valid buffer to which we can send data to.
-    if (!mCreated)
+    if (!m_created)
         create();
 
     // Make sure we are the currently bounded buffer.

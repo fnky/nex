@@ -8,7 +8,7 @@ VertexList3d::VertexList3d()
 
 VertexList3d::~VertexList3d()
 {
-    mVertices.clear();
+    m_vertices.clear();
 }
 
 } // namespace nx

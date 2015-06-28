@@ -41,6 +41,12 @@ uint32 Color::toInteger() const
     return (r << 24) | (g << 16) | (b << 8) | a;
 }
 
+vec3f Color::toVector() const
+{
+    const real32 inverse = 1.0f / 255.0f;
+    return vec3f(real32(r) * inverse, real32(g) * inverse, real32(b) * inverse);
+}
+
 bool operator ==(const Color& left, const Color& right)
 {
     return (left.r == right.r) &&

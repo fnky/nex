@@ -8,7 +8,7 @@ namespace nx
 {
 
 Image::Image() :
-    mSize(vec2u(0, 0))
+    m_size(vec2u(0, 0))
 { }
 
 Image::~Image()
@@ -19,15 +19,15 @@ void Image::create(uint32 width, uint32 height, const Color &color)
     if (width && height)
     {
         // Assign the new size
-        mSize.x = width;
-        mSize.y = height;
+        m_size.x = width;
+        m_size.y = height;
 
         // Resize the pixel buffer
-        mPixels.resize(width * height * 4);
+        m_pixels.resize(width * height * 4);
 
         // Fill it with the specified color
-        uint8* ptr = &mPixels[0];
-        uint8* end = ptr + mPixels.size();
+        uint8* ptr = &m_pixels[0];
+        uint8* end = ptr + m_pixels.size();
         while (ptr < end)
         {
             *ptr++ = color.r;
@@ -39,9 +39,9 @@ void Image::create(uint32 width, uint32 height, const Color &color)
     else
     {
         // Create an empty image
-        mSize.x = 0;
-        mSize.y = 0;
-        mPixels.clear();
+        m_size.x = 0;
+        m_size.y = 0;
+        m_pixels.clear();
     }
 }
 
@@ -50,51 +50,51 @@ void Image::create(uint32 width, uint32 height, const uint8* pixels)
     if (pixels && width && height)
     {
         // Assign the new size
-        mSize.x = width;
-        mSize.y = height;
+        m_size.x = width;
+        m_size.y = height;
 
         // Copy the pixels
         std::size_t size = width * height * 4;
-        mPixels.resize(size);
-        std::memcpy(&mPixels[0], pixels, size); // faster than vector::assign
+        m_pixels.resize(size);
+        std::memcpy(&m_pixels[0], pixels, size); // faster than vector::assign
     }
     else
     {
         // Create an empty image
-        mSize.x = 0;
-        mSize.y = 0;
-        mPixels.clear();
+        m_size.x = 0;
+        m_size.y = 0;
+        m_pixels.clear();
     }
 }
 
 bool Image::loadFromFile(const std::string& filename)
 {
-    return nx::priv::ImageLoader::getInstance().loadImageFromFile(filename, mPixels, mSize);
+    return nx::priv::ImageLoader::getInstance().loadImageFromFile(filename, m_pixels, m_size);
 }
 
 bool Image::loadFromMemory(const void* data, std::size_t size)
 {
-    return nx::priv::ImageLoader::getInstance().loadImageFromMemory(data, size, mPixels, mSize);
+    return nx::priv::ImageLoader::getInstance().loadImageFromMemory(data, size, m_pixels, m_size);
 }
 
 bool Image::loadFromStream(InStream& stream)
 {
-    return nx::priv::ImageLoader::getInstance().loadImageFromStream(stream, mPixels, mSize);
+    return nx::priv::ImageLoader::getInstance().loadImageFromStream(stream, m_pixels, m_size);
 }
 
 bool Image::saveToFile(const std::string& filename) const
 {
-    return nx::priv::ImageLoader::getInstance().saveImageToFile(filename, mPixels, mSize);
+    return nx::priv::ImageLoader::getInstance().saveImageToFile(filename, m_pixels, m_size);
 }
 
 void Image::createMaskFromColor(const Color& color, uint8 alpha)
 {
     // Make sure that the image is not empty
-    if (!mPixels.empty())
+    if (!m_pixels.empty())
     {
         // Replace the alpha of the pixels that match the transparent color
-        uint8* ptr = &mPixels[0];
-        uint8* end = ptr + mPixels.size();
+        uint8* ptr = &m_pixels[0];
+        uint8* end = ptr + m_pixels.size();
         while (ptr < end)
         {
             if ((ptr[0] == color.r) && (ptr[1] == color.g) && (ptr[2] == color.b) && (ptr[3] == color.a))
@@ -107,7 +107,7 @@ void Image::createMaskFromColor(const Color& color, uint8 alpha)
 void Image::copy(const Image& source, uint32 destX, uint32 destY, const recti& sourceRect, bool applyAlpha)
 {
     // Make sure that both images are valid
-    if ((source.mSize.x == 0) || (source.mSize.y == 0) || (mSize.x == 0) || (mSize.y == 0))
+    if ((source.m_size.x == 0) || (source.m_size.y == 0) || (m_size.x == 0) || (m_size.y == 0))
         return;
 
     // Adjust the source rectangle
@@ -116,8 +116,8 @@ void Image::copy(const Image& source, uint32 destX, uint32 destY, const recti& s
     {
         srcRect.x = 0;
         srcRect.y = 0;
-        srcRect.width = source.mSize.x;
-        srcRect.height = source.mSize.y;
+        srcRect.width = source.m_size.x;
+        srcRect.height = source.m_size.y;
     }
     else
     {
@@ -127,22 +127,22 @@ void Image::copy(const Image& source, uint32 destX, uint32 destY, const recti& s
         if (srcRect.y < 0)
             srcRect.y  = 0;
 
-        if (srcRect.width > static_cast<int>(source.mSize.x))
-            srcRect.width  = source.mSize.x;
+        if (srcRect.width > static_cast<int>(source.m_size.x))
+            srcRect.width  = source.m_size.x;
 
-        if (srcRect.height > static_cast<int>(source.mSize.y))
-            srcRect.height = source.mSize.y;
+        if (srcRect.height > static_cast<int>(source.m_size.y))
+            srcRect.height = source.m_size.y;
     }
 
     // Then find the valid bounds of the destination rectangle
     int width  = srcRect.width;
     int height = srcRect.height;
 
-    if (destX + width  > mSize.x)
-        width  = mSize.x - destX;
+    if (destX + width  > m_size.x)
+        width  = m_size.x - destX;
 
-    if (destY + height > mSize.y)
-        height = mSize.y - destY;
+    if (destY + height > m_size.y)
+        height = m_size.y - destY;
 
     // Make sure the destination area is valid
     if ((width <= 0) || (height <= 0))
@@ -151,10 +151,10 @@ void Image::copy(const Image& source, uint32 destX, uint32 destY, const recti& s
     // Precompute as much as possible
     int pitch = width * 4;
     int rows = height;
-    int srcStride = source.mSize.x * 4;
-    int dstStride = mSize.x * 4;
-    const uint8* srcPixels = &source.mPixels[0] + (srcRect.x + srcRect.y * source.mSize.x) * 4;
-    uint8* dstPixels = &mPixels[0] + (destX + destY * mSize.x) * 4;
+    int srcStride = source.m_size.x * 4;
+    int dstStride = m_size.x * 4;
+    const uint8* srcPixels = &source.m_pixels[0] + (srcRect.x + srcRect.y * source.m_size.x) * 4;
+    uint8* dstPixels = &m_pixels[0] + (destX + destY * m_size.x) * 4;
 
     // Copy the pixels
     if (applyAlpha)
@@ -194,7 +194,7 @@ void Image::copy(const Image& source, uint32 destX, uint32 destY, const recti& s
 
 void Image::setPixel(unsigned int x, unsigned int y, const Color& color)
 {
-    uint8* pixel = &mPixels[(x + y * mSize.x) * 4];
+    uint8* pixel = &m_pixels[(x + y * m_size.x) * 4];
     *pixel++ = color.r;
     *pixel++ = color.g;
     *pixel++ = color.b;
@@ -203,15 +203,15 @@ void Image::setPixel(unsigned int x, unsigned int y, const Color& color)
 
 Color Image::getPixel(unsigned int x, unsigned int y) const
 {
-    const uint8* pixel = &mPixels[(x + y * mSize.x) * 4];
+    const uint8* pixel = &m_pixels[(x + y * m_size.x) * 4];
     return Color(pixel[0], pixel[1], pixel[2], pixel[3]);
 }
 
 const uint8* Image::getPixelsPtr() const
 {
-    if (!mPixels.empty())
+    if (!m_pixels.empty())
     {
-        return &mPixels[0];
+        return &m_pixels[0];
     }
     else
     {
@@ -221,16 +221,16 @@ const uint8* Image::getPixelsPtr() const
 
 void Image::flipHorizontally()
 {
-    if (!mPixels.empty())
+    if (!m_pixels.empty())
     {
-        std::size_t rowSize = mSize.x * 4;
+        std::size_t rowSize = m_size.x * 4;
 
-        for (std::size_t y = 0; y < mSize.y; ++y)
+        for (std::size_t y = 0; y < m_size.y; ++y)
         {
-            std::vector<uint8>::iterator left = mPixels.begin() + y * rowSize;
-            std::vector<uint8>::iterator right = mPixels.begin() + (y + 1) * rowSize - 4;
+            std::vector<uint8>::iterator left = m_pixels.begin() + y * rowSize;
+            std::vector<uint8>::iterator right = m_pixels.begin() + (y + 1) * rowSize - 4;
 
-            for (std::size_t x = 0; x < mSize.x / 2; ++x)
+            for (std::size_t x = 0; x < m_size.x / 2; ++x)
             {
                 std::swap_ranges(left, left + 4, right);
 
@@ -243,14 +243,14 @@ void Image::flipHorizontally()
 
 void Image::flipVertically()
 {
-    if (!mPixels.empty())
+    if (!m_pixels.empty())
     {
-        std::size_t rowSize = mSize.x * 4;
+        std::size_t rowSize = m_size.x * 4;
 
-        std::vector<uint8>::iterator top = mPixels.begin();
-        std::vector<uint8>::iterator bottom = mPixels.end() - rowSize;
+        std::vector<uint8>::iterator top = m_pixels.begin();
+        std::vector<uint8>::iterator bottom = m_pixels.end() - rowSize;
 
-        for (std::size_t y = 0; y < mSize.y / 2; ++y)
+        for (std::size_t y = 0; y < m_size.y / 2; ++y)
         {
             std::swap_ranges(top, top + rowSize, bottom);
 

@@ -27,12 +27,12 @@ public:
      * @brief Add a 2d vertex into the list.
      * @param vertex
      */
-    inline void addVertex(const Vertex2d& vertex) {
-        mVertices.push_back(vertex);
+    inline void append(const Vertex2d& vertex) {
+        m_vertices.push_back(vertex);
     }
 
     inline void resize(std::size_t vertexCount) {
-        mVertices.resize(vertexCount);
+        m_vertices.resize(vertexCount);
     }
 
     /**
@@ -52,28 +52,28 @@ public:
     /**
      * @brief Clear the vertex list.
      */
-    inline void clear() { mVertices.clear(); }
+    inline void clear() { m_vertices.clear(); }
 
     /**
      * @brief Get the size of the current vertex list.
      * @return the size of the list.
      */
-    inline uint32 size() const { return mVertices.size(); }
+    inline uint32 size() const { return m_vertices.size(); }
 
     /**
      * @brief Get a pointer to the data.
      * @return A constant pointer to the vertex data.
      */
-    inline const Vertex2d* getVertexPtr() { return &mVertices[0]; }
+    inline const Vertex2d* getVertexPtr() { return &m_vertices[0]; }
 
     /**
      * @brief Get a pointer to the raw float data.
      * @return A pointer to the raw float data.
      */
-    inline const float* getFloatPtr() { return reinterpret_cast<const float*>(&mVertices[0]); }
+    inline const float* getFloatPtr() { return reinterpret_cast<const float*>(&m_vertices[0]); }
 
 private:
-    std::vector<Vertex2d> mVertices;
+    std::vector<Vertex2d> m_vertices;
 };
 
 } // namespace nx

@@ -46,7 +46,7 @@ public:
     /**
      * @brief Bind the texture to the opengl context.
      */
-    inline void bind() const { glBindTexture(GL_TEXTURE_2D, mId); }
+    inline void bind() const { glBindTexture(GL_TEXTURE_2D, m_id); }
 
     /**
      * @brief Unbind the texture from the opengl context.
@@ -99,7 +99,7 @@ public:
      * @brief Get the size of the image.
      * @return The current image size.
      */
-    inline vec2u size() const { return mSize; }
+    inline vec2u size() const { return m_size; }
 
     /**
      * @brief Enable texture smoothing.
@@ -111,7 +111,7 @@ public:
      * @brief Get the state of the this textures smoothing.
      * @return the state of the smooth.
      */
-    inline bool getSmooth() const { return mSmooth; }
+    inline bool getSmooth() const { return m_smooth; }
 
     /**
      * @brief Set the texture to repeate uv coordinates outside of the 0.0 <-> 0.1 range.
@@ -123,19 +123,19 @@ public:
      * @brief Get the state of the textures repeat.
      * @return the repeat state.
      */
-    inline bool getRepeat() const { return mRepeat; }
+    inline bool getRepeat() const { return m_repeat; }
 
 private:
-    mutable bool mPixelsFlipped;
+    mutable bool m_pixelsFlipped;
 
-    bool mSmooth;
-    bool mRepeat;
+    bool m_smooth;
+    bool m_repeat;
 
-    uint32 mId;
-    vec2u mSize;
-    vec2u mActualSize;
+    uint32 m_id;
+    vec2u m_size;
+    vec2u m_actualSize;
 
-    static int mTexturesAlive;
+    static int m_texturesAlive;
 };
 
 typedef std::shared_ptr<Texture> TexturePtr;

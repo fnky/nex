@@ -192,37 +192,37 @@ private:
     /**
      * @brief Pointer to the internal library interface (it is typeless to avoid exposing implementation details).
      */
-    void* mLibrary;
+    void* m_library;
 
     /**
      * @brief Pointer to the internal font face (it is typeless to avoid exposing implementation details).
      */
-    void* mFace;
+    void* m_face;
 
     /**
      * @brief Pointer to the stream rec instance (it is typeless to avoid exposing implementation details).
      */
-    void* mStreamRec;
+    void* m_streamRec;
 
     /**
      * @brief Reference counter used by implicit sharing.
      */
-    int* mRefCount;
+    int* m_refCount;
 
     /**
      * @brief Information about the font.
      */
-    Info mInfo;
+    Info m_info;
 
     /**
      * @brief Table containing the glyphs pages by character size.
      */
-    mutable PageTable mPages;
+    mutable PageTable m_pages;
 
     /**
      * @brief Pixel buffer holding a glyph's pixels before being written to the texture
      */
-    mutable std::vector<uint8> mPixelBuffer;
+    mutable std::vector<uint8> m_pixelBuffer;
 
 };
 

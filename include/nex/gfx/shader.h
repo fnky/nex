@@ -56,14 +56,14 @@ public:
      */
     void addUniform(const std::string& uniform);
 
-    GLuint getAttribute(const std::string& attribute) { return mAttributes[attribute]; }
+    GLuint getAttribute(const std::string& attribute) { return m_attributes[attribute]; }
 
-    GLuint getUniform(const std::string& uniform) { return mUniforms[uniform]; }
+    GLuint getUniform(const std::string& uniform) { return m_uniforms[uniform]; }
 
     /**
      * @brief Bind the shader program.
      */
-    inline void bind() const { glUseProgram(mShaderProgram); }
+    inline void bind() const { glUseProgram(m_shaderProgram); }
 
     /**
      * @brief Unbind the shader program.
@@ -74,22 +74,22 @@ public:
      * @brief Get the id of the compiled shader program.
      * @return the id of the program.
      */
-    inline GLuint getProgram() const { return mShaderProgram; }
+    inline GLuint getProgram() const { return m_shaderProgram; }
 
 private:
 
-    bool mHasVertexShader;
-    bool mHasGeometryShader;
-    bool mHasFragmentShader;
+    bool m_hasVertexShader;
+    bool m_hasGeometryShader;
+    bool m_hasFragmentShader;
 
-    GLuint mVertexShader;
-    GLuint mGeometryShader;
-    GLuint mFragmentShader;
+    GLuint m_vertexShader;
+    GLuint m_geometryShader;
+    GLuint m_fragmentShader;
 
-    GLuint mShaderProgram;
+    GLuint m_shaderProgram;
 
-    std::map<std::string, GLuint> mAttributes;
-    std::map<std::string, GLuint> mUniforms;
+    std::map<std::string, GLuint> m_attributes;
+    std::map<std::string, GLuint> m_uniforms;
 };
 
 } //namespace nx

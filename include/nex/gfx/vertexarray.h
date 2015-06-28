@@ -44,7 +44,7 @@ public:
     inline void unbind() const { glBindVertexArray(0); }
 
 private:
-    bool mCreated;
+    bool m_created;
     GLuint mId;
 };
 } // namespace nx

@@ -126,7 +126,7 @@ public:
      * @brief Return the size (width and height) of the image.
      * @return Size of the image, in pixels.
      */
-    inline vec2u size() const { return mSize; }
+    inline vec2u size() const { return m_size; }
 
     /**
      * @brief Get a read-only pointer to the array of pixels.
@@ -135,8 +135,8 @@ public:
     const uint8* getPixelsPtr() const;
 
 private:
-    vec2u mSize;
-    std::vector<uint8> mPixels;
+    vec2u m_size;
+    std::vector<uint8> m_pixels;
 };
 
 } // namespace nx

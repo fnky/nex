@@ -4,7 +4,7 @@ namespace nx
 {
 
 VertexArray::VertexArray() :
-    mCreated(false),
+    m_created(false),
     mId(0)
 { }
 
@@ -16,14 +16,14 @@ VertexArray::~VertexArray()
 void VertexArray::create()
 {
     glGenVertexArrays(1, &mId);
-    mCreated = true;
+    m_created = true;
 }
 
 void VertexArray::destroy()
 {
-    if (mCreated) {
+    if (m_created) {
         glDeleteVertexArrays(1, &mId);
-        mCreated = false;
+        m_created = false;
     }
 }
 

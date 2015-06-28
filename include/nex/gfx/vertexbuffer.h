@@ -52,7 +52,7 @@ public:
     /**
      * @brief Bind the vertex buffer object.
      */
-    inline void bind() const { glBindBuffer(GL_ARRAY_BUFFER, mId); }
+    inline void bind() const { glBindBuffer(GL_ARRAY_BUFFER, m_id); }
 
     /**
      * @brief Unbind the vertex buffer object.
@@ -60,8 +60,9 @@ public:
     inline void unbind() const { glBindBuffer(GL_ARRAY_BUFFER, 0); }
 
 private:
-    bool mCreated;
-    GLuint mId;
+    bool m_created;
+    bool m_hasData;
+    GLuint m_id;
 };
 
 } // namespace nx

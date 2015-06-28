@@ -48,7 +48,7 @@ public:
     /**
      * @brief Bind the element buffer.
      */
-    inline void bind() const { glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, mId); }
+    inline void bind() const { glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_id); }
 
     /**
      * @brief Unbind the element buffer.
@@ -56,8 +56,8 @@ public:
     inline void unbind() const { glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0); }
 
 private:
-    bool mCreated;
-    GLuint mId;
+    bool m_created;
+    GLuint m_id;
 };
 
 } // namespace nx

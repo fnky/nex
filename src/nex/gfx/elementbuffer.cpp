@@ -4,8 +4,8 @@ namespace nx
 {
 
 ElementBuffer::ElementBuffer() :
-    mCreated(false),
-    mId(0)
+    m_created(false),
+    m_id(0)
 { }
 
 ElementBuffer::~ElementBuffer()
@@ -15,22 +15,22 @@ ElementBuffer::~ElementBuffer()
 
 void ElementBuffer::create()
 {
-    mCreated = true;
-    glGenBuffers(1, &mId);
+    m_created = true;
+    glGenBuffers(1, &m_id);
 }
 
 void ElementBuffer::destroy()
 {
-    if (mCreated) {
-        glDeleteBuffers(1, &mId);
-        mCreated = false;
+    if (m_created) {
+        glDeleteBuffers(1, &m_id);
+        m_created = false;
     }
 }
 
 void ElementBuffer::bufferData(GLsizeiptr size, const void *data, DrawType drawType)
 {
     // Make sure we have a valid buffer to which we can send data to.
-    if (!mCreated)
+    if (!m_created)
         create();
 
     // Make sure we are the currently bounded buffer.
