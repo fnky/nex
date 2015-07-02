@@ -55,6 +55,12 @@ public:
      */
     inline void unbind() const { glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0); }
 
+    /**
+     * @brief Check if this element buffer has been created.
+     * @return true if it has been created.
+     */
+    inline bool isCreated() const { return m_created; }
+
 private:
     bool m_created;
     GLuint m_id;

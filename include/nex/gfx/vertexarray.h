@@ -43,6 +43,12 @@ public:
      */
     inline void unbind() const { glBindVertexArray(0); }
 
+    /**
+     * @brief Check if this vertex array has been created.
+     * @return true if it has been created.
+     */
+    inline bool isCreated() const { return m_created; }
+
 private:
     bool m_created;
     GLuint mId;

@@ -62,7 +62,7 @@ public:
 
     //FloatRect getGlobalBounds() const;
 
-    void render();
+    void render() const;
 
 private:
 

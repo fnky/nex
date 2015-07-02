@@ -161,6 +161,20 @@ vec2f Text::findCharacterPos(std::size_t index) const
     }
 }*/
 
+void Text::render() const
+{
+    if (m_font) {
+        ensureGeometryUpdate();
+
+        glActiveTexture(GL_TEXTURE0);
+        m_font->getTexture(m_characterSize).bind();
+
+
+
+        glDrawArrays(GL_TRIANGLES, 0, m_vertices.size() * sizeof(Vertex2d));
+    }
+}
+
 void Text::ensureGeometryUpdate() const
 {
     // Do nothing, if geometry has not changed
@@ -334,5 +348,21 @@ void Text::ensureGeometryUpdate() const
     m_bounds.y = minY;
     m_bounds.width = maxX - minX;
     m_bounds.height = maxY - minY;
+
+    if (m_vertexBuffer.isCreated()) {
+        m_vertexBuffer.destroy();
+    }
+
+    if (m_vertexArray.isCreated()) {
+        m_vertexBuffer.destroy();
+    }
+
+    m_vertexArray.create();
+    m_vertexArray.bind();
+
+    m_vertexBuffer.create();
+    m_vertexBuffer.bind();
+
+    m_vertexBuffer.bufferData(m_vertices.size() * sizeof(Vertex2d), m_vertices.getFloatPtr(), DrawType::DRAW_TYPE_STATIC);
 }
 } // namespace nx
