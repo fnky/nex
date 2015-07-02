@@ -41,7 +41,7 @@ float Ray::intersects(const Plane& plane) const
     return distance;
 }
 
-float Ray::intersects(const BoundingSphere& sphere) const
+float Ray::intersects(const Sphere& sphere) const
 {
     const float deltaX = sphere.center.x - position.x;
     const float deltaY = sphere.center.y - position.y;
@@ -69,7 +69,7 @@ float Ray::intersects(const BoundingSphere& sphere) const
     return (num6 - num8);
 }
 
-float Ray::intersects(const BoundingBox& boundingBox) const
+float Ray::intersects(const AABB& boundingBox) const
 {
     float result = 0.0f;
     float clip = std::numeric_limits<float>::max();

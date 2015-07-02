@@ -32,9 +32,9 @@ set (NEX_MATH_HEADERS
     ${INC_DIR}/planeintersectiontype.h
     ${INC_DIR}/containmenttype.h
 
-    ${INC_DIR}/boundingbox.h
-    ${INC_DIR}/boundingsphere.h
-    ${INC_DIR}/boundingfrustum.h
+    ${INC_DIR}/aabb.h
+    ${INC_DIR}/sphere.h
+    ${INC_DIR}/frustum.h
 
     ${INC_DIR}/gjk.h
 
@@ -45,9 +45,9 @@ set (NEX_MATH_SRC
     ${SRC_DIR}/gjk.cpp
     ${SRC_DIR}/ray.cpp
     ${SRC_DIR}/plane.cpp
-    ${SRC_DIR}/boundingbox.cpp
-    ${SRC_DIR}/boundingsphere.cpp
-    ${SRC_DIR}/boundingfrustum.cpp
+    ${SRC_DIR}/aabb.cpp
+    ${SRC_DIR}/sphere.cpp
+    ${SRC_DIR}/frustum.cpp
 )
 
 include_directories (${NEX_INCLUDE_DIR})

@@ -1,20 +1,20 @@
-#include <nex/math/boundingbox.h>
-#include <nex/math/boundingsphere.h>
+#include <nex/math/aabb.h>
+#include <nex/math/sphere.h>
 
 namespace nx
 {
 
-BoundingBox::BoundingBox() :
+AABB::AABB() :
     min(vec3f()),
     max(vec3f())
 { }
 
-BoundingBox::BoundingBox(const vec3f min, const vec3f max) :
+AABB::AABB(const vec3f min, const vec3f max) :
     min(min),
     max(max)
 { }
 
-std::vector<vec3f> BoundingBox::getCorners()
+std::vector<vec3f> AABB::getCorners()
 {
     std::vector<vec3f> points;
 
@@ -30,7 +30,7 @@ std::vector<vec3f> BoundingBox::getCorners()
     return points;
 }
 
-bool BoundingBox::intersects(const BoundingBox& box) const
+bool AABB::intersects(const AABB& box) const
 {
     return max.x >= box.min.x &&
            min.x <= box.max.x &&
@@ -38,7 +38,7 @@ bool BoundingBox::intersects(const BoundingBox& box) const
           (max.z >= box.min.z && min.x <= box.max.z);
 }
 
-bool BoundingBox::intersects(const BoundingSphere& sphere) const
+bool AABB::intersects(const Sphere& sphere) const
 {
     const vec3f clampResult = vec3f::clamp(sphere.center, min, max);
     const float distanceSquared = vec3f::distanceSquared(sphere.center, clampResult);
@@ -46,7 +46,7 @@ bool BoundingBox::intersects(const BoundingSphere& sphere) const
     return distanceSquared <= (sphere.radius * sphere.radius);
 }
 
-ContainmentType BoundingBox::contains(const BoundingBox& box) const
+ContainmentType AABB::contains(const AABB& box) const
 {
     if (max.x < min.x || min.x > box.max.x || (max.y < box.min.y || min.y > box.max.y) || (max.z < box.min.z || min.z > box.max.z))
         return ContainmentType::Disjoint;
@@ -57,14 +57,14 @@ ContainmentType BoundingBox::contains(const BoundingBox& box) const
           (min.z >  box.min.z || box.max.z > max.z) ? ContainmentType::Intersects : ContainmentType::Contains;
 }
 
-ContainmentType BoundingBox::contains(const vec3f& point) const
+ContainmentType AABB::contains(const vec3f& point) const
 {
     return min.x > point.x || point.x > max.x || (min.y > point.y || point.y > max.y) || (min.z > point.z || point.z > max.z) ? ContainmentType::Disjoint : ContainmentType::Contains;
 }
 
-BoundingBox BoundingBox::createMerged(const BoundingBox& original, const BoundingBox& additional)
+AABB AABB::createMerged(const AABB& original, const AABB& additional)
 {
-    BoundingBox boundingBox;
+    AABB boundingBox;
 
     boundingBox.min = vec3f::min(original.min, additional.min);
     boundingBox.max = vec3f::max(original.max, additional.max);
@@ -72,9 +72,9 @@ BoundingBox BoundingBox::createMerged(const BoundingBox& original, const Boundin
     return boundingBox;
 }
 
-BoundingBox BoundingBox::createFromSphere(const BoundingSphere& sphere)
+AABB AABB::createFromSphere(const Sphere& sphere)
 {
-    BoundingBox result;
+    AABB result;
 
     result.min.x = sphere.center.x - sphere.radius;
     result.min.y = sphere.center.y - sphere.radius;
@@ -86,7 +86,7 @@ BoundingBox BoundingBox::createFromSphere(const BoundingSphere& sphere)
     return result;
 }
 
-BoundingBox BoundingBox::createFromPoints(const std::vector<vec3f> points)
+AABB AABB::createFromPoints(const std::vector<vec3f> points)
 {
     vec3f min;
     vec3f max;
@@ -97,7 +97,7 @@ BoundingBox BoundingBox::createFromPoints(const std::vector<vec3f> points)
         max = vec3f::max(max, point);
     }
 
-    return BoundingBox(min, max);
+    return AABB(min, max);
 }
 
 } //namespace nx

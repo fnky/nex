@@ -9,26 +9,26 @@
 
 namespace nx
 {
-class BoundingSphere;
+class Sphere;
 
 /**
  * @brief Defines an axis-aligned box-shaped 3D volume.
  */
-class BoundingBox
+class AABB
 {
 public:
 
     /**
      * @brief Creates an instance of BoundingBox.
      */
-    BoundingBox();
+    AABB();
 
     /**
      * @brief Creates an instance of BoundingBox.
      * @param min = The minimum point the BoundingBox includes.
      * @param max = The maximum point the BoundingBox includes.
      */
-    BoundingBox(const vec3f min, const vec3f max);
+    AABB(const vec3f min, const vec3f max);
 
     /**
      * @brief Specifies the total number of corners (8) in the BoundingBox.
@@ -46,21 +46,21 @@ public:
      * @param box = The BoundingBox to check for intersection with.
      * @return the intersection result.
      */
-    bool intersects(const BoundingBox& box) const;
+    bool intersects(const AABB& box) const;
 
     /**
      * @brief Checks whether the current BoundingBox intersects a BoundingSphere.
      * @param sphere = The BoundingSphere to check for intersection with.
      * @return the intersection result.
      */
-    bool intersects(const BoundingSphere& sphere) const;
+    bool intersects(const Sphere& sphere) const;
 
     /**
      * @brief Tests whether the BoundingBox contains another BoundingBox.
      * @param box = The BoundingBox to test for overlap.
      * @return The ContainmentType.
      */
-    ContainmentType contains(const BoundingBox& box) const;
+    ContainmentType contains(const AABB& box) const;
 
     /**
      * @brief Tests whether the BoundingBox contains a point.
@@ -75,21 +75,21 @@ public:
      * @param additional = One of the BoundingBoxs to contain.
      * @return smallest BoundingBox that contains the two.
      */
-    static BoundingBox createMerged(const BoundingBox& original, const BoundingBox& additional);
+    static AABB createMerged(const AABB& original, const AABB& additional);
 
     /**
      * @brief Creates the smallest BoundingBox that will contain the specified BoundingSphere.
      * @param sphere = The BoundingSphere to contain.
      * @return the bounding box containg the sphere.
      */
-    static BoundingBox createFromSphere(const BoundingSphere& sphere);
+    static AABB createFromSphere(const Sphere& sphere);
 
     /**
      * @brief Creates the smallest BoundingBox that will contain a group of points.
      * @param points = A list of points the BoundingBox should contain.
      * @return the bounding box containing the points.
      */
-    static BoundingBox createFromPoints(const std::vector<vec3f> points);
+    static AABB createFromPoints(const std::vector<vec3f> points);
 
     /**
      * @brief The minimum point the BoundingBox contains.

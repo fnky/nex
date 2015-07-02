@@ -6,17 +6,17 @@
 #include <nex/math/matrix.h>
 #include <nex/math/gjk.h>
 #include <nex/math/plane.h>
-#include <nex/math/boundingbox.h>
+#include <nex/math/aabb.h>
 
 namespace nx
 {
-class BoundingSphere;
+class Sphere;
 
-class BoundingFrustum
+class Frustum
 {
 public:
 
-    BoundingFrustum();
+    Frustum();
 
     /**
      * @brief Specifies the total number of corners (8) in the BoundingFrustum.
@@ -61,21 +61,21 @@ public:
      * @param box = The BoundingBox to check for intersection with.
      * @return true if the BoundingFrustum and BoundingBox intersect; false otherwise.
      */
-    bool intersects(const BoundingBox& box) const;
+    bool intersects(const AABB& box) const;
 
     /**
      * @brief Checks whether the current BoundingFrustum intersects the specified BoundingFrustum.
      * @param frustum = The BoundingFrustum to check for intersection.
      * @return the intersection result.
      */
-    bool intersects(const BoundingFrustum& frustum) const;
+    bool intersects(const Frustum& frustum) const;
 
     /**
      * @brief Checks whether the current BoundingFrustum intersects the specified BoundingSphere.
      * @param sphere = The BoundingSphere to check for intersection with.
      * @return true if the BoundingFrustum and BoundingSphere intersect; false otherwise.
      */
-    bool intersects(const BoundingSphere& sphere) const;
+    bool intersects(const Sphere& sphere) const;
 
     /**
      * @brief Checks whether the current BoundingFrustum intersects a Ray.
@@ -103,21 +103,21 @@ public:
      * @param box = The BoundingBox to check against the current BoundingFrustum.
      * @return the containment type.
      */
-    ContainmentType contains(const BoundingBox& box) const;
+    ContainmentType contains(const AABB& box) const;
 
     /**
      * @brief Checks whether the current BoundingFrustum contains the specified BoundingFrustum.
      * @param frustum = The BoundingFrustum to check against the current BoundingFrustum.
      * @return the containment type.
      */
-    ContainmentType contains(const BoundingFrustum& frustum) const;
+    ContainmentType contains(const Frustum& frustum) const;
 
     /**
      * @brief Checks whether the current BoundingFrustum contains the specified BoundingSphere.
      * @param sphere = The BoundingSphere to check against the current BoundingFrustum.
      * @return the containment type.
      */
-    ContainmentType contains(const BoundingSphere& sphere) const;
+    ContainmentType contains(const Sphere& sphere) const;
 
     /**
      * @brief Compute the bounding frustum from the given matrix.

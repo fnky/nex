@@ -4,9 +4,9 @@
 #include <nex/math/vec3.h>
 #include <nex/math/plane.h>
 
-#include <nex/math/boundingbox.h>
-#include <nex/math/boundingsphere.h>
-#include <nex/math/boundingfrustum.h>
+#include <nex/math/aabb.h>
+#include <nex/math/sphere.h>
+#include <nex/math/frustum.h>
 
 namespace nx
 {
@@ -42,14 +42,14 @@ public:
      * @param sphere = The BoundingSphere to check for intersection with the Ray.
      * @return intersection result.
      */
-    float intersects(const BoundingSphere& sphere) const;
+    float intersects(const Sphere& sphere) const;
 
     /**
      * @brief Checks whether the Ray intersects a specified BoundingBox
      * @param boundingBox = The BoundingBox to check for intersection with the Ray.
      * @return intersection result.
      */
-    float intersects(const BoundingBox& boundingBox) const;
+    float intersects(const AABB& boundingBox) const;
 
     /**
      * @brief Computes the intersections between the ray an plane.

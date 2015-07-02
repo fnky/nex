@@ -68,7 +68,7 @@ float Plane::dotNormal(const vec3f& value) const
     return (normal.x * value.x + normal.y * value.y + normal.z * value.z);
 }
 
-PlaneIntersectionType Plane::intersects(const BoundingBox& box) const
+PlaneIntersectionType Plane::intersects(const AABB& box) const
 {
     vec3f resultA;
     resultA.x = normal.x >= 0.0f ? box.min.x : box.max.x;
@@ -88,7 +88,7 @@ PlaneIntersectionType Plane::intersects(const BoundingBox& box) const
            (normal.z * resultB.z) + distance < 0.0f ? PlaneIntersectionType::Back : PlaneIntersectionType::Intersecting;
 }
 
-PlaneIntersectionType Plane::intersects(const BoundingSphere& sphere) const
+PlaneIntersectionType Plane::intersects(const Sphere& sphere) const
 {
     const float dist = (sphere.center.x * normal.x + sphere.center.y * normal.y + sphere.center.z * normal.z) + distance;
 

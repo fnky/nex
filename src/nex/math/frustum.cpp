@@ -1,5 +1,5 @@
-#include <nex/math/boundingfrustum.h>
-#include <nex/math/boundingsphere.h>
+#include <nex/math/frustum.h>
+#include <nex/math/sphere.h>
 #include <nex/math/plane.h>
 #include <nex/math/ray.h>
 
@@ -7,10 +7,10 @@
 
 namespace nx
 {
-    BoundingFrustum::BoundingFrustum()
+    Frustum::Frustum()
     { }
 
-    void BoundingFrustum::setMatrix(const mat4f& value)
+    void Frustum::setMatrix(const mat4f& value)
     {
         // Store our matrix.
         mMatrix = value;
@@ -73,7 +73,7 @@ namespace nx
         mCornerArray[6] = intersectionLine2.computeIntersection(mPlanes[5]);
     }
 
-    vec3f BoundingFrustum::supportMapping(const vec3f vector) const
+    vec3f Frustum::supportMapping(const vec3f vector) const
     {
         int searchIndex = 0;
         float thetaA = vec3f::dot(mCornerArray[0], vector);
@@ -91,7 +91,7 @@ namespace nx
         return mCornerArray[searchIndex];
     }
 
-    bool BoundingFrustum::intersects(const BoundingBox& box) const
+    bool Frustum::intersects(const AABB& box) const
     {
         mGJK.reset();
 
@@ -130,7 +130,7 @@ namespace nx
         return true;
     }
 
-    bool BoundingFrustum::intersects(const BoundingFrustum& frustum) const
+    bool Frustum::intersects(const Frustum& frustum) const
     {
         mGJK.reset();
 
@@ -172,7 +172,7 @@ namespace nx
         return true;
     }
 
-    float BoundingFrustum::intersects(const Ray& ray) const
+    float Frustum::intersects(const Ray& ray) const
     {
         ContainmentType result1 = contains(ray.position);
         if (result1 == ContainmentType::Contains)
@@ -226,7 +226,7 @@ namespace nx
         }
     }
 
-    bool BoundingFrustum::intersects(const BoundingSphere& sphere) const
+    bool Frustum::intersects(const Sphere& sphere) const
     {
         mGJK.reset();
 
@@ -269,7 +269,7 @@ namespace nx
         return true;
     }
 
-    PlaneIntersectionType BoundingFrustum::intersects(const Plane& plane) const
+    PlaneIntersectionType Frustum::intersects(const Plane& plane) const
     {
         int result = 0;
         for (int index = 0; index < 8; ++index)
@@ -287,7 +287,7 @@ namespace nx
         return result != 1 ? PlaneIntersectionType::Back : PlaneIntersectionType::Front;
     }
 
-    ContainmentType BoundingFrustum::contains(const vec3f& point) const
+    ContainmentType Frustum::contains(const vec3f& point) const
     {
         for (auto plane : mPlanes)
         {
@@ -297,7 +297,7 @@ namespace nx
         return ContainmentType::Contains;
     }
 
-    ContainmentType BoundingFrustum::contains(const BoundingBox& box) const
+    ContainmentType Frustum::contains(const AABB& box) const
     {
         bool flag = false;
         for (auto plane : mPlanes)
@@ -314,7 +314,7 @@ namespace nx
         return !flag ? ContainmentType::Contains : ContainmentType::Intersects;
     }
 
-    ContainmentType BoundingFrustum::contains(const BoundingFrustum& frustum) const
+    ContainmentType Frustum::contains(const Frustum& frustum) const
     {
         ContainmentType containmentType = ContainmentType::Disjoint;
         if (intersects(frustum))
@@ -333,7 +333,7 @@ namespace nx
         return containmentType;
     }
 
-    ContainmentType BoundingFrustum::contains(const BoundingSphere& sphere) const
+    ContainmentType Frustum::contains(const Sphere& sphere) const
     {
         const vec3f center = sphere.center;
         const float radius = sphere.radius;

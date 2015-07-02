@@ -6,8 +6,8 @@
 
 #include <nex/math/planeintersectiontype.h>
 
-#include <nex/math/boundingbox.h>
-#include <nex/math/boundingsphere.h>
+#include <nex/math/aabb.h>
+#include <nex/math/sphere.h>
 
 namespace nx
 {
@@ -69,14 +69,14 @@ public:
      * @param box = The BoundingBox to test for intersection with.
      * @return the intersection results.
      */
-    PlaneIntersectionType intersects(const BoundingBox& box) const;
+    PlaneIntersectionType intersects(const AABB& box) const;
 
     /**
      * @brief Checks whether the current Plane intersects a specified BoundingSphere.
      * @param sphere = The BoundingSphere to check for intersection with.
      * @return the intersection results.
      */
-    PlaneIntersectionType intersects(const BoundingSphere& sphere) const;
+    PlaneIntersectionType intersects(const Sphere& sphere) const;
 
     /**
      * @brief Changes the coefficients of the Normal vector of this Plane to make it of unit length.
