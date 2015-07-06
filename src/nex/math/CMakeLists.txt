@@ -34,6 +34,7 @@ set (NEX_MATH_HEADERS
 
     ${INC_DIR}/aabb.h
     ${INC_DIR}/sphere.h
+    ${INC_DIR}/circle.h
     ${INC_DIR}/frustum.h
 
     ${INC_DIR}/gjk.h
@@ -47,6 +48,7 @@ set (NEX_MATH_SRC
     ${SRC_DIR}/plane.cpp
     ${SRC_DIR}/aabb.cpp
     ${SRC_DIR}/sphere.cpp
+    ${SRC_DIR}/circle.cpp
     ${SRC_DIR}/frustum.cpp
 )
 

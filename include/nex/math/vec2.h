@@ -1,13 +1,15 @@
 #ifndef VEC2_H_INCLUDE
 #define VEC2_H_INCLUDE
 
-//Nex project includes.
+// Nex project includes.
 #include <nex/system/typedefs.h>
 
+// Standard includes.
 #include <cmath>
 
 namespace nx
 {
+
 template <typename T>
 class Vec2
 {
@@ -30,7 +32,6 @@ public:
      * @param y = y coordinate.
      */
     Vec2(T x, T y);
-
 
     /**
      * it's called only when U != T.
@@ -149,6 +150,14 @@ public:
     static T distance(const Vec2<T>& left, const Vec2<T>& right);
 
     /**
+     * @brief Calculate the direction between two vectors.
+     * @param left = Left vector
+     * @param right = Right vector
+     * @return the direction in radians.
+     */
+    static T direction(const Vec2<T>& left, const Vec2<T>& right);
+
+    /**
      * @brief Performs a linear interpolation between two vectors.
      * @param previous = previous vector
      * @param current = current vector
@@ -213,8 +222,8 @@ public:
 
 typedef nx::Vec2<int32> vec2i;
 typedef nx::Vec2<uint32> vec2u;
-typedef nx::Vec2<float> vec2f;
-typedef nx::Vec2<double> vec2d;
+typedef nx::Vec2<real32> vec2f;
+typedef nx::Vec2<real64> vec2d;
 
 } //namespace nx
 
