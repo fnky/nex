@@ -113,7 +113,7 @@ inline T Vec2<T>::distance(const Vec2<T>& left, const Vec2<T>& right)
 }
 
 template <typename T>
-inline T direction(const Vec2<T>& left, const Vec2<T>& right)
+inline T Vec2<T>::direction(const Vec2<T>& left, const Vec2<T>& right)
 {
     return static_cast<T>(std::atan2(left.y - right.y, left.x - right.x));
 }
