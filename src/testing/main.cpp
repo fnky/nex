@@ -1,10 +1,11 @@
 #include <iostream>
 
-#include <nex/gfx/font.h>
+#include <nex/math/rect.h>
+#include <nex/math/circle.h>
 
 using namespace nx;
 
 int main(int argc, char** args)
 {
-    return 0;
+
 }

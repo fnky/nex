@@ -55,6 +55,8 @@ set (NEX_FREETYPE_INCLUDE ${NEX_EXTLIB_DIR}/freetype/include)
 set (NEX_SOURCE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/src)
 set (NEX_INCLUDE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/include)
 
+include_directories (${NEX_INCLUDE_DIR})
+
 set (NEX_SYSTEM_LIB nex-system)
 set (NEX_FILESYSTEM_LIB nex-filesystem)
 set (NEX_MATH_LIB nex-math)
@@ -70,4 +72,4 @@ add_subdirectory (${NEX_EXTLIB_DIR}/freetype)
 add_subdirectory (src/nex)
 
 # Enable this to build the nex test project.
-add_subdirectory (src/testing)
+# add_subdirectory (src/testing)
