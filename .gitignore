@@ -3,4 +3,8 @@ Build/
 data/
 Data/
 
+# External libs (To be submoduled)
+extlib/freetype
+extlib/glew
+
 CMakeLists.txt.user
